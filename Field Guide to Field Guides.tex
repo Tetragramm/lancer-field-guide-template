@@ -1,0 +1,1109 @@
+\documentclass[twoside,headings,letterpaper,twocolumn]{article}
+\usepackage{FieldGuide}
+\usepackage{listings}
+\usepackage{lipsum}
+\usepackage{adjustbox}
+\lstset{frame=tb,
+  language=[LaTeX]TeX,
+  aboveskip=3mm,
+  belowskip=3mm,
+  breaklines=true,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{black},
+  keywordstyle=\color{blue},
+  commentstyle=\color{orange},
+  stringstyle=\color{magenta},
+  tabsize=4
+}
+
+% Set path for images
+\graphicspath{{./images}} % or multiple paths \graphicspath{{./images}{../../mystuff/Lancer/images}}
+
+% Use this command to make the table of contents ALL UPPERCASE instead of exactly what you typed.
+\renewcommand{\sectioncase}[2]{\FillLine{\MakeUppercase{#1}}{#2}}
+
+% Use this command to start at SECTION 0 like the core book does.
+\setcounter{section}{-1}
+
+\title{Field Guide to Lancer Field Guides}
+\author{Tetragramm}
+
+\begin{document}
+\frontmatter
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+\mainmatter
+\section{INTRODUCTION TO THE FIELD GUIDE}
+\subsection{FIRST QUESTIONS}
+\subsubsection{A Template}
+This document is produced using, and describes how to use, the Lancer Field Guide package for \LaTeX.  It makes it (relatively) simple to create a document in the format of the official Lancer content.
+
+It's important to know that \LaTeX is a text markup language that gets compiled to PDF files.  It's very like a programming language.  However, this package (the FieldGuide.sty file), hides as much of the complexity as I can so all you have to do is type in your text, numbers, and image names.
+
+\subsubsection{Why LaTeX?}
+First of all, \LaTeX is free.  Both in the money sense, and in the information sense.  You can download it on pretty much any computer and use it.
+
+It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX expert.  I've probably messed things up horribly in this template, but I do hope it will be useful to at least one person to help them make better Lancer content, without worrying about graphic design.
+
+\subsubsection{First Steps}
+First, you need to install \LaTeX.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), there's a lot of useful packages it will download.
+
+While that's going on, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX, and is very good to have open as you work.
+
+Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
+
+\subsubsection{About the Template}
+The template is in two parts.  Most important is the file FieldGuide.sty, which defines a lot of useful commands, symbols, and formatting.  Second is the file Main.tex, which sets up the skeleton that you will be filling out.
+
+Here is the full text of Main.tex, and we'll use this to explain what it does, then we'll get into FieldGuide.sty.
+\pagebreak
+\begin{lstlisting}
+\documentclass[twoside,headings,letterpaper,twocolumn]{article}
+\usepackage{FieldGuide}
+% Set path for images
+\graphicspath{{./images}} % or multiple paths \graphicspath{{./images}{../../mystuff/Lancer/images}}
+% Use this command to make the table of contents ALL UPPERCASE instead of exactly what you typed.
+\renewcommand{\sectioncase}[2]{ \FillLine{\MakeUppercase{#1}}{#2}}
+% Use this command to start at SECTION 0 like the core book does.
+\setcounter{section}{-1}
+
+\title{Your Title Here}
+\author{Your Name Here}
+
+\begin{document}
+    \frontmatter
+    \maketitle
+    \clearpage
+    \tableofcontents
+    \mainmatter
+\end{document}
+\end{lstlisting}
+First is the preamble, everything before \verb|\begin{document}|.  The first line you shouldn't mess with, as it defines the basic format of the book.  The usepackage command includes the FieldGuide.sty file, and you can also use it to import other \LaTeX packages. Next in the preamble are three settings.
+\begin{itemize}
+    \item The graphicspath defines where it looks for images.  So if you've already got all the images in a specific folder, define it here.
+    \item The renewcommand option exists to make the table of contents all uppercase.  Whenever you define a section, subsection, or subsubsection, the name you type in gets used everywhere, but this makes it appear uppercase in the contents.  If you turn it off, it will just be however you typed it.  Just be consistent.
+    \item The setcounter option makes the first Section number into 0, like the core Lancer book does.  If you want to start at one, just comment it out.
+\end{itemize}
+
+After \verb|\begin{document}|, there is the content of the document, which you will be modifying.  The frontmatter command starts the roman numeral page numbering, and sets the style, while the maketitle command inserts the title page using the title and author set in the preamble.  You may add additional text below the maketitle command to show other text, acknowledgements, ect.
+
+One thing you may want to do is add a full-page cover.  If you do, before the call to maketitle, add a fullpageimage command, referencing your cover (see \hyperref[Adding Images]{Adding Images}).
+
+The tableofcontents command inserts the table of contents.  The mainmatter command switches to arabic page numbers and indicates you're ready to go by filling in empty space until the next left page.
+
+After that, it's all yours.  Next is what you put on all these wonderful blank pages.
+
+\subsection{USEFUL AND CUSTOM COMMANDS}
+
+\paragraph{Basic Formatting}
+The basic text formatting commands are \textbf{bold} (\verb|\textbf{bold}|), \textit{italic} (\verb|\textit{italic}|), and \KeyWord{KeyWords} (\verb|\KeyWord{KeyWords}|).  The last is defined by the FieldGuide template, and sets the text in small caps (plus a bit of spacing adjustment).  Keyword is what is used for all of the, well, key words like \KeyWord{Stunned}, \KeyWord{Engaged}, ect.
+
+\subsubsection{Sections}
+You will be wanting to divide and sub-divide your Field Guide to keep things organized.  This too is simple.  The largest division is the section, like \hyperref[INTRODUCTION TO THE FIELD GUIDE]{\textcolor{blue}{INTRODUCTION TO THE FIELD GUIDE}}.  These are created by typing \verb|\section{SECTION NAME}|.  You can also add images to the pages by doing \verb|\section[left-image][right-image]{SECTION NAME}|.  The section command forces the book to the next left page, occupies to facing pages, and everything after is on the next page.
+
+A subsection starts on a left page and places a banner across the top of the page, like \hyperref[USEFUL AND CUSTOM COMMANDS]{\textcolor{blue}{USEFUL AND CUSTOM COMMANDS}}.  You create it by, drumroll please... \verb|\subsection{SUBSECTION NAME}|. A subsubsection, like \hyperref[Sections]{\textcolor{blue}{Sections}} is created by \verb|\subsubsection{SubSubSection Name}|, and a named paragraph, like \hyperref[Damage Symbols]{\textcolor{blue}{Damage Symbols}}, is created with \verb|\paragraph{Title}|.
+
+\textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No latex macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
+
+\subsubsection{Lancer Symbols}
+Lancer has a great deal of custom symbols, contained in a custom font, which is automatically included.
+\paragraph{Damage Symbols}
+\begin{tabular}{|cc|}
+    \hline
+    \CCKinetic   & \verb|\CCKinetic{}|   \\\hline
+    \CCEnergy    & \verb|\CCEnergy{}|    \\\hline
+    \CCExplosive & \verb|\CCExplosive{}| \\\hline
+    \CCBurn      & \verb|\CCBurn{}|      \\\hline
+    \CCHeat      & \verb|\CCHeat{}|      \\\hline
+    \CCVariable  & \verb|\CCVariable{}|  \\\hline
+\end{tabular}
+
+\paragraph{Attack Symbols}
+\begin{tabular}{|cc|}
+    \hline
+    \CCThreat     & \verb|\CCThreat{}|     \\\hline
+    \CCRange      & \verb|\CCRange{}|      \\\hline
+    \CCLine       & \verb|\CCLine{}|       \\\hline
+    \CCBlast      & \verb|\CCBlast{}|      \\\hline
+    \CCBurst      & \verb|\CCBurst{}|      \\\hline
+    \CCCone       & \verb|\CCCone{}|       \\\hline
+    \CCInvade     & \verb|\CCInvade{}|     \\\hline
+    \CCAccuracy   & \verb|\CCAccuracy{}|   \\\hline
+    \CCDifficulty & \verb|\CCDifficulty{}| \\\hline
+\end{tabular}
+
+\paragraph{CompCon Symbols}
+\begin{tabular}{|cc|cc|}
+    \hline
+    \CCMovement    & \verb|\CCMovement{}|    & \CCHex        & \verb|\CCHex{}|        \\\hline
+    \CCStructure   & \verb|\CCStructure{}|   & \CCStress     & \verb|\CCStress{}|     \\\hline
+    \CCArmor       & \verb|\CCArmor{}|       & \CCHP         & \verb|\CCHP{}|         \\\hline
+    \CCHollowHex   & \verb|\CCHollowHex{}|   & \CCCircle     & \verb|\CCCircle{}|     \\\hline
+    \CCRepair      & \verb|\CCRepair{}|      & \CCCP         & \verb|\CCCP{}|         \\\hline
+    \CCEffect      & \verb|\CCEffect{}|      & \CCSystem     & \verb|\CCSystem{}|     \\\hline
+    \CCEvasion     & \verb|\CCEvasion{}|     & \CCEDEF       & \verb|\CCEDEF{}|       \\\hline
+    \CCActivation  & \verb|\CCActivation{}|  & \CCGear       & \verb|\CCGear{}|       \\\hline
+    \CCOvercharge  & \verb|\CCOvercharge{}|  & \CCOvershield & \verb|\CCOvershield{}| \\\hline
+    \CCSystemPoint & \verb|\CCSystemPoint{}| & \CCDrone      & \verb|\CCDrone{}|      \\\hline
+    \CCDeployable  & \verb|\CCDeployable{}|  & \CCDTwenty    & \verb|\CCDTwenty{}|    \\\hline
+    \CCRoll        & \verb|\CCRoll{}|        &               &                        \\\hline
+\end{tabular}
+
+\paragraph{Mech Size Symbols}
+\begin{tabular}{|cc|}
+    \hline
+    \CCSizeHalf  & \verb|\CCSizeHalf{}|  \\\hline
+    \CCSizeOne   & \verb|\CCSizeOne{}|   \\\hline
+    \CCSizeTwo   & \verb|\CCSizeTwo{}|   \\\hline
+    \CCSizeThree & \verb|\CCSizeThree{}| \\\hline
+\end{tabular}
+
+\paragraph{NPC Class Symbols}
+\begin{tabular}{|cc|}
+    \hline
+    \CCArtillery  & \verb|\CCArtillery{}|  \\\hline
+    \CCBiological & \verb|\CCBiological{}| \\\hline
+    \CCController & \verb|\CCController{}| \\\hline
+    \CCDefender   & \verb|\CCDefender{}|   \\\hline
+    \CCSupport    & \verb|\CCSupport{}|    \\\hline
+    \CCStriker    & \verb|\CCStriker{}|    \\\hline
+\end{tabular}
+
+\paragraph{NPC Tier Symbols}
+\begin{tabular}{|cc|}
+    \hline
+    \CCTierOne   & \verb|\CCTierOne{}|   \\\hline
+    \CCTierTwo   & \verb|\CCTierTwo{}|   \\\hline
+    \CCTierThree & \verb|\CCTierThree{}| \\\hline
+\end{tabular}
+
+\subsubsection{Spacing}
+The most useful tool for spacing is the \verb|\pagebreak| command.  It has an optional argument ranging from 0-4 (ie: \verb|\pagebreak[2]|) that indicates how important it is to break right here.  A 0 means don't break the column here, no matter what.  A 4 means break right now, and is the default value, if you supply none.  If you're in the second column of a page, it moves to the next page.  You can also force it to go all the way to the next page with \verb|\clearpage| or to the next left page (IE: if you had a physical book) using \verb|\cleardoublepage|.
+
+\quad For a space like the indentation of this paragraph, use the \verb|\quad| command, or \verb|\qquad| for twice the space.  To add a gap that pushes text to the right, use \verb|\hfill| \hfill like so.
+
+... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/latex/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what there is.
+
+\subsubsection{INFO BOXES}
+The Lancer rules have several types of fancy boxes.
+
+\paragraph{COLORED BOX}
+The most basic is the flat, rectangular, colored box. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
+
+There are two arguments.  Box color, and text.  You can format the text as usual for latex, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you use your own light color for the box.  Or if you think it looks better.)
+
+This box is what you use when defining terms, such as on page 20 of the core book, or for Talents
+
+\begin{lstlisting}
+\lancercolorbox{red}{red}\\
+\lancercolorbox{purple}{purple}\\
+\lancercolorbox{turquoise}{turquoise}\\
+\lancercolorbox{blue}{blue}\\
+\lancercolorbox{green}{green}\\
+\lancercolorbox{orange}{orange}\\
+\lancercolorbox{magenta}{magenta}
+    \end{lstlisting}
+
+\lancercolorbox{red}{red}\\
+\lancercolorbox{purple}{purple}\\
+\lancercolorbox{turquoise}{turquoise}\\
+\lancercolorbox{blue}{blue}\\
+\lancercolorbox{green}{green}\\
+\lancercolorbox{orange}{orange}\\
+\lancercolorbox{magenta}{magenta}
+
+\paragraph{TITLED CORNER BOX}
+One of the types is the one used on Page 30 of the Core book, here called the ``Titled Corner Box``.  The command for it has three options: Color, Title Text, and Body Text.
+
+\begin{lstlisting}
+\titledcornerbox{red}{
+    \textbf{THE TITLE}
+}{
+    This is the text inside the box.
+}
+    \end{lstlisting}
+produces the output
+
+\titledcornerbox{red}{
+    \textbf{THE TITLE}
+}{
+    This is the text inside the box.
+}
+
+\paragraph{CORNER BOX}
+Another type of box is very similar to the previous, but with no title.  It's used on page 66 of the core book.  The command has two options: Color, and Body Text. The color is automatically shaded towards white, so it has the same color as the body of a similar titledcornerbox.
+
+\begin{lstlisting}
+\cornerbox{red}{
+    This is the text inside the box.
+}
+    \end{lstlisting}
+produces the output
+
+\cornerbox{red}{
+    This is the text inside the box.
+}
+
+\paragraph{MOUNT BOX}
+Similar, but not quite, is a series of commands for the mount boxes used creating Lancer Frames.
+
+\begin{lstlisting}
+\MainMount\MainAuxMount\FlexMount\HeavyMount\AuxAuxMount
+    \end{lstlisting}
+produces the output
+
+\MainMount\MainAuxMount\FlexMount\HeavyMount\AuxAuxMount
+
+\paragraph{INFO BOX}
+
+And probably the most common type of box in the book, the what is here called the ``Info Box''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments.  The color, the title, the mechanical text, and (optionally) the flavor text.  If you don't have any flavor text, just leave that argument empty, just a \verb|{}|.
+
+\begin{lstlisting}
+\infobox{black}{
+    \textbf{\large Weapon Name}\\
+    {\TechnicalText Superheavy Cannon\\
+    {[\CCRange{}8][1d6\CCKinetic{}]}}
+    }{
+    Mechanical text looks like so.
+    }{
+    Flavor Text looks all special like this.
+    }
+    \end{lstlisting}
+
+\infobox{black}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{
+Mechanical text looks like so.
+}{
+Flavor Text looks all special like this.
+}
+
+You can also mark a section for special emphasis, like the Invade box from the core book on page 70.
+
+\begin{lstlisting}
+\infobox{purple}{
+    \textbf{Invade}
+}{
+    When you \KeyWord{Invade}, you mount a direct electronic attack against a target. To \KeyWord{Invade}, make a tech attack against a character within \KeyWord{Sensors} and line of sight.\\
+    On a success, your target takes \textbf{2\CCHeat{}} and you choose one of the \KeyWord{Invasion} options available to you.\\
+    <snip text>
+    \infoemphasis{
+        \KeyWord{Fragment Signal.} You feed false information, obscene messages, or phantom signals to your target’s computing core. They become \KeyWord{Impaired} and \KeyWord{Slowed} until the end of their next turn.
+    }
+    You can also <snip text>
+}{%No Flavor Text
+}
+    \end{lstlisting}
+
+\infobox{purple}{
+    \textbf{Invade}
+}{
+    When you \KeyWord{Invade}, you mount a direct electronic
+    attack against a target. To \KeyWord{Invade}, make a tech attack
+    against a character within \KeyWord{Sensors} and line of sight.\\
+    On a success, your target takes \textbf{2\CCHeat} and you
+    choose one of the \KeyWord{Invasion} options available to you.
+    \KeyWord{Fragment Signal} is available to all characters, and
+    additional options are granted by certain systems
+    and equipment with the \KeyWord{Invade} tag.
+    \infoemphasis{
+        \KeyWord{Fragment Signal.} You feed false information,
+        obscene messages, or phantom signals to your
+        target’s computing core. They become \KeyWord{Impaired} and
+        \KeyWord{Slowed} until the end of their next turn.
+    }
+    You can also \KeyWord{Invade} willing allied characters to
+    create certain effects. If your target is willing and
+    allied, you are automatically successful, it doesn’t
+    count as an attack, and your target doesn’t take
+    any heat.
+}{%No Flavor Text
+}
+
+\paragraph{Tables}
+If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{tabular}| is for single column tables and \verb|\begin{tabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
+
+\begin{tabular}[h]{|ll|}
+    \hline
+    \multicolumn{2}{|l|}{\large\textbf{IDENTITY}\hfill\normalsize\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+    \textbf{1} & An infamous private military corporation.                                             \\
+    \textbf{2} & Glory-seeking warriors.                                                               \\
+    \textbf{3} & Union regulars, career soldiers.                                                      \\\hline
+\end{tabular}
+\begin{lstlisting}
+\begin{tabular}[h]{|ll|}
+    \hline
+    \multicolumn{2}{|l|}{\Large \textbf{IDENTITY}\hfill\normalsize\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+    \textbf{1} & An infamous private military corporation. \\
+    \textbf{2} & Glory-seeking warriors. \\
+    \textbf{3} & Union regulars, career soldiers. \\\hline
+\end{tabular}
+\end{lstlisting}
+
+\clearpage
+\subsubsection{Custom Frames}
+
+While not strictly a box, the page for a new Lancer Frame is an important thing to automate.  It is significantly more complicated than anything else, and takes up one or two pages.  There are a total of 5 arguments, which will be shown separately, so commentary can be interspersed.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}
+\LancerFrame[Stats]{Traits}{Mounts}{Core Power}{Flavor Text}
+
+\LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2, Class=Defender, Class Icon=\CCDefender{}, Armor=3, HP=8, SP=5, Evasion=6, E-Defense=6, Heat Cap=5, Sensors=10, Tech Attack=+0, Repair Cap=5, Save Target=10, Speed=3, Background Image=IPS-N-Background, Facing Image=Drake-Facing]
+    \end{lstlisting}
+\end{minipage}
+The first argument is the Frame stats, name, and, in truth, all the things that can be described in a single value.  The only two truly optional values are the Background Image and the Facing Image.  Background Image is a full screen image, placed behind everything like the company logos in the core book.  Facing Image is the optional image on the facing page, like the Drake in the core book.  It is optional because some mechs may not have art, and you simply want to start in on the License Levels.  If you don't want them, simply don't provide the argument.
+
+Everything else is required. If you forget to put one of the values in, then the result will be a magenta colored box.  To demonstrate, the Speed option has been removed from the next page.  If you \textit{really} want to have a blank space, fill the argument with \verb|{}| instead.
+
+You can have dual class Frames.  For example: \verb|Class=Defender\slash{}Controller|\\\verb|Class Icon={\CCDefender{}\\\CCController{}}|.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}
+{\titledcornerbox{red}{HEAVY FRAME}{The Drake can't be pushed, pulled, knocked \KeyWord{Prone}, or knocked back by smaller characters.}
+\titledcornerbox{red}{BLAST PLATING}{The Drake has \KeyWord{Resistance} to \textbf{damage}, \CCBurn{} and \CCHeat{} from \CCBlast{}, \CCBurst{}, \CCLine{}, and \CCCone{} attacks.}
+\titledcornerbox{red}{SLOW}{The Drake receives \textbf{+1 \CCDifficulty{}} on \KeyWord{Agility} checks and saves.}
+\titledcornerbox{red}{GUARDIAN}{Adjacent allied characters can use the Drake for \textbf{hard cover}.}
+}
+    \end{lstlisting}
+\end{minipage}
+The second argument is the Traits of the frame.  Usually it's a set of \hyperref{TITLED CORNER BOX}{titled corner boxes} saying what the frame does.  Honestly, not too complicated.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}
+{\MainMount\MainMount\HeavyMount}
+    \end{lstlisting}
+\end{minipage}
+Neither is the list of mounts. Just look at the available ones \hyperref[MOUNT BOX]{HERE}.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}
+{\Large\textbf{FORTRESS}
+\infobox{orange}{
+\textbf{Fortress Protocol}\\
+{\TechnicalText\normalsize Active (1CP), Protocol}
+}
+{You deploy heavy stabilizers and your mech
+becomes more like a fortified emplacement
+than a vehicle. When activated, two sections of
+hard cover (\textbf{\CCLine{}2, \KeyWord{Size} 1}) unfold from your
+mech, drawn in any direction. These cover
+sections have \KeyWord{Immunity} to all damage.
+
+Additionally, the following effects apply while
+active:
+\begin{itemize}
+    \item You become \KeyWord{Immobilized}.
+    \item Snipped for size
+\end{itemize}
+This system can be deactivated as a \textbf{protocol}.
+Otherwise, it lasts until the end of the current
+scene.}{%No Flavor Text
+}
+}
+    \end{lstlisting}
+\end{minipage}
+The Core System is marginally more complicated, but usually just because it has more content.  Insert the typical boxes and info boxes and such as needed to make up that content.
+
+Last is the Frame's flavor text.  There's no example.  It's just text, and if you wanted to you could put bold, boxes, or other fancy effects, go right ahead.  Maybe some pretty colors?
+
+\LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2,
+Class=Defender, Class Icon=\CCDefender{}, Armor = 3,
+HP = 8, SP = 5, Evasion = 6, E-Defense = 6,
+Heat Cap = 5, Sensors = 10, Tech Attack = +0,
+Repair Cap = 5, Save Target = 10,
+Background Image=IPS-N-Background,
+Facing Image=Drake-Facing]
+{\titledcornerbox{red}{HEAVY FRAME}{The Drake can't be pushed, pulled, knocked \KeyWord{Prone}, or knocked back by smaller characters.}
+\titledcornerbox{red}{BLAST PLATING}{The Drake has \KeyWord{Resistance} to \textbf{damage}, \CCBurn{} and \CCHeat{} from \CCBlast{}, \CCBurst{}, \CCLine{}, and \CCCone{} attacks.}
+\titledcornerbox{red}{SLOW}{The Drake receives \textbf{+1 \CCDifficulty{}} on \KeyWord{Agility} checks and saves.}
+\titledcornerbox{red}{GUARDIAN}{Adjacent allied characters can use the Drake for \textbf{hard cover}.}
+}
+{\MainMount\MainMount\HeavyMount}
+{\Large\textbf{FORTRESS}
+\infobox{orange}{
+\textbf{Fortress Protocol}\\
+{\TechnicalText\normalsize Active (1CP), Protocol}
+}
+{You deploy heavy stabilizers and your mech
+becomes more like a fortified emplacement
+than a vehicle. When activated, two sections of
+hard cover (\textbf{\CCLine{}2, \KeyWord{Size} 1}) unfold from your
+mech, drawn in any direction. These cover
+sections have \KeyWord{Immunity} to all damage.
+
+Additionally, the following effects apply while
+active:
+\begin{itemize}
+    \item You become \KeyWord{Immobilized}.
+    \item You benefit from hard cover, even in the
+          open, and gain \KeyWord{Immunity} to \KeyWord{Knockback},
+          PRONE, and all involuntary movement.
+    \item When you \KeyWord{Brace}, you may take a
+          full action on your next turn
+          instead of just a quick
+          action.
+    \item Any character that
+          gains hard cover from
+          you or your cover
+          sections gains \KeyWord{Immunity} to
+          \KeyWord{Knockback},
+          \KeyWord{Prone}, and
+          all involuntary movement, and gains the
+          benefits of \textbf{Blast Plating}.
+\end{itemize}
+This system can be deactivated as a \textbf{protocol}.
+Otherwise, it lasts until the end of the current
+scene.}{%No Flavor Text
+}
+}
+{The Drake, IPS-N’s first foray into military-grade mech design, is the backbone of
+any proactive trade-security or anti-piracy force. Its massive, simian frame is
+built around a single-cast bulkhead, sloped and reinforced to handle sustained fire
+and the vagaries of vessel-proximal hardvac travel. The Drake is an imposing
+chassis, its frame evoking the might of ancient armored infantry from a time when
+greater numbers guaranteed victory.
+
+The standard fleet license for the IPS-N Drake outfits each chassis with IPS-N’s
+high-velocity, high–projectile fragment assault cannon for suppressing and
+overwhelming targets, and a heavy kinetic–ablative shield for defense. Advanced
+models feature upgraded weapons and armor including the formidable Leviathan Heavy
+Assault Cannon, a high-rpm anti-materiel weapon.}
+
+\LancerNPC[Name=FAKEASSAULT, Size=1,
+    Class=Striker, Class Icon=\CCStriker{},
+    Tier1={
+            Hull=+1, Systems=+1, Agility=+1, Engineering=+1,
+            HP=15,Evasion=8,Speed=4,Heat Cap=8,
+            Sensors=8,Armor=1,E-Defense=8,Size=1,
+            Save Target=10},
+    Tier2={
+            Hull=+2, Systems=+2, Agility=+2, Engineering=+2,
+            HP=18,Evasion=10,E-Defense=9,Save Target=12},
+    Tier3={
+            Hull=+3, Systems=+3, Agility=+3, Engineering=+3,
+            HP=21, Evasion=12,E-Defense=10,Save Target=14}]{
+    Assault mechs are the most common primary battle frames found throughout
+    the galaxy. Fitted with a heavy rifle, a sidearm, and a suite of systems that
+    enhance movement, targeting, and defensibility, they are straightforward,
+    reliable, and hardy combatants. The pilots of Assault mechs are also the
+    cheapest to train and outfit, but that doesn’t make them any less dangerous.
+}
+
+Unsurprisingly, the NPC command is simpler than the Frame command.  It has two arguments.  The second is just the flavor text at the top, same as the Frames, but the first argument has it's own quirks.
+
+\begin{lstlisting}
+        \LancerNPC[Stats]{Flavor Text}
+
+        \LancerNPC[Name=FAKEASSAULT, Size=1, Class=Striker, Class Icon=\CCStriker{},
+        Tier1={Hull=+1, Systems=+1, Agility=+1, Engineering=+1, HP=15, Evasion=8, Speed=4, Heat Cap=8, Sensors=8, Armor=1, E-Defense=8, Size=1, Save Target=10},
+        Tier2={Hull=+2, Systems=+2, Agility=+2, Engineering=+2, HP=18, Evasion=10, E-Defense=9, Save Target=12},
+        Tier3={Hull=+3, Systems=+3, Agility=+3, Engineering=+3, HP=21, Evasion=12, E-Defense=10, Save Target=14}] {Flavor text goes here.}
+    \end{lstlisting}
+
+The first few arguments are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get the same magenta box.  For Tiers 2 and 3, you only need to specify the values that change.
+
+\subsection{IMAGES}
+Adding images is somewhat complicated.  \LaTeX is good, but it doesn't easily contour text around the contents of images the way the core book does many times.  Instead, a few useful commands are provided.
+
+First is adding an image to the bottom of the page, across both columns.  The command for this is \verb|\bottomimage{imgname}|.  It is important that this command be included with the text in the left column, or \LaTeX won't know how much space at the bottom of the page to reserve.  Don't worry, it will always be pushed to the bottom of the page, even if that means moving text from after the command to before the image.
+
+The command \verb|\topimage{imgname}| works the same way, just at the top of the page.  In the mean-time, have some filler text to show how the text wraps until we describe the next image type.
+
+\bottomimage{BottomHalf}
+
+\lipsum[1-2]
+
+The next type is the full column image.  The command is \verb|\colimage{imgname}|, and it breaks the column (and possibly the page), fills the next, and then breaks again.  It scales the image to half the page width, so make your image's aspect ratio accordingly.  It also turns off page numbers, headers, and footers for the page, because they would draw over the image and look odd.  It will automatically detect which column it is in and
+
+\colimage{FullCol}
+
+The next type is the column width image.  \verb|\colwidthimage{imgname}|  This image is the same width as a paragraph of text, and can be positioned vertically the same as any paragraph, using vfill and the like.
+
+\lipsum[3-7]
+
+\vfill
+\colwidthimage{BottomRight}
+\pagebreak
+
+And last, the full page image.  \verb|\fullpageimage{imgname}|  This uses the entire width of the page, edge to edge, with no margins.  This is what you use for full-page art.  It triggers the new page commands, so you just put it where you want the break to be.
+
+\fullpageimage{Intro-Last}
+
+\newpage
+The section after this is a duplication of the Lancer core book's Section 0.  The purpose is to demonstrate how you would replicate a larger section, formatting and all.  Obviously, at this length, the source code is not provided, so you'll need to check out the source on the github. TODO: Link this once created
+\vfill
+
+\section[Intro-L][Intro-R]{GETTING STARTED}
+\subsection{INTRODUCTION}
+\textbf{It is 5016u, and the galaxy is home to trillions. At
+    the core of humanity’s territory there is a golden
+    age, but outside of this newly won utopia the
+    revolutionary project continues.}
+
+You are a lancer, an exceptional mech pilot among
+already exceptional peers, and you live in a time
+where the future hangs as a spinning coin at the apex
+of its toss – the fall is coming, and how the coin lands
+is yet to be determined.
+
+Far now from our humble beginnings, humanity has
+spread out among and between the stars for thousands of years. We have set empty worlds and barren
+moons alight with civilization, tamed asteroids and gas
+giants – even built lives in the hard vacuum of space
+itself. We have taken root in our arm of the Milky Way;
+life – in its infinite diversity – thrives and expands.
+
+For some, life in this time is as a river – forever moving,
+with the land and time of their birth left somewhere far
+behind. For most, life is spent on their home world, moon,
+or station, linked to the rest of humanity via fantastic technologies, or isolated to the politics, stories, and histories
+of their own lands. The trillions that make up humanity
+live, for the most part, as you or I do now.
+
+But wonders tie the galaxy together in this age.
+
+Connecting all worlds is blinkspace – an unknowably
+vast and strange plane parallel to the one in which we
+live, pierced by blink gates that allow us to travel with
+speed and safety. Thanks to these massive, star-
+bound doors, every corner of space is open to the
+daring. These portals are common wonders: thousands of ships travel through them every day seeking
+trade, migration, travel, war, and myriad other aims.
+
+Filling the lonely void is the omninet, a data-sharing
+network built off the blink that connects every computer,
+every server – everything – to everything else. The
+omninet is much more than a way to send messages or
+a means for people on far-flung worlds to read the
+galaxy’s news; it overlays all human communications,
+facilitating government, industry, culture, and realms
+more esoteric still. Data is the new wealth, and the
+omninet means that all wealth can be shared.
+
+The form of that wealth is manna. Uniting the disparate
+nations of the human diaspora outside the Core,
+manna is the universal currency accepted by every
+market on every planet. When a galaxy’s wealth of raw
+resources are available for exploitation, a community’s
+wealth comes from both its past and its potential.
+
+The vast mass of humanity is administered by a
+single sprawling government: Union, the galactic
+hegemony. Luna and Mars, Mercury and Venus.
+Saturn, Jupiter, Neptune, and Uranus. Phobos and
+Deimos. Io, Europa, Ganymede, and Callisto. Titan
+and Enceladus. These worlds strung in their orbit
+around Sol are the diadem atop which Cradle rests,
+the seat of Union’s power and humanity’s ancient
+heart. From Cradle, Union controls the three levers
+of the galaxy: the blink gates, the omninet, and
+manna. Without these levers, and without Union, the
+galaxy would fall into chaos.
+
+Union is a new kind of utopia. A new state –
+communal and post-capital – for a New Humanity.
+Union was born from the ashes and ice of the Fall:
+the collapse that felled Old Humanity, boiling Cradle
+and withering her colonies entirely. Though it has
+been thousands of years since Union was founded –
+and thousands more since the Fall – New Humanity knows
+only one truth among ten thousand
+unknowns: if we are to survive, then we must come
+together in solidarity and mutual aid.
+
+Despite
+Union’s
+conviction
+–
+and
+despite
+its
+successes so far – the sheer size of this collective
+project is daunting. Union is distant to most people:
+fictionalized in omninet dramas and novels; dreamed
+about by children and wanderers; hailed as the
+promised kingdom or damned as the pit by religions
+across the galaxy. For all its authority, Union prefers to
+rule from a distance. Few have ever seen one of
+Union’s administrators, let alone suffered one of its
+naval campaigns. For those who have never seen its
+flag, Union is all but a myth; for those whose skies
+have been darkened by Union’s ships, the hegemony
+may have brought liberty – but it brought death first.
+
+The galaxy remains a dangerous place outside the
+Core. Rebellions, insurrections, piracy, wars – civil
+and interplanetary – continue to flare and burn their
+way through space, though only the most desperate
+conflicts
+require
+Union’s
+intervention.
+Disputes
+between Union’s subject states are common enough
+that there is still a need for militaries, militias, and
+mercenaries. Five major suppliers offer arms and
+armor to states and entities outside the Core that
+desire them. These manufacturers exist in delicate
+balance
+with
+Union:
+though
+the
+administrators
+regulate and the suppliers comply, these two philosophies – one of post-capital utopia and the other of
+permanent and wild growth – rush toward an irreconcilable end.
+
+You are one person, alive in this time of tumult and
+peace – a time of promise that was built on the sacrifice of those who came before and is threatened still
+by the heirs of old adversaries. You are one whose life
+is lived in the great river, where lives cross stars and
+time; where one person in the right place at the right
+time can divert the course of history; where the
+collective action of comrades can save worlds, lives,
+and better define Union’s utopian dream.
+
+You are a mech pilot – one of the best, a lancer – and
+yours is the story of this spinning coin at the apex of
+its toss. At this pivotal moment in history, what will
+you and your comrades do when fate, foresight, and
+luck – good or bad – puts you in the right place at the
+right time?
+
+On which side will you fall?
+
+\subsubsection{The Cavalry}
+Your character in the world of Lancer is a mechanized
+cavalry pilot of particular note – a lancer. Whatever
+the mission, whatever the terrain, whatever the
+enemy, your character is the one who is called in to
+break the siege or hold the line. When the drop
+klaxons sound, it’s up to them to save the day.
+
+Your lancer hails from a world and culture of your
+choice, but is human. They might come from Earth –
+or Cradle, as it is now called – but to hail from Earth
+in the age of Union is exceedingly rare. No, it is far
+more likely that your pilot hails from somewhere in
+the vastness of the human diaspora. In Lancer, it has
+been millennia since we left Earth, and most of
+humanity lives among the stars in our arm of the
+Milky Way.
+
+This
+humanity
+is
+familiar
+and
+strange
+in
+equal
+measure. As far as we know, the only sentient,
+sapient beings in our stellar neighborhood are other
+humans, but don’t take this as a limitation – there are
+many roads to becoming a lancer. Your character
+might be the product of significant technological and
+capital investment on the part of their employers; or,
+they could be a born prodigy – a wunderkind who
+commands a mech with innate grace and ability,
+perhaps discovered by a secretive recruiter. Your
+character might be a lucky conscript – a battle-proven
+draftee who managed to survive their first drop,
+promoted by desperate commanders looking for a
+hero. They could also be the scion of an ancient,
+atemporal monarchy, destined to inherit the chassis
+of their polypatriarch. Your character could be a jaded
+volunteer from a Union liberator team, motivated by a
+closely-guarded ember of hope for a better future; or
+an anointed Loyal Wing of the Albatross; or a
+facsimile of a long-dead pilot, grown in batches of
+thousands; a spacer who has spent too long listening
+to the deep whispers of the void.
+
+Whatever led your character to the cockpit of their
+mech, they are the sum of many parts: enhanced
+through a combination of training, natural skill, battlefield
+experience,
+and
+neural
+or
+physical
+augmentation, a lancer is the equivalent of a knight of
+old, a flying ace, or another class of elite warrior.
+
+Lancers, many proudly declare, are a cut above
+other pilots.
+
+They aren’t entirely wrong. The recruitment, training,
+and maintenance of a mech pilot demand the investment of much more time and capital than your
+average soldier. To operate a mech at peak efficiency,
+a pilot needs extensive physical and mental training,
+or advanced (and expensive) physiological and ontological augmentations. Washout and injury rates are
+high thanks to the demanding training process, but a
+high bar is necessary: once a candidate attains their
+final certifications and ships out to their first posting,
+they face only the most dangerous missions. Mechs
+aren’t sent in to keep the peace – they’re sent in when
+all other options have failed. Your character, a lancer,
+represents the best of this exceptional corps.
+
+Remember, whatever their history, your pilot is ultimately human. They’re just as flawed as the rest of
+us, just as perfect. Pilots are heroes and villains;
+brave souls and cowards; lovers and fighters, all.
+Some of them stand strong when everyone else runs,
+or are the first to face danger – our best and brightest.
+But they, too, break under the pressure; they fail; they
+kill, even when they could have spared a life.
+
+Pilots and lancers are from all walks of life. Every
+station, criminal history, and economic class is
+represented in their ranks.
+
+\subsection{PLAYING LANCER}
+Your character in \textit{Lancer} is, first and foremost, a pilot – a
+dynamic, larger than life presence on and off the battle‐
+field who inspires and terrifies in equal measure – but
+your character also has a second component: your
+mech. Though you can define their identities separately,
+pilot and mech are two parts of the same whole.
+
+The first section of this book talks you through
+\nameref{BUILDING PILOTS AND MECHS}.
+
+The second section, \nameref{MISSIONS, UPTIME AND DOWNTIME}, is about narrative play, choosing
+missions, and playing during downtime.
+
+The third section, \nameref{MECH COMBAT}, is about
+fighting in and with mechs.
+
+The fourth section is the \nameref{COMPENDIUM}, in
+which all character options can be found.
+
+The fifth section is the \nameref{GM'S TOOLKIT}, which offers advice for tweaking rules, creating
+non-player characters (NPCs), and running missions.
+
+The sixth and final section is the Setting Guide, \nameref{A Golden Age, of a Kind}, an in-depth reference on the canon setting.
+
+\subsubsection{What you Need}
+This game uses two sorts of dice: twenty-sided dice
+(\textbf{d20}) and six-sided dice (\textbf{d6}). You’ll roll these dice to
+determine the outcome of uncertain situations, such
+as firing a weapon, hacking a computer, or climbing a
+sheer cliff face. When the rules call for you to make a
+roll, it will also tell you how many dice to roll. For
+example, \textbf{1d20} means you need to roll a single \textbf{d20},
+whereas \textbf{2d6} means you need to roll two \textbf{d6s}.
+
+Sometimes the rules will call for you to roll \textbf{1d3}. That’s
+just a shorthand way of saying you should roll \textbf{1d6
+    and halve the results} (rounded up). When you’re
+called on to roll \textbf{1d3}, a result of 1 or 2 on a \textbf{d6} equals
+1, 3 or 4 equals 2, and 5 or 6 equals 3.
+
+\textit{Lancer} is best played with 3-6 players, but can be
+played with as little as two or as many as you feel
+comfortable with. Each player needs at least one \textbf{d20,
+    a number of d6s, and some paper or a character
+    sheet} to write down information. If you’re playing
+online, or welcome computers at the table, the \KeyWord{Comp\slash Con character building tool} is recommended.
+
+This game makes use of grid-based tactical combat, so
+it can be helpful to have paper with square or hexagonal
+grids, such as graph paper or pre-prepared battle maps.
+Miniatures aren’t necessary to play this game but they
+can sometimes make combat easier to visualize.
+
+Most of the players take on the role of pilots - these
+are the player characters, or \textbf{PCs} - but one player is
+the \textbf{Game Master}, or \textbf{GM}. The GM acts as a narrative
+guide, facilitator, and the arbitrator of the game’s
+rules. They help create the story and narrative your
+group will explore and portray all of the NPCs. For
+more information on the GM role and a list of rules,
+tips, and tools for GMs to use, refer to the \nameref{GAME MASTER'S GUIDE}.
+
+Finally, we recommend that all players download our
+free companion app, \textbf{Comp/Con}; it isn’t necessary to
+have the app to play the game, but it can make it
+more accessible to players who aren’t able or don’t
+wish to thumb through this book.
+
+\subsubsection{The Golden Rules}
+There are two golden rules to remember when playing
+\textit{Lancer}:
+
+\textbf{I: Specific rules override general statements and rules.}
+
+\textit{For example, when you shoot at an enemy, your roll is
+    normally influenced by whether they’re in cover;
+    however, \KeyWord{Seeking} weapons ignore cover. Because the
+    \KeyWord{Seeking} tag is a specific rule, it supersedes the
+    general rules governing cover.}
+
+\textbf{II: Always round up (to the nearest whole number).}
+
+\subsubsection{Narrative Play and Mech Combat}
+Lancer
+makes
+a
+distinction
+between
+freeform
+\textbf{narrative play} and \textbf{mech combat}, in which tracking
+individual turns and actions is important.
+
+During narrative play, players act naturally and spontaneously as needed. Time might pass more quickly,
+scenes might be shorter, and individual rolls might
+count for more or less. Most of your game’s story and
+interaction between characters will take place during
+narrative play. In mech combat, players act on their
+turn and are restricted in what they can do and how
+often, making each action much more impactful and
+tactical.
+Swapping
+between
+mech
+combat
+and
+narrative play is fairly natural, especially if you’ve
+played other games with turn-based combat.
+
+The reason there are two types of play is that they
+represent different approaches to storytelling in roleplaying games. One, narrative play, is focused on the
+story and characters, with a rules-light approach to
+conflict resolution; the other, mech combat, relies
+more on rules and tactics, like a board game.
+Depending on your GM and group of players, you
+could spend a whole session in one type of play or
+the other, or with some of both.
+
+Neither of these is the “correct” way to play the game.
+Groups will find a balance between the two that
+works for them. \textit{Lancer} provides rules for both so that
+both people who like to explore stories or who enjoy
+tactical combat will have an enjoyable experience.
+
+\subsubsection{Skill Checks, Attacks, and Saves}
+There are three types of dice rolls in \textit{Lancer}: \textbf{skill
+    checks}, \textbf{attacks}, and \textbf{saves}.
+
+In narrative play, you will only need to worry about the
+first of these. In mech combat you will use all three.
+
+You make \textbf{skill checks} when your character is in a
+challenging or tense situation that requires effort to
+overcome. When you want to act in such a situation,
+state your objective (e.g., break down the door,
+decrypt the data, or sweet-talk the guard), then roll
+\textbf{1d20}, and add any relevant bonuses. On a total of
+\textbf{10+}, you succeed. A result of \textbf{9 or less} means you
+failed to accomplish your goal and may suffer
+consequences as a result. Although the GM can’t
+change the target number (\textbf{10}), they have access to
+several tools that are explained later (p. \pageref{Missions and Narrative Play}), such
+as declaring a skill challenge or deciding that your
+action is \KeyWord{Difficult} or \KeyWord{Risky}.
+
+In mech combat, \textbf{attacks} are any offensive actions
+against other characters, like firing a weapon or
+hacking into an opponent’s mech. Attack rolls are
+similar to skill checks – you roll \textbf{1d20} and add any
+bonuses – but the target number isn’t always 10, and
+usually depends on the defensive capabilities of your
+target. For an attack to be successful it needs to
+equal or exceed the target’s defense. Successful
+attacks are described as \textbf{“hits”} - so if the rules tell you
+that an effect happens “\textbf{on hit}”, that means it takes
+place when you make a successful attack. Some
+attacks also result in \textbf{critical hits}. On a roll of \textbf{20+} you
+perform a critical hit, which allows you to deal more
+damage or sometimes trigger extra effects.
+
+Although there are different types of attacks, including
+ranged, melee, and tech attacks, they all use the
+same basic rules described here.
+
+Lastly, \textbf{saves} are rolls made to avoid or resist
+negative effects in mech combat. You might roll a
+save to prevent a hacker wrecking your systems, to
+avoid being blinded by a flash grenade, or to dive
+away from an explosion. To save, you roll \textbf{1d20} and
+add any bonuses, but the target number can differ
+from \textbf{10} as it can with attacks. The target number for a
+save usually depends on the abilities of the attacker. If
+you equal or exceed this number, you succeed; if your
+roll is lower, you fail. The outcome of each result will
+depend on what you are trying to avoid.
+
+\paragraph{Contested Checks}
+In some cases, the rules will tell you to make a
+\textbf{contested check}, representing a challenge between
+two parties. In a contested check, both participants
+make skill checks and add any bonuses. Whoever
+has the highest result wins. If the result is a tie, the
+attacker – the one who initiated the contest – wins.
+
+You might make contested checks in both narrative
+play and mech combat.
+
+\paragraph{Choosing to Fail}
+You may always choose to fail a skill check or save.
+You might do this if an ally is trying to help you out or
+even just because you think failing would create a
+more interesting story.
+
+\paragraph{Bonuses}
+There are three kinds of bonuses that can be applied
+to rolls in \textit{Lancer}:
+\begin{itemize}
+    \item \KeyWord{Accuracy} (Represented as \CCAccuracy)
+    \item \KeyWord{Difficulty} (Represented as \CCDifficulty)
+    \item \textbf{Statistic Bonuses}
+\end{itemize}
+\KeyWord{Accuracy}
+and
+\KeyWord{Difficulty}
+represent
+momentary
+advantages or disadvantages (see below). \textbf{Statistic
+    bonuses} come from three sources: your pilot’s talent
+and experience (\textbf{triggers}), their skill with mechs
+(\textbf{mech skills}), and their \KeyWord{Grit}. Each roll can only
+benefit from one statistic bonus at a time. In many
+cases, none of these bonuses will apply and you will
+just roll \textbf{1d20}.
+
+\paragraph{Accuracy and Difficulty}
+\KeyWord{Accuracy} and \KeyWord{Difficulty} are temporary modifiers
+gained and lost in rapid, chaotic moments of action.
+
+For example, two mech pilots, equally matched, duel
+amidst the shifting debris of a shattered frigate.
+Attempting to land a shot, they dodge to avoid
+incoming fire and floating, slagged bulkheads. The
+debris makes it unlikely that either will land a clean hit;
+however, one of the pilots, thinking quickly, hides
+among the floating metal. When their enemy gets
+close, the pilot springs forth from hiding and catches
+their opponent unaware – making the shot much
+easier than normal.
+
+Situations like this can cause pilots to gain \KeyWord{Accuracy}
+or \KeyWord{Difficulty}.
+\begin{itemize}
+    \item Each point of \KeyWord{Accuracy} adds \textbf{1d6} to a roll.
+    \item Each point of \KeyWord{Difficulty} subtracts \textbf{1d6} from a roll.
+    \item \KeyWord{Accuracy} and \KeyWord{Difficulty} cancel each other out
+          on a \textbf{1:1} basis.
+\end{itemize}
+If you are lucky enough to be rolling several of the
+same bonus dice, whether \KeyWord{Accuracy} or \KeyWord{Difficulty},
+you don’t add them together to determine the result.
+Instead, find the highest number rolled and apply it to
+the final roll. Because of this, no roll can ever receive
+more than \textbf{–6} or \textbf{+6} from \KeyWord{Accuracy} or \KeyWord{Difficulty}.
+
+For example:
+\begin{itemize}
+    \item For an attack with \textbf{2} \KeyWord{Accuracy}, roll \textbf{2d6} and
+          choose the highest of the two dice, then add that
+          number to your attack roll. If you roll \textbf{3} on one die
+          and \textbf{4} on the other, you add \textbf{+4} to the roll, not \textbf{+7}.
+    \item For an attack with \textbf{2} \KeyWord{Accuracy} and \textbf{1} \KeyWord{Difficulty},
+          you only add \textbf{1d6} to your attack roll as \textbf{1}
+          \KeyWord{Difficulty} and \textbf{1} \KeyWord{Accuracy} cancel each other out.
+    \item For an attack with \textbf{1} \KeyWord{Accuracy} and \textbf{1} \KeyWord{Difficulty},
+          you don’t add anything to the roll – the dice
+          cancel each other out.
+\end{itemize}
+
+\paragraph{Grit}
+
+Pilots are lucky and unique individuals, multi-talented
+and
+resilient.
+Even
+so,
+brand-new
+pilots
+don’t
+measure up to tempered, battle-hardened veterans
+when push comes to shove. The benefits of experience are measured by \KeyWord{Grit}, a bonus that reflects your
+pilot’s deep reservoirs of resolve and will to live.
+
+\KeyWord{Grit} is half of your character’s license level, rounded
+up. It improves attack bonuses, hit points, and save
+targets for both your pilot and your mech.
+
+\subsubsection{Missions, Downtime, and Scenes}
+Ongoing games of \textit{Lancer} are usually divided into
+\textbf{missions}, each of which might encompass one play
+session
+or
+several,
+separated
+by
+periods
+of
+\textbf{downtime}.
+
+Missions have specific goals or objectives that can be
+completed
+within
+a
+discrete
+amount
+of
+time:
+destroying a building, breaking into a secure facility to
+recover vital data, evacuating civilians, uncovering a
+conspiracy, or holding the line against enemy attack,
+for example. Missions also provide some preparation
+time in which you can establish goals, stakes, and
+equipment for your characters.
+
+If your character isn’t on a mission, you’re in
+\textbf{downtime}. This is the narrative space between
+missions,
+in
+which
+moment-to-moment
+action
+doesn’t matter as much and roleplaying matters
+much more. During downtime you can progress
+plots, projects, or personal stories, moving the clock
+forward as much or as little as you want. Days,
+months, and even years can pass in downtime,
+depending on the pace of your game.
+
+In both missions and downtime, play is divided into
+\textbf{scenes}. A scene is a period of continuous dialogue,
+action, or activity that has a discrete starting and
+stopping point. This is called a scene because it’s
+helpful to think about it in cinematic terms: as long as
+the focus (or ‘camera’) is on the players and their
+action, a scene is happening. When the focus cuts
+away from the current scene, or the current action
+naturally ends, that’s when the scene should end too.
+
+A single combat encounter or a dialogue between
+characters are both great examples of scenes, but a
+scene can also be something like a montage.
+
+It’s important to pay attention to the beginning and
+end of scenes, as many special character and mech
+abilities end or reset at the end of a scene.
+
+\fullpageimage{Intro-Last}
+
+\end{document}

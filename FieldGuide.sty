@@ -1,0 +1,888 @@
+\RequirePackage{silence}
+\WarningsOff*
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage[skip=10pt plus1pt, indent=0pt]{parskip}
+\RequirePackage{ragged2e}
+\RequirePackage{fancyhdr}
+\RequirePackage{etoc}
+\RequirePackage[table]{xcolor}
+\RequirePackage[margin=0.75in]{geometry}
+\RequirePackage[TU]{fontenc}
+\RequirePackage{fontspec}
+\RequirePackage{fontsize}
+\RequirePackage{tikz}
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{soul}
+\RequirePackage{xparse}
+\RequirePackage{pgfkeys}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{eso-pic}
+\RequirePackage{varwidth}
+\RequirePackage{LastPage}
+\RequirePackage{setspace}
+\RequirePackage{stfloats}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit, calc}
+
+% Set up the link styles, shouldn't need to modify
+\hypersetup{
+    pdfinfo={
+        PageMode=UseOutlines, 
+        Creator=Tetragramm
+        },
+    final,
+    hidelinks,
+    linktoc=all,
+}
+
+% Set up the four fonts.
+% Arial is the main font.
+% consolas is the "TechnicalText" font, ie: weapon statlines
+% compcon has the custom symbols from the compcon website
+% matdes has more symbols, thanks google
+\setmainfont{Arial}
+\newfontfamily\compcon{compcon.ttf}[
+    Path=./fonts/,
+    ]
+\newfontfamily\matdes{materialdesignicons-webfont.ttf}[
+    Path=./fonts/,
+    ]
+\newfontfamily\TechnicalText{Consolas}
+
+% Everything should have no indents, and be flush to the left
+\raggedright
+% Keep paragraphs together
+\widowpenalties 1 10000
+% Fill the left column first
+\raggedbottom
+\raggedcolumns
+
+\makeatletter
+% Make sure they style correctly.
+% frontmatter sets the TOC style and uses roman numeral numbers
+\newcommand\frontmatter{%
+    \clearpage
+  %\@mainmatterfalse
+  \pagestyle{LancerFancyTOC}
+  \pagenumbering{roman}}
+% mainmatter goes to first left page, then sets the normal page style and arabic numbers.
+\newcommand\mainmatter{%
+    \cleardoublepage
+  % \@mainmattertrue
+  \pagestyle{LancerFancy}
+  \pagenumbering{arabic}}
+% If you actually use backmatter, this will go to next left page, I guess.
+\newcommand\backmatter{%
+  \cleardoublepage
+ % \@mainmatterfalse
+   }
+\makeatother
+
+
+% Define the colors used in the Lancer Core book
+\definecolor{red}{RGB}{193, 31, 37}
+\definecolor{RED}{RGB}{193, 31, 37}
+\definecolor{purple}{RGB}{103,58,183}
+\definecolor{turquoise}{RGB}{0,118,118}
+\definecolor{blue}{RGB}{58,129,195}
+\definecolor{green}{RGB}{88,180,52}
+\definecolor{orange}{RGB}{199,89,0}
+\definecolor{magenta}{RGB}{190,81,237}
+% Also give them names based on what they are for
+\definecolor{system}{RGB}{193, 31, 37}
+\definecolor{weapon}{RGB}{0,0,0}
+\definecolor{tech}{RGB}{103,58,183}
+\definecolor{background}{RGB}{103,58,183}
+\definecolor{reaction}{RGB}{0,118,118}
+\definecolor{tech}{RGB}{57,73,171}
+\definecolor{systemaction}{RGB}{88,180,52}
+\definecolor{protocol}{RGB}{199,89,0}
+
+% Set the style for tables
+\setlength\extrarowheight{0.5em}
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
+\renewenvironment{tabular}{\rowcolors{0}{white}{lightgray}\oldtabular}{\endoldtabular}
+\arrayrulecolor{red}
+\setlength{\arrayrulewidth}{1mm}
+
+% Define all the special symbols used on compcon
+\newcommand{\CCThreat}{{\compcon\symbol{"E957}}}
+\newcommand{\CCRange}{{\compcon\symbol{"E937}}}
+\newcommand{\CCLine}{{\compcon\symbol{"E93A}}}
+\newcommand{\CCBlast}{{\compcon\symbol{"E95B}}}
+\newcommand{\CCBurst}{{\compcon\symbol{"E938}}}
+\newcommand{\CCCone}{{\compcon\symbol{"E939}}}
+\newcommand{\CCInvade}{{\compcon\symbol{"E917}}}
+\newcommand{\CCAccuracy}{{\compcon\symbol{"E935}}}
+\newcommand{\CCDifficulty}{{\compcon\symbol{"E943}}}
+\newcommand{\CCOverkill}{{\matdes\symbol{"F0CBC}}}
+
+\newcommand{\CCKinetic}{{\compcon\symbol{"E940}}}
+\newcommand{\CCExplosive}{{\compcon\symbol{"E93E}}}
+\newcommand{\CCEnergy}{{\compcon\symbol{"E93D}}}
+\newcommand{\CCBurn}{{\compcon\symbol{"E93C}}}
+\newcommand{\CCVariable}{{\compcon\symbol{"E941}}}
+\newcommand{\CCHeat}{{\compcon\symbol{"E93F}}}
+
+\newcommand{\CCFree}{{\compcon\symbol{"E91F}}}
+\newcommand{\CCQuick}{{\matdes\symbol{"F0AC5}}}
+\newcommand{\CCFull}{{\matdes\symbol{"F0AC8}}}
+\newcommand{\CCReCC}{{\compcon\symbol{"E920}}}
+\newcommand{\CCProtocol}{{\compcon\symbol{"E928}}}
+
+\newcommand{\CCManufacturer}{{\compcon\symbol{"E908}}}
+\newcommand{\CCLicense}{{\compcon\symbol{"E901}}}
+\newcommand{\CCCoreBonus}{{\compcon\symbol{"E93B}}}
+\newcommand{\CCFrame}{{\compcon\symbol{"E944}}}
+\newcommand{\CCMechWeapon}{{\compcon\symbol{"E945}}}
+\newcommand{\CCMechSystem}{{\matdes\symbol{"F061A}}}
+\newcommand{\CCPilotGear}{{\compcon\symbol{"E947}}}
+\newcommand{\CCSkillTrigger}{{\compcon\symbol{"E935}}}
+\newcommand{\CCTalent}{{\compcon\symbol{"E95E}}}
+\newcommand{\CCBond}{{\matdes\symbol{"F0FE8}}}
+\newcommand{\CCNPCClass}{{\compcon\symbol{"E903}}}
+\newcommand{\CCNPCFeature}{{\compcon\symbol{"E902}}}
+\newcommand{\CCNPCTemplate}{{\compcon\symbol{"E900}}}
+\newcommand{\CCStatusAndCondition}{{\compcon\symbol{"E911}}}
+\newcommand{\CCReserve}{{\compcon\symbol{"E922}}}
+\newcommand{\CCAction}{{\compcon\symbol{"E936}}}
+\newcommand{\CCEquipmentTag}{{\matdes\symbol{"F04F9}}}
+\newcommand{\CCGlossary}{{\compcon\symbol{"E931}}}
+\newcommand{\CCWeaponMod}{{\compcon\symbol{"E958}}}
+
+\newcommand{\CCSystemPoint}{{\compcon\symbol{"E923}}}
+\newcommand{\CCDrone}{{\compcon\symbol{"E929}}}
+\newcommand{\CCDeployable}{{\compcon\symbol{"E929}}}
+\newcommand{\CCDTwenty}{{\matdes\symbol{"F05E7}}}
+\newcommand{\CCRoll}{{\matdes\symbol{"F0768}}}
+\newcommand{\CCGear}{{\matdes\symbol{"F0491}}}
+
+\newcommand{\CCMovement}{{\matdes\symbol{"F0058}}}
+\newcommand{\CCStructure}{{\compcon\symbol{"E955}}}
+\newcommand{\CCStress}{{\compcon\symbol{"E949}}}
+\newcommand{\CCArmor}{{\matdes\symbol{"F0496}}}
+\newcommand{\CCHex}{{\matdes\symbol{"F02D8}}}
+\newcommand{\CCHollowHex}{{\matdes\symbol{"F02D9}}}
+\newcommand{\CCHP}{{\matdes\symbol{"F02D1}}}
+\newcommand{\CCCircle}{{\matdes\symbol{"F012F}}}
+\newcommand{\CCOvercharge}{{\matdes\symbol{"F0761}}}
+\newcommand{\CCOvershield}{{\matdes\symbol{"F06F5}}}
+\newcommand{\CCRepair}{{\compcon\symbol{"E94A}}}
+\newcommand{\CCCP}{{\matdes\symbol{"F0079}}}
+\newcommand{\CCEffect}{{\compcon\symbol{"E92B}}}
+\newcommand{\CCEvasion}{{\compcon\symbol{"E91A}}}
+\newcommand{\CCEDEF}{{\compcon\symbol{"E918}}}
+\newcommand{\CCSystem}{{\compcon\symbol{"E956}}}
+\newcommand{\CCActivation}{{\compcon\symbol{"E936}}}
+\newcommand{\CCSensors}{{\compcon\symbol("E926)}}
+\newcommand{\CCSaveTarget}{{\compcon\symbol("E925)}}
+
+\newcommand{\CCSizeThree}{{\compcon\symbol{"E952}}}
+\newcommand{\CCSizeTwo}{{\compcon\symbol{"E951}}}
+\newcommand{\CCSizeOne}{{\compcon\symbol{"E950}}}
+\newcommand{\CCSizeHalf}{{\compcon\symbol{"E954}}}
+
+\newcommand{\CCArtillery}{{\compcon\symbol{"E94B}}}
+\newcommand{\CCBiological}{{\matdes\symbol{"F05F3}}}
+\newcommand{\CCController}{{\compcon\symbol{"E94C}}}
+\newcommand{\CCDefender}{{\compcon\symbol{"E94F}}}
+\newcommand{\CCStriker}{{\compcon\symbol{"E94D}}}
+\newcommand{\CCSupport}{{\compcon\symbol{"E94E}}}
+
+\newcommand{\CCTierOne}{{\compcon\symbol{"E95C}}}
+\newcommand{\CCTierTwo}{{\compcon\symbol{"E95D}}}
+\newcommand{\CCTierThree}{{\compcon\symbol{"E95E}}}
+
+
+% Internal for the KeyWord smushing
+% Specifically, define the command \so to move letters closer together.
+\sodef\so{}{-0.05em}{0.5em}{0.5em}
+
+% Internal for the TOC Section boxes
+\newcommand{\lancercolorbox}[2]{\colorbox{#1}{\begin{minipage}{\linewidth}{\textcolor{white}{#2}}\end{minipage}}}
+\newcommand{\redbox}[1]{\textbf{\lancercolorbox{red}{#1}}}
+
+% Command for formatting a word as a KeyWord, 
+% in small caps and bold, but smushed together
+\newcommand{\KeyWord}[1]{\so{\textsc{\textbf{#1}}}}
+
+%%%  Mount Boxes
+% Command for making a mount box for a mech template
+\newcommand{\mountbox}[3]{
+    \begin{tcolorbox}[colback=#1,size=small, arc is angular, sharp corners, rounded corners=northeast,
+         arc=1.1\baselineskip, boxrule=0pt, width=#3,nobeforeafter]
+        \noindent
+        \raggedright
+        \textbf{\textcolor{white}{#2}}
+    \end{tcolorbox}\hfill
+}
+% Define the specific box for a Main Mount
+\newcommand{\MainMount}[0]{
+    \mountbox{red}{
+            MAIN\\
+            MOUNT}{5em}
+}
+% Define the specific box for a Flex Mount
+\newcommand{\FlexMount}[0]{
+    \mountbox{red}{
+            FLEX\\
+            MOUNT}{5em}
+}
+% Define the specific box for a Heavy Mount
+\newcommand{\HeavyMount}[0]{
+    \mountbox{red}{
+            HEAVY\\
+            MOUNT}{5.5em}
+}
+% Define the specific box for a Main/Aux Mount
+\newcommand{\MainAuxMount}[0]{
+    \mountbox{red}{
+            MAIN\slash{}AUX\\
+            MOUNT}{7em}
+}
+% Define the specific box for an Aux/Aux Mount
+\newcommand{\AuxAuxMount}[0]{
+    \mountbox{red}{
+            AUX\slash{}\\
+            AUX}{4.5em}
+}
+
+% Command for creating a titled corner box
+% Arguments 3:
+% 1: The Color (specifically of the header, body will be lighter version)
+% 2: The Title
+% 3: The Text
+\newcommand{\titledcornerbox}[3]{
+    \begin{tcolorbox}[enhanced,colback=#1!20,colframe=#1,size=small, 
+        arc is angular, sharp corners, rounded corners=northeast, 
+        width=\linewidth, arc=0.9\baselineskip, boxrule=-1pt,parbox=false,
+        title=\textbf{#2}]
+        \noindent
+        \raggedright
+        {#3}
+    \end{tcolorbox}
+}
+
+% Command for creating a corner box
+% Arguments 2:
+% 1: The Color (Will be made lighter automatically)
+% 2: The Text
+\newcommand{\cornerbox}[2]{
+    \begin{tcolorbox}[enhanced,colback=#1!20,colframe=#1,size=small, 
+        arc is angular, sharp corners, rounded corners=northeast, 
+        width=\linewidth, arc=0.9\baselineskip, boxrule=-1pt,parbox=false]
+        \noindent
+        \raggedright
+        {#2}
+    \end{tcolorbox}
+}
+
+% Command for creating an infobox
+% Arguments 3 (4th Optional):
+% 1: The color (specifically of the header, body will be lighter version)
+% 2: Title of the infobox
+% 3: Mechanical Text
+% 4: (Optional) Flavor text to go after dotted line (only appears if flavor text not empty)
+\newcommand{\infobox}[4]{
+    \begin{tcolorbox}[enhanced,colback=#1!20,colframe=#1,size=small, 
+        arc is angular, sharp corners, rounded corners=east, 
+        width=\linewidth, arc=0.9\baselineskip, boxrule=-1pt,parbox=false,
+        subtitle style={coltitle=black, boxrule=-1pt, toprule=1pt, bottomrule=1pt, colback=white},
+        title={#2}]
+        \noindent
+        \raggedright
+        \normalsize
+        {#3}
+        \ifstrempty {#4} {} { 
+            \hbox to \linewidth{\leaders\hbox to 3pt{\hss . \hss}\hfill}
+            {\TechnicalText \itshape {#4}}
+         }
+    \end{tcolorbox}
+}
+
+% Command for the infobox-internal white bit, like Invade has
+% Arguments 1
+% 1: The text
+\newcommand{\infoemphasis}[1]{
+    \tcbsubtitle{\noindent
+    \raggedright
+    \textcolor{black}{#1}}
+}
+
+%%%%% Table of Contents %%%%%
+% Command to make sure the TOC entries fill the line as best it 
+% can without pushing the number down to it's own line.
+\newcommand*{\FillLine}[2]{%
+\noindent\parbox[t]{\linewidth}{%
+    % \rightskip\fill\parfillskip-\rightskip
+    \raggedright
+    \linepenalty100
+    \exhyphenpenalty0
+    #1\linebreak[0] % <-- Need space here
+    %Space before \hspace* allows for a break before it
+    \hspace*{\fill}{#2}% 
+}%
+}
+
+% Command for As-Is section names in TOC (as opposed to all uppercase)
+\newcommand{\sectioncase}[2]{\FillLine{#1}{#2}}
+
+%Table of Contents style, with command for section, subsection, and subsubsection
+\etocsettocstyle{\twocolumn\raggedcolumns}{}
+\etocsetstyle{section}
+    {\etocskipfirstprefix}
+    {\\}
+    {\vspace{0.5em}\pagebreak[2]\redbox{SECTION \etocthenumber:}\\*
+    {\linespread{0.7}\huge\textcolor{red}{\textbf{\sectioncase{\etocthename}{\etocpage}}}}\\*\linespread{1}\vspace*{0.5\baselineskip}}
+    {\linespread{1}\normalsize}
+\etocsetstyle{subsection}
+    {\etocskipfirstprefix}
+    {\\}
+    {\vspace{1mm}\pagebreak[1]\textbf{\large\sectioncase{\etocthename}{\etocpage}}\vspace*{2mm} %
+    }
+    {}
+\etocsetstyle{subsubsection}
+    {\hspace*{\widthof{888}}\begin{minipage}{\linewidth-\widthof{888}}\etocskipfirstprefix}
+    {\\}
+    {\textbf{\sectioncase{\etocthename}{\etocpage}} %
+    }
+    {\end{minipage}\vspace*{2mm} %
+    }
+
+%%%%% Headers and Footers %%%%%
+% Setup for fancyhdr
+\fancyhf{}
+\pagestyle{fancy}
+\renewcommand{\headrule}{}
+\renewcommand{\footrule}{}
+% Make two new counter for tracking how far through the book we are
+\newcounter{numpage}
+\newcounter{pagepercent}
+% Create the main page style
+\fancypagestyle{LancerFancy}{%
+\fancyhf{}
+\renewcommand{\headrule}{}
+\renewcommand{\footrule}{}
+\fancyfoot[LO]{%The Left style footer is on Odd pages
+    % Get the number of pages, and calculate what percentage of the way through the book we are
+    \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
+    \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Three nodes to make the triangles in the corner
+        % Note the use of thepagepercent to change the color from red to black
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=4cm, rotate=90] at (current page.south west) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=white, anchor=west, minimum height=3.8cm, rotate=90] at (current page.south west) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=3.6cm, rotate=90] at (current page.south west) {};
+        % Page number goes in the corner
+        \node[anchor=south west, xshift=2em, yshift=2em] (num) at (current page.south west) {\Large\textbf{\textcolor{white}{[\thepage]}}};
+        % Text describing the current section and subsection
+        \node[anchor=west, xshift=9em] (text) at (num.east) {\normalsize {\textbf{SECTION \hspace{0.5em} \slash\slash \hspace{-1.5em} \leftmark}}};
+    \end{tikzpicture}
+}
+\fancyfoot[RE]{%The Right style footer is on Even pages
+% Get the number of pages, and calculate what percentage of the way through the book we are
+    \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
+    \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Three nodes to make the triangles in the corner
+        % Note the use of thepagepercent to change the color from red to black
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=4cm, rotate=90] at (current page.south east) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=white, anchor=west, minimum height=3.8cm, rotate=90] at (current page.south east) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=3.6cm, rotate=90] at (current page.south east) {};
+        % Page number goes in the corner
+        \node[anchor=south east, xshift=-2em, yshift=2em] (num) at (current page.south east) {\Large\textbf{\textcolor{white}{[\thepage]}}};
+        % Text describing the current section and subsection
+        \node[anchor=east, xshift=-9em] (text) at (num.west) {\normalsize {\textbf{SECTION \hspace{0.5em} \slash\slash \hspace{-1.5em} \leftmark}}};
+    \end{tikzpicture}
+}
+\fancyhead[RE]{%The Right header is on Even pages
+    \begin{tikzpicture}[remember picture, overlay]
+        % Fancy number is kinda red, partway off the page
+        \node[anchor=center, xshift=-0.5em, yshift=-5em, scale=5] (num) at (current page.north east) {\textbf{\textcolor{red!30!white}{\thesection}}};
+        % Current section name turned sideways
+        \node[anchor=north east,rotate=90] (label) at (num.north west) {\large\textbf{\rightmark}};
+    \end{tikzpicture}
+}
+}
+
+% The TOC footers are just the triangle (just red), page numbers, and CONTENTS.
+\fancypagestyle{LancerFancyTOC}{%
+\fancyhf{}
+\renewcommand{\headrule}{}
+\renewcommand{\footrule}{}
+\fancyfoot[LO]{
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=4cm, rotate=90] at (current page.south west) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=white, anchor=west, minimum height=3.8cm, rotate=90] at (current page.south west) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=3.6cm, rotate=90] at (current page.south west) {};
+        \node[anchor=south west, xshift=2em, yshift=2em] (num) at (current page.south west) {\Large\textbf{\textcolor{white}{[\thepage]}}};
+        \node[anchor=west, xshift=9em] (text) at (num.east) {\normalsize \textbf{CONTENTS}};
+    \end{tikzpicture}
+}
+\fancyfoot[RE]{
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=4cm, rotate=90] at (current page.south east) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=white, anchor=west, minimum height=3.8cm, rotate=90] at (current page.south east) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=3.6cm, rotate=90] at (current page.south east) {};
+        \node[anchor=south east, xshift=-2em, yshift=2em] (num) at (current page.south east) {\Large\textbf{\textcolor{white}{[\thepage]}}};
+        \node[anchor=east, xshift=-9em] (text) at (num.west) {\normalsize \textbf{CONTENTS}};
+    \end{tikzpicture}
+}
+}
+
+% Squish the itemize together a bit.  Less space
+\let\olditemize=\itemize \let\endolditemize=\enditemize \renewenvironment{itemize}{\olditemize \itemsep0.1em}{\endolditemize}
+
+%%%% Insert Images %%%%%
+% Image filling one column width
+\newcommand{\colwidthimage}[1]{
+    \includegraphics[width=\columnwidth, keepaspectratio]{#1}
+}
+% Image filling both column widths
+\newcommand{\textwidthimage}[1]{
+    \includegraphics[width=\textwidth, keepaspectratio]{#1}
+}
+% Image filling page edge to edge
+\newcommand{\fullpageimage}[1]{
+\clearpage
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center, inner sep=0pt] (image) at (current page.center) {
+        \includegraphics[width=\paperwidth, keepaspectratio]{#1}
+    };
+\end{tikzpicture}
+\clearpage
+}
+% Image at the top of the page across both columns
+\newcommand{\topimage}[1]{
+    \begin{figure*}[t]
+        \includegraphics[width=\textwidth,keepaspectratio]{#1}
+    \end{figure*}
+}
+% Image at the bottom of the page across both columns
+\newcommand{\bottomimage}[1]{
+    \begin{figure*}[b]
+        \includegraphics[width=\textwidth,keepaspectratio]{#1}
+    \end{figure*}
+}
+\makeatletter
+% Image taking up an entire column, top to bottom, all the way from center to page edge
+\newcommand{\colimage}[1]{
+    \pagebreak
+    \thispagestyle{empty}
+    \if@firstcolumn
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=west, inner sep=0pt] (image) at (current page.west) {
+            \includegraphics[width=0.5\pagewidth, keepaspectratio]{#1}
+        };
+    \end{tikzpicture}
+    \else
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=east, inner sep=0pt] (image) at (current page.east) {
+            \includegraphics[width=0.5\pagewidth, keepaspectratio]{#1}
+        };
+    \end{tikzpicture}
+    \fi
+    \pagebreak
+}
+
+%%%%% Section Styles %%%%%
+% Re-define \section \subsection \subsubsection and \paragraph.  With style
+\newcommand{\partialleftmark}{}
+% ReDefine \section
+\RenewDocumentCommand{\section}{O{\empty} O{\empty} m}{
+    \cleardoublepage%New pages until left page
+    \onecolumn%Go into Single column mode
+    % Increment and reset coutners
+    \addtocounter{section}{1}
+    \setcounter{subsection}{0}
+    \setcounter{subsubsection}{0}
+    %Define bits for header and footer
+    \renewcommand{\partialleftmark}{\thesection\quad#3}
+    \renewcommand{\leftmark}{\thesection\quad#3}
+    % Create "physical" anchor for links and add line to table of contents
+    \phantomsection\addcontentsline{toc}{section}{\protect\numberline{\thesection}#3}
+    % Create named anchor for links.
+    \label{#3}
+    % No header or footers on this page
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture, overlay]
+        % If you have a picture, fill the page starting from the top
+        \ifdefempty{#1}{}{
+        \node[anchor=north west, inner sep=0pt] (image) at (current page.north west) {
+            \includegraphics[width=\paperwidth, keepaspectratio]{#1}
+        };
+        }
+        % Make fancy rectangle.  Draws a thin white border over the image, if necessary
+        \node[rectangle, fill=white, anchor=south west, minimum width = \paperwidth, minimum height = 0.2\paperheight] (r) at (current page.south west){};
+        \node[rectangle, fill=red, anchor=south west, minimum width = \paperwidth, minimum height = 0.19\paperheight] (r) at (current page.south west){};
+        % Add Section title
+        \node[anchor=center] (t) at (r.center) {\textcolor{white}{\parbox{\textwidth}{\raggedright\fontsize{20}{12}\textbf{SECTION \thesection} \\ \fontsize{48}{12}\textbf{#3}}}};
+    \end{tikzpicture}
+    % Next page
+    \clearpage
+    \thispagestyle{empty}
+    % Table of contents only shows subsections
+    \etocsetnexttocdepth{subsection}  
+    \begin{tikzpicture}[remember picture, overlay]
+        % If you have a picture, fill the page starting from the top
+        \ifdefempty{#2}{}{
+        \node[anchor=north west, inner sep=0pt] (image) at (current page.north west) {
+            \includegraphics[width=\paperwidth, keepaspectratio]{#2}
+        };
+        }
+        % Make fancy rectangle.  Draws a thin white border over the image, if necessary
+        \node[rectangle, fill=white, anchor=south west, minimum width = \paperwidth, minimum height = 0.2\paperheight] (r) at (current page.south west){};
+        \node[rectangle, fill=red, anchor=south west, minimum width = \paperwidth, minimum height = 0.19\paperheight] (r) at (current page.south west){};
+        % Add a little table of contents
+        \node[anchor=center] (t) at (r.center) {\begin{minipage}[0.15\paperheight]{\textwidth}\textcolor{white}{\etoclocalmulticol[2]{}}\end{minipage}};
+    \end{tikzpicture}
+    % Go back to two column mode (which makes page break) and turn headers and footers back on
+    \twocolumn
+    \pagestyle{LancerFancy}
+}
+
+% Command for making a sub-section box across top of page
+\newcommand{\subsecbox}[1]{
+    \begin{figure*}[t!]
+    \begin{tcolorbox}[colback=red,size=small, arc is angular, sharp corners, rounded corners=southeast,
+         arc=1.1\baselineskip, boxrule=0pt, hbox, grow to left by=1in, left*=0pt, top=1mm, bottom=1mm, scale=2.5, move upwards=-0.5in,varwidth upper=\textwidth]
+        \noindent
+        \raggedright
+        \fontsize{36}{60}
+        \textbf{\textcolor{white}{#1}}
+        \hspace{0.55\baselineskip}
+    \end{tcolorbox}
+\end{figure*}
+}
+% ReDefine \subsection
+\renewcommand{\subsection}[1]{
+    % Always on left page
+    \cleardoublepage
+    % Increment and reset counters
+    \addtocounter{subsection}{1}
+    \setcounter{subsubsection}{0}
+    % Set header and footer iformation
+    \renewcommand{\leftmark}{\partialleftmark  \slash\slash  #1}
+    \renewcommand{\rightmark}{#1}
+    % Create "physical" anchor for links and add line to table of contents
+    \phantomsection\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}
+    % Create named anchor for links.
+    \label{#1}
+    % Add actual title box
+    \subsecbox{\MakeUppercase{#1}}
+}
+% ReDefine \subsubsection
+\renewcommand{\subsubsection}[1]{
+    % If you have to, break page before this, 
+    \pagebreak[2]
+    % Increment and reset counters
+    \addtocounter{subsubsection}{1}
+    % Create "physical" anchor for links and add line to table of contents
+    \phantomsection\addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsubsection}#1}
+    % Create named anchor for links.
+    \label{#1}
+    % just put big text in.
+    \Large\textbf{\MakeUppercase{\nolinebreak[4]#1}}\normalsize\\*
+}
+% ReDefine \paragraph
+\renewcommand{\paragraph}[1]{
+    % If you have to, break page before this
+    % Add "physical anchor", though it's not actually used
+    % Red Big UPPERCASE text
+    \pagebreak[1]\phantomsection\normalsize\textcolor{red}{\textbf{\MakeUppercase{\nolinebreak[4]#1}}}\label{#1}\\*
+}
+
+\makeatother
+%%%%% Command for Making a Lancer Frame %%%%
+% This is used for making magenta text to show when keys aren't being set.
+\newcommand{\FrameDefault}[1]{\tcbox[colframe=magenta,colback=magenta,nobeforeafter,size=tight]{\textcolor{white}{#1}}}
+% Define the keys for \Lancer Frame
+% The \FrameDefalt shows when things aren't set.
+\pgfkeys{
+ /LancerFrame/.is family, LancerFrame,
+ % Here are the options that a user can pass
+ default/.style = 
+    {Manufacturer=\FrameDefault{GMS}, Name = \FrameDefault{Everest}, Size = \FrameDefault{1},
+    Class = \FrameDefault{Striker}, Class Icon = \FrameDefault{\CCRoll},
+    Structure = \FrameDefault{4}, Stress = \FrameDefault{4}, Armor = \FrameDefault{4},
+    HP = \FrameDefault{10}, SP = \FrameDefault{6}, Evasion = \FrameDefault{8}, E-Defense = \FrameDefault{8},
+    Heat Cap = \FrameDefault{6}, Sensors = \FrameDefault{10}, Tech Attack = \FrameDefault{0},
+    Repair Cap = \FrameDefault{5}, Save Target = \FrameDefault{10}, Speed = \FrameDefault{4},
+    Background Image = {}, Facing Image = {}
+    },
+    Manufacturer/.store in = \FrameManufacturer,
+    Name/.store in = \FrameName,
+    Size/.store in = \FrameSize,
+    Class/.store in = \FrameClass,
+    Class Icon/.store in = \FrameClassIcon,
+    Structure/.store in = \FrameStructure,
+    Stress/.store in = \FrameStress,
+    Armor/.store in = \FrameArmor,
+    HP/.store in = \FrameHP,
+    SP/.store in = \FrameSP,
+    Evasion/.store in = \FrameEvasion,
+    E-Defense/.store in = \FrameEDef,
+    Heat Cap/.store in = \FrameHeatCap,
+    Sensors/.store in = \FrameSensors,
+    Tech Attack/.store in = \FrameTechAttack,
+    Repair Cap/.store in = \FrameRepairCap,
+    Save Target/.store in = \FrameSaveTarget,
+    Speed/.store in = \FrameSpeed,
+    Background Image/.store in = \FrameBackgroundImage,
+    Facing Image/.store in = \FrameFacingImage,
+}
+% Actual command
+\newcommand{\LancerFrame}[5][]{%
+    % Always starts on left page
+    \cleardoublepage
+    % Parse the keys passed in
+    \pgfkeys{LancerFrame, default, #1}%
+    % This is actually a subsection, so increment, set header footer commands, and add to TOC
+    \addtocounter{subsubsection}{1}
+    \renewcommand{\leftmark}{\partialleftmark  \slash\slash  \FrameName}
+    \phantomsection\addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsubsection}\protect\textcolor{red}{\FrameName}}
+    \label{\FrameName}
+    % If you have a background image, add it first.
+    \ifdefempty{\FrameBackgroundImage}{}{\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\FrameBackgroundImage}}}
+    % You can see the keys are being used, like \FrameManufacturer just below
+    % AFter the flavor text you get a box inside a box, which is split in two by the \tcblower command
+    \begin{figure*}[t]
+    \begin{center}
+        \Huge\textcolor{red}{\FrameManufacturer} \\
+        \textcolor{red}{\textbf{\FrameName}} \\
+         \normalsize\textcolor{red}{\FrameClass}\\
+         \begin{tcolorbox}[opacityfill=0,opacityframe=0,colframe=white,width=0.9\textwidth,parbox=false,size=tight]
+            \raggedright\TechnicalText\normalsize{#5}
+        \end{tcolorbox}
+    \end{center}
+    \raggedright
+    \vfill
+    \begin{tcolorbox}[standard jigsaw, opacityback=0,opacitybacktitle=0,colback=white,size=fbox, colframe=red, sharp corners, boxrule=2pt]
+        \begin{tcolorbox}[standard jigsaw, opacityback=0.001,opacitybacktitle=0.001,colback=white,size=fbox, colframe=red, sharp corners, boxrule=2pt, sidebyside, box align=top, sidebyside align=top]
+            \noindent
+            \raggedright
+            \raggedcolumns
+                \LARGE\textbf{CORE STATS}\normalsize
+                \begin{multicols}{2}
+                    \textbf{Size: } {\TechnicalText \FrameSize}
+
+                    \textbf{Armor: } {\TechnicalText \FrameArmor}
+
+                    \paragraph{HULL}
+
+                    \quad \textbf{HP: } {\TechnicalText \FrameHP}
+
+                    \quad \textbf{Repair Cap: } {\TechnicalText \FrameRepairCap}
+
+                    \paragraph{AGILITY}
+
+                    \quad \textbf{Evasion: } {\TechnicalText \FrameEvasion}
+
+                    \quad \textbf{Speed: } {\TechnicalText \FrameSpeed}
+
+                    \columnbreak
+                    \textbf{Save Target: } {\TechnicalText \FrameSaveTarget}
+
+                    \textbf{Sensors: } {\TechnicalText \FrameSensors}
+
+                    \paragraph{SYSTEMS}
+
+                    \quad \textbf{E-Defense: } {\TechnicalText \FrameEDef}
+
+                    \quad \textbf{Tech Attack: } {\TechnicalText \FrameTechAttack}
+
+                    \quad \textbf{SP: } {\TechnicalText \FrameSP}
+
+                    \paragraph{ENGINEERING}
+
+                    \quad \textbf{Heat Cap: } {\TechnicalText \FrameHeatCap}
+                \end{multicols}
+                \LARGE\textbf{TRAITS}\normalsize\\
+                {#2}
+                \LARGE\textbf{MOUNTS}\normalsize\\
+                {#3}\\
+                \vfill
+                \tcblower
+                \raggedright
+                \LARGE\textbf{CORE SYSTEM}\normalsize\\
+                {#4}
+                \vfill
+        \end{tcolorbox}
+    \end{tcolorbox}
+    % Add the size and role icons to the page
+    \vspace{-0.5em}\begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north west, inner sep=0pt, scale=5, xshift=0.02in, yshift=-0.15in] (sizeicon) at (current page.north west) {
+            \textcolor{red}{
+            \ifdefstring{\FrameSize}{1\slash{}2}{\CCSizeHalf}{
+                \ifdefstring{\FrameSize}{1}{\CCSizeOne}{
+                    \ifdefstring{\FrameSize}{2}{\CCSizeTwo}{
+                        \ifdefstring{\FrameSize}{3}{\CCSizeThree}{
+                        }
+                    }
+                }
+            }}};
+        \node[anchor=north, inner sep=0pt, scale=5] (classicon) at (sizeicon.south) {
+            \parbox{1em}{\setstretch{0.25}{\textcolor{red}{\centering\FrameClassIcon}}}
+        };
+    \end{tikzpicture}
+    \end{figure*}
+    \newpage
+    % If you have an image, it goes on the next page
+    \ifdefempty{\FrameFacingImage}{}{\begin{figure*}[h]\textwidthimage{\FrameFacingImage}\end{figure*}}
+    \restoregeometry
+}
+
+% Define keys for \LancerNPC
+\pgfkeys{
+ /LancerNPC/.is family, LancerNPC,
+ % Here are the options that a user can pass
+ default/.style = 
+    {Name = \FrameDefault{ASSAULT}, Size = \FrameDefault{1},
+    Class = \FrameDefault{Striker}, Class Icon = \FrameDefault{\CCRoll},
+    Armor = \FrameDefault{1},
+    HP = \FrameDefault{15}, Evasion = \FrameDefault{8}, E-Defense = \FrameDefault{8},
+    Heat Cap = \FrameDefault{8}, Sensors = \FrameDefault{10},
+    Save Target = \FrameDefault{10}, Speed = \FrameDefault{4},
+    Hull=\FrameDefault{+1}, Systems=\FrameDefault{+1},
+    Agility=\FrameDefault{+1}, Engineering=\FrameDefault{+1},
+    Tier1 = {}, Tier2 = {}, Tier3 = {},
+    },
+    execute style/.style = {#1},
+    execute macro/.style = {execute style/.expand once=#1},
+    Name/.store in = \NPCName,
+    Size/.store in = \NPCSize,
+    Class/.store in = \NPCClass,
+    Class Icon/.store in = \NPCClassIcon,
+    Armor/.store in = \NPCArmor,
+    HP/.store in = \NPCHP,
+    Evasion/.store in = \NPCEvasion,
+    E-Defense/.store in = \NPCEDef,
+    Heat Cap/.store in = \NPCHeatCap,
+    Sensors/.store in = \NPCSensors,
+    Save Target/.store in = \NPCSaveTarget,
+    Speed/.store in = \NPCSpeed,
+    Hull/.store in = \NPCHull,
+    Systems/.store in = \NPCSystems,
+    Agility/.store in = \NPCAgility,
+    Engineering/.store in = \NPCEngineering,
+    Tier1/.store in =\NPCTierOne,
+    Tier2/.store in =\NPCTierTwo,
+    Tier3/.store in =\NPCTierThree,
+}
+% Actual \LancerNPC command
+\newcommand{\LancerNPC}[2][]{%
+    % Always on it's own page, not always left
+    \clearpage
+    % Parse the keys for the first time.
+    \pgfkeys{LancerNPC, default, #1}%
+    % It's a subsubsection, so add that to the table of contents and set header/footer stuff
+    \addtocounter{subsubsection}{1}
+    \renewcommand{\leftmark}{\partialleftmark  \slash\slash  \NPCName}
+    \phantomsection\addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsubsection}\protect\textcolor{red}{\NPCName}}
+    \label{\NPCName}
+    % Same as LancerFrame, but you get three boxes next to each other, instead of one box split in two.
+    \begin{figure*}[t]
+    \begin{center}
+        \Huge\textcolor{red}{\textbf{\NPCName}} \\
+         \normalsize\textcolor{red}{\NPCClass}\\
+         \begin{tcolorbox}[opacityfill=0,opacityframe=0,colframe=white,width=0.95\textwidth,parbox=false,size=tight]
+            \raggedright\TechnicalText\normalsize{#2}
+        \end{tcolorbox}
+    \end{center}
+    \tcbset{npcstats/.style={colback=white,size=fbox, sharp corners, boxrule=-1pt, parbox=false, equal height group=nobefaf, nobeforeafter,width=\linewidth/3}}
+    \begin{tcolorbox}[npcstats, colframe=red, title=\textbf{TIER 1}]
+        \pgfkeys{LancerNPC, execute macro=\NPCTierOne}
+        \large\textbf{MECH SKILLS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{Hull:} \NPCHull{}\\
+            \textbf{Agility:} \NPCAgility{}\\
+            \columnbreak
+            \textbf{System:} \NPCSystems{}\\
+            \textbf{Engineering:} \NPCEngineering{}\\
+        \end{multicols*}
+        \large\textbf{CORE STATS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{HP:} \NPCHP{}\\
+            \textbf{Evasion:} \NPCEvasion{}\\
+            \textbf{Speed:} \NPCSpeed{}\\
+            \textbf{Heat Cap:} \NPCHeatCap{}\\
+            \textbf{Sensors:} \NPCSensors{}\\
+            \columnbreak
+            \textbf{Armor:} \NPCArmor{}\\
+            \textbf{E-Defense:} \NPCEDef{}\\
+            \textbf{Size:} \NPCSize{}\\
+            \textbf{Save Target:} \NPCSaveTarget{}\\
+        \end{multicols*}
+    \end{tcolorbox}%
+    \begin{tcolorbox}[npcstats, colframe=red!50!black, title=\textbf{TIER 2}, leftrule=2pt]
+        \pgfkeys{LancerNPC, execute macro=\NPCTierOne, execute macro=\NPCTierTwo}
+        \large\textbf{MECH SKILLS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{Hull:} \NPCHull{}\\
+            \textbf{Agility:} \NPCAgility{}\\
+            \columnbreak
+            \textbf{System:} \NPCSystems{}\\
+            \textbf{Engineering:} \NPCEngineering{}\\
+        \end{multicols*}
+        \large\textbf{CORE STATS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{HP:} \NPCHP{}\\
+            \textbf{Evasion:} \NPCEvasion{}\\
+            \textbf{Speed:} \NPCSpeed{}\\
+            \textbf{Heat Cap:} \NPCHeatCap{}\\
+            \textbf{Sensors:} \NPCSensors{}\\
+            \columnbreak
+            \textbf{Armor:} \NPCArmor{}\\
+            \textbf{E-Defense:} \NPCEDef{}\\
+            \textbf{Size:} \NPCSize{}\\
+            \textbf{Save Target:} \NPCSaveTarget{}\\
+        \end{multicols*}
+    \end{tcolorbox}%
+    \begin{tcolorbox}[npcstats, colframe=black, title=\textbf{TIER 3}, leftrule=2pt]
+        \pgfkeys{LancerNPC, execute macro=\NPCTierOne, execute macro=\NPCTierTwo, execute macro=\NPCTierThree}
+        \large\textbf{MECH SKILLS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{Hull:} \NPCHull{}\\
+            \textbf{Agility:} \NPCAgility{}\\
+            \columnbreak
+            \textbf{System:} \NPCSystems{}\\
+            \textbf{Engineering:} \NPCEngineering{}\\
+        \end{multicols*}
+        \large\textbf{CORE STATS}\normalsize \\
+        \begin{multicols*}{2}
+            \textbf{HP:} \NPCHP{}\\
+            \textbf{Evasion:} \NPCEvasion{}\\
+            \textbf{Speed:} \NPCSpeed{}\\
+            \textbf{Heat Cap:} \NPCHeatCap{}\\
+            \textbf{Sensors:} \NPCSensors{}\\
+            \columnbreak
+            \textbf{Armor:} \NPCArmor{}\\
+            \textbf{E-Defense:} \NPCEDef{}\\
+            \textbf{Size:} \NPCSize{}\\
+            \textbf{Save Target:} \NPCSaveTarget{}\\
+        \end{multicols*}
+    \end{tcolorbox}
+    % Add the size and role icons to top of page
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north west, inner sep=0pt, scale=5, xshift=0.05in, yshift=-0.15in] (sizeicon) at (current page.north west) {
+            \textcolor{red}{
+            \ifdefstring{\NPCSize}{1\slash{}2}{\CCSizeHalf}{
+                \ifdefstring{\NPCSize}{1}{\CCSizeOne}{
+                    \ifdefstring{\NPCSize}{2}{\CCSizeTwo}{
+                        \ifdefstring{\NPCSize}{3}{\CCSizeThree}{
+                        }
+                    }
+                }
+            }}};
+        \node[anchor=north east, inner sep=0pt, scale=5, xshift=-0.05in, yshift=-0.15in] (classicon) at (current page.north east) {
+            \textcolor{red}{\NPCClassIcon}
+        };
+    \end{tikzpicture}
+    \end{figure*}
+}
+

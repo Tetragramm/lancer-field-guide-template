@@ -1,0 +1,27 @@
+\documentclass[twoside,headings,letterpaper,twocolumn]{article}
+\usepackage{FieldGuide}
+
+% Set path for images
+\graphicspath{{./images}} % or multiple paths \graphicspath{{./images}{../../mystuff/Lancer/images}}
+
+% Use this command to make the table of contents ALL UPPERCASE instead of exactly what you typed.
+\renewcommand{\sectioncase}[2]{\FillLine{\MakeUppercase{#1}}{#2}}
+
+% Use this command to start at SECTION 0 like the core book does.
+\setcounter{section}{-1}
+
+\title{Your Title Here}
+\author{Your Name Here}
+
+\begin{document}
+\frontmatter
+
+\maketitle
+
+\clearpage
+
+    \tableofcontents
+
+    \mainmatter
+
+\end{document}
