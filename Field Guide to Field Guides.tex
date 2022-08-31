@@ -48,16 +48,16 @@ This document is produced using, and describes how to use, the Lancer Field Guid
 It's important to know that \LaTeX is a text markup language that gets compiled to PDF files.  It's very like a programming language.  However, this package (the FieldGuide.sty file), hides as much of the complexity as I can so all you have to do is type in your text, numbers, and image names.
 
 \subsubsection{Why LaTeX?}
-First of all, \LaTeX is free.  Both in the money sense, and in the information sense.  You can download it on pretty much any computer and use it.
+First of all, \LaTeX  is free.  Both in the money sense, and in the information sense.  You can download it on pretty much any computer and use it.
 
-It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX expert.  I've probably messed things up horribly in this template, but I do hope it will be useful to at least one person to help them make better Lancer content, without worrying about graphic design.
+It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX  expert.  I've probably messed things up horribly in this template, but I do hope it will be useful to at least one person to help them make better Lancer content, without worrying about graphic design.
 
 \subsubsection{First Steps}
 First, you need to install \LaTeX.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), there's a lot of useful packages it will download.
 
 While that's going on, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX, and is very good to have open as you work.
 
-Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
+Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX  that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
 
 \subsubsection{About the Template}
 The template is in two parts.  Most important is the file FieldGuide.sty, which defines a lot of useful commands, symbols, and formatting.  Second is the file Main.tex, which sets up the skeleton that you will be filling out.
@@ -94,7 +94,7 @@ First is the preamble, everything before \verb|\begin{document}|.  The first lin
 
 After \verb|\begin{document}|, there is the content of the document, which you will be modifying.  The frontmatter command starts the roman numeral page numbering, and sets the style, while the maketitle command inserts the title page using the title and author set in the preamble.  You may add additional text below the maketitle command to show other text, acknowledgements, ect.
 
-One thing you may want to do is add a full-page cover.  If you do, before the call to maketitle, add a fullpageimage command, referencing your cover (see \hyperref[Adding Images]{Adding Images}).
+One thing you may want to do is add a full-page cover.  If you do, before the call to maketitle, add a fullpageimage command, referencing your cover (see \hyperref[Images]{Adding Images}).
 
 The tableofcontents command inserts the table of contents.  The mainmatter command switches to arabic page numbers and indicates you're ready to go by filling in empty space until the next left page.
 
@@ -115,74 +115,79 @@ A subsection starts on a left page and places a banner across the top of the pag
 \subsubsection{Lancer Symbols}
 Lancer has a great deal of custom symbols, contained in a custom font, which is automatically included.
 \paragraph{Damage Symbols}
-\begin{tabular}{|cc|}
-    \hline
-    \CCKinetic   & \verb|\CCKinetic{}|   \\\hline
-    \CCEnergy    & \verb|\CCEnergy{}|    \\\hline
-    \CCExplosive & \verb|\CCExplosive{}| \\\hline
-    \CCBurn      & \verb|\CCBurn{}|      \\\hline
-    \CCHeat      & \verb|\CCHeat{}|      \\\hline
-    \CCVariable  & \verb|\CCVariable{}|  \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CCKinetic   & \verb|\CCKinetic{}|   \\
+    \CCEnergy    & \verb|\CCEnergy{}|    \\
+    \CCExplosive & \verb|\CCExplosive{}| \\
+    \CCBurn      & \verb|\CCBurn{}|      \\
+    \CCHeat      & \verb|\CCHeat{}|      \\
+    \CCVariable  & \verb|\CCVariable{}|  \\
+\end{NiceTabular}
 
 \paragraph{Attack Symbols}
-\begin{tabular}{|cc|}
-    \hline
-    \CCThreat     & \verb|\CCThreat{}|     \\\hline
-    \CCRange      & \verb|\CCRange{}|      \\\hline
-    \CCLine       & \verb|\CCLine{}|       \\\hline
-    \CCBlast      & \verb|\CCBlast{}|      \\\hline
-    \CCBurst      & \verb|\CCBurst{}|      \\\hline
-    \CCCone       & \verb|\CCCone{}|       \\\hline
-    \CCInvade     & \verb|\CCInvade{}|     \\\hline
-    \CCAccuracy   & \verb|\CCAccuracy{}|   \\\hline
-    \CCDifficulty & \verb|\CCDifficulty{}| \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+
+    \CCThreat     & \verb|\CCThreat{}|     \\
+    \CCRange      & \verb|\CCRange{}|      \\
+    \CCLine       & \verb|\CCLine{}|       \\
+    \CCBlast      & \verb|\CCBlast{}|      \\
+    \CCBurst      & \verb|\CCBurst{}|      \\
+    \CCCone       & \verb|\CCCone{}|       \\
+    \CCInvade     & \verb|\CCInvade{}|     \\
+    \CCAccuracy   & \verb|\CCAccuracy{}|   \\
+    \CCDifficulty & \verb|\CCDifficulty{}| \\
+\end{NiceTabular}
 
 \paragraph{CompCon Symbols}
-\begin{tabular}{|cc|cc|}
-    \hline
-    \CCMovement    & \verb|\CCMovement{}|    & \CCHex        & \verb|\CCHex{}|        \\\hline
-    \CCStructure   & \verb|\CCStructure{}|   & \CCStress     & \verb|\CCStress{}|     \\\hline
-    \CCArmor       & \verb|\CCArmor{}|       & \CCHP         & \verb|\CCHP{}|         \\\hline
-    \CCHollowHex   & \verb|\CCHollowHex{}|   & \CCCircle     & \verb|\CCCircle{}|     \\\hline
-    \CCRepair      & \verb|\CCRepair{}|      & \CCCP         & \verb|\CCCP{}|         \\\hline
-    \CCEffect      & \verb|\CCEffect{}|      & \CCSystem     & \verb|\CCSystem{}|     \\\hline
-    \CCEvasion     & \verb|\CCEvasion{}|     & \CCEDEF       & \verb|\CCEDEF{}|       \\\hline
-    \CCActivation  & \verb|\CCActivation{}|  & \CCGear       & \verb|\CCGear{}|       \\\hline
-    \CCOvercharge  & \verb|\CCOvercharge{}|  & \CCOvershield & \verb|\CCOvershield{}| \\\hline
-    \CCSystemPoint & \verb|\CCSystemPoint{}| & \CCDrone      & \verb|\CCDrone{}|      \\\hline
-    \CCDeployable  & \verb|\CCDeployable{}|  & \CCDTwenty    & \verb|\CCDTwenty{}|    \\\hline
-    \CCRoll        & \verb|\CCRoll{}|        &               &                        \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+
+    \CCMovement    & \verb|\CCMovement{}|    & \CCHex        & \verb|\CCHex{}|        \\
+    \CCStructure   & \verb|\CCStructure{}|   & \CCStress     & \verb|\CCStress{}|     \\
+    \CCArmor       & \verb|\CCArmor{}|       & \CCHP         & \verb|\CCHP{}|         \\
+    \CCHollowHex   & \verb|\CCHollowHex{}|   & \CCCircle     & \verb|\CCCircle{}|     \\
+    \CCRepair      & \verb|\CCRepair{}|      & \CCCP         & \verb|\CCCP{}|         \\
+    \CCEffect      & \verb|\CCEffect{}|      & \CCSystem     & \verb|\CCSystem{}|     \\
+    \CCEvasion     & \verb|\CCEvasion{}|     & \CCEDEF       & \verb|\CCEDEF{}|       \\
+    \CCActivation  & \verb|\CCActivation{}|  & \CCGear       & \verb|\CCGear{}|       \\
+    \CCOvercharge  & \verb|\CCOvercharge{}|  & \CCOvershield & \verb|\CCOvershield{}| \\
+    \CCSystemPoint & \verb|\CCSystemPoint{}| & \CCDrone      & \verb|\CCDrone{}|      \\
+    \CCDeployable  & \verb|\CCDeployable{}|  & \CCDTwenty    & \verb|\CCDTwenty{}|    \\
+    \CCRoll        & \verb|\CCRoll{}|        &               &                        \\
+\end{NiceTabular}
 
 \paragraph{Mech Size Symbols}
-\begin{tabular}{|cc|}
-    \hline
-    \CCSizeHalf  & \verb|\CCSizeHalf{}|  \\\hline
-    \CCSizeOne   & \verb|\CCSizeOne{}|   \\\hline
-    \CCSizeTwo   & \verb|\CCSizeTwo{}|   \\\hline
-    \CCSizeThree & \verb|\CCSizeThree{}| \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+
+    \CCSizeHalf  & \verb|\CCSizeHalf{}|  \\
+    \CCSizeOne   & \verb|\CCSizeOne{}|   \\
+    \CCSizeTwo   & \verb|\CCSizeTwo{}|   \\
+    \CCSizeThree & \verb|\CCSizeThree{}| \\
+\end{NiceTabular}
 
 \paragraph{NPC Class Symbols}
-\begin{tabular}{|cc|}
-    \hline
-    \CCArtillery  & \verb|\CCArtillery{}|  \\\hline
-    \CCBiological & \verb|\CCBiological{}| \\\hline
-    \CCController & \verb|\CCController{}| \\\hline
-    \CCDefender   & \verb|\CCDefender{}|   \\\hline
-    \CCSupport    & \verb|\CCSupport{}|    \\\hline
-    \CCStriker    & \verb|\CCStriker{}|    \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+
+    \CCArtillery  & \verb|\CCArtillery{}|  \\
+    \CCBiological & \verb|\CCBiological{}| \\
+    \CCController & \verb|\CCController{}| \\
+    \CCDefender   & \verb|\CCDefender{}|   \\
+    \CCSupport    & \verb|\CCSupport{}|    \\
+    \CCStriker    & \verb|\CCStriker{}|    \\
+\end{NiceTabular}
 
 \paragraph{NPC Tier Symbols}
-\begin{tabular}{|cc|}
-    \hline
-    \CCTierOne   & \verb|\CCTierOne{}|   \\\hline
-    \CCTierTwo   & \verb|\CCTierTwo{}|   \\\hline
-    \CCTierThree & \verb|\CCTierThree{}| \\\hline
-\end{tabular}
+\begin{NiceTabular}{|cc|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+
+    \CCTierOne   & \verb|\CCTierOne{}|   \\
+    \CCTierTwo   & \verb|\CCTierTwo{}|   \\
+    \CCTierThree & \verb|\CCTierThree{}| \\
+\end{NiceTabular}
 
 \subsubsection{Spacing}
 The most useful tool for spacing is the \verb|\pagebreak| command.  It has an optional argument ranging from 0-4 (ie: \verb|\pagebreak[2]|) that indicates how important it is to break right here.  A 0 means don't break the column here, no matter what.  A 4 means break right now, and is the default value, if you supply none.  If you're in the second column of a page, it moves to the next page.  You can also force it to go all the way to the next page with \verb|\clearpage| or to the next left page (IE: if you had a physical book) using \verb|\cleardoublepage|.
@@ -191,7 +196,7 @@ The most useful tool for spacing is the \verb|\pagebreak| command.  It has an op
 
 ... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/latex/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what there is.
 
-\subsubsection{INFO BOXES}
+\subsubsection{Info Boxes}
 The Lancer rules have several types of fancy boxes.
 
 \paragraph{COLORED BOX}
@@ -302,7 +307,7 @@ You can also mark a section for special emphasis, like the Invade box from the c
     You can also <snip text>
 }{%No Flavor Text
 }
-    \end{lstlisting}
+\end{lstlisting}
 
 \infobox{purple}{
     \textbf{Invade}
@@ -332,21 +337,25 @@ You can also mark a section for special emphasis, like the Invade box from the c
 \paragraph{Tables}
 If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{tabular}| is for single column tables and \verb|\begin{tabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
 
-\begin{tabular}[h]{|ll|}
-    \hline
-    \multicolumn{2}{|l|}{\large\textbf{IDENTITY}\hfill\normalsize\textcolor{gray}{\textbf{ROLL 1D20}}} \\
-    \textbf{1} & An infamous private military corporation.                                             \\
-    \textbf{2} & Glory-seeking warriors.                                                               \\
-    \textbf{3} & Union regulars, career soldiers.                                                      \\\hline
-\end{tabular}
+% \begin{tcolorbox}[colframe=red,colback=white,nobeforeafter,size=tight,boxrule=1mm]
+\begin{NiceTabular}{|lX|}
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \Hline
+    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+    \textbf{1} & An infamous private military corporation.                       \\
+    \textbf{2} & Glory-seeking warriors.                                         \\
+    \textbf{3} & Union regulars, career soldiers.                                \\\Hline
+\end{NiceTabular}
+% \end{tcolorbox}
 \begin{lstlisting}
-\begin{tabular}[h]{|ll|}
-    \hline
-    \multicolumn{2}{|l|}{\Large \textbf{IDENTITY}\hfill\normalsize\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+\begin{NiceTabular}{|lX|}
+    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \Hline
+    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{gray}{\textbf{ROLL 1D20}}} \\
     \textbf{1} & An infamous private military corporation. \\
     \textbf{2} & Glory-seeking warriors. \\
-    \textbf{3} & Union regulars, career soldiers. \\\hline
-\end{tabular}
+    \textbf{3} & Union regulars, career soldiers. \\\Hline
+\end{NiceTabular}
 \end{lstlisting}
 
 \clearpage
@@ -511,6 +520,33 @@ Unsurprisingly, the NPC command is simpler than the Frame command.  It has two a
     \end{lstlisting}
 
 The first few arguments are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get the same magenta box.  For Tiers 2 and 3, you only need to specify the values that change.
+
+\clearpage
+\shipclass{Carriers}{blue}{This is where your flavor text goes.  Image credit JWST.  Thanks NASA!
+
+    You create this by the command shipclass with four arguments. The title at the top of the page, the color of the first column, the flavor text under the image, and the background image.
+
+    \lstinline{\\shipclass\{Carriers\}\{blue\}\{This is where your flavor text goes.  Image credit JWST.  Thanks NASA! <snip recursion>\}\{JWST-Jupiter\}}
+}{JWST-Jupiter}
+
+\LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
+{
+    Contemporary doctrines recognize two distinct uses for carriers in naval combat: launching strike craft and supporting subline vessels.  Subline ships, those smaller than so-called "ships of the line", typically require additional logistical support to maintain effective combat readiness. Carriers built to support squadrons of low- to mid-tonnage subline combat vessels do so not necessarily by housing them in launch bays, but by transporting them and their crews to deployment areas, then providing tactical coordination and a base for resupply and rearmament once engaged.  The Tongass-class line carrier is Union's mainstay subline support vessel, and both its dorsal and ventral umbilical berths and streamlined logistics suites allow it to maintain its escorts on fire-support missions without returning to second- or third-echelon shipyards.
+}
+{A versatile carrier for coordinating both strike craft and subline vessels, with fleetwide command-and-control integration.}
+
+\infobox{orange}{\textbf{\large Close Support}\\{\TechnicalText Trait}}
+{
+Allied battlegroups in your range band may use tactics granted by this ship's \KeyWord{Escorts} as if they were under their control.
+}{}
+
+The Ship command is even simpler.  With only three stats, a few pieces of text, and an image, it's the shortest of all.  The infobox isn't even in the command, just following it, like NPCs.  The next text after the command gets inserted into the second column of the page.
+\begin{lstlisting}
+\LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
+    {<snip flavor text>}
+\infobox{orange}{\textbf{ \large Close Support}\\{\TechnicalText Trait}}
+{<snip trait text>}{}
+\end{lstlisting}
 
 \subsection{IMAGES}
 Adding images is somewhat complicated.  \LaTeX is good, but it doesn't easily contour text around the contents of images the way the core book does many times.  Instead, a few useful commands are provided.
