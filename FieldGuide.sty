@@ -56,7 +56,7 @@
 \newfontfamily\TechnicalText{Consolas}
 
 % Everything should have no indents, and be flush to the left
-\raggedright
+\justifying
 % Keep paragraphs together
 \widowpenalties 1 10000
 % Fill the left column first
@@ -583,6 +583,7 @@
     % Go back to two column mode (which makes page break) and turn headers and footers back on
     \twocolumn
     \pagestyle{LancerFancy}
+    \justifying\normalsize
 }
 
 % Command for making a sub-section box across top of page
@@ -614,6 +615,7 @@
     \label{#1}
     % Add actual title box
     \subsecbox{\MakeUppercase{#1}}
+    \justifying\normalsize
 }
 % ReDefine \subsubsection
 \renewcommand{\subsubsection}[1]{
@@ -626,7 +628,7 @@
     % Create named anchor for links.
     \label{#1}
     % just put big text in.
-    \Large\textbf{\MakeUppercase{\nolinebreak[4]#1}}\normalsize\\*
+    \Large\textbf{\MakeUppercase{\nolinebreak[4]#1}}\justifying\normalsize\\*
 }
 % ReDefine \paragraph
 \renewcommand{\paragraph}[1]{
@@ -634,6 +636,7 @@
     % Add "physical anchor", though it's not actually used
     % Red Big UPPERCASE text
     \pagebreak[1]\phantomsection\normalsize\textcolor{red}{\textbf{\MakeUppercase{\nolinebreak[4]#1}}}\label{#1}\\*
+    \justifying\normalsize
 }
 
 \makeatother
@@ -696,7 +699,7 @@
         \textcolor{red}{\textbf{\FrameName}} \\
          \normalsize\textcolor{red}{\FrameClass}\\
          \begin{tcolorbox}[opacityfill=0,opacityframe=0,colframe=white,width=0.9\textwidth,parbox=false,size=tight]
-            \raggedright\TechnicalText\normalsize{#5}
+             \TechnicalText\normalsize\justify{\righthyphenmin=62 \lefthyphenmin=62 #5}
         \end{tcolorbox}
     \end{center}
     \raggedright
@@ -830,7 +833,7 @@
         \Huge\textcolor{red}{\textbf{\NPCName}} \\
          \normalsize\textcolor{red}{\NPCClass}\\
          \begin{tcolorbox}[opacityfill=0,opacityframe=0,colframe=white,width=0.95\textwidth,parbox=false,size=tight]
-            \raggedright\TechnicalText\normalsize{#2}
+            \TechnicalText\normalsize\justify{\righthyphenmin=62 \lefthyphenmin=62 #2}
         \end{tcolorbox}
     \end{center}
     \tcbset{npcstats/.style={colback=white,size=fbox, sharp corners, boxrule=-1pt, parbox=false, equal height group=nobefaf, nobeforeafter,width=\linewidth/3}}
@@ -972,7 +975,7 @@
         \rowcolor{white}\textbf{\ShipPoints} & \textbf{\ShipHP} & \textbf{\ShipDef} & \textbf{\ShipOptions}
     \end{NiceTabular}
     \end{figure*}
-    {\TechnicalText#2}
+    {\righthyphenmin=62 \lefthyphenmin=62 \TechnicalText\raggedright #2}
     \newpage
 }
 % Define \shiptoc
