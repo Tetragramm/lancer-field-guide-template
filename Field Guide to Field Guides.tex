@@ -196,6 +196,9 @@ The most useful tool for spacing is the \verb|\pagebreak| command.  It has an op
 
 ... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/latex/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what there is.
 
+\paragraph{Columns}
+Switching between one and two column mode is simple, use the commands \verb|\onecolumn| and \verb|\twocolumn|.  Making sure you don't end up with an empty page is trickier.  Each of these starts the new column mode on an empty page, or the empty page it's already on.  So \verb|\onecolumn\section{blah}| ends in two column again, because the section command sets it. \verb|\section{blah}\onecolumn| and \verb|\onecolumn\subsection{blah}| work fine though, because onecolumn creates an empty page and the subsection starts at the top of the empty page.
+
 \subsubsection{Info Boxes}
 The Lancer rules have several types of fancy boxes.
 
@@ -522,11 +525,11 @@ Unsurprisingly, the NPC command is simpler than the Frame command.  It has two a
 The first few arguments are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get the same magenta box.  For Tiers 2 and 3, you only need to specify the values that change.
 
 \clearpage
-\shipclass{Carriers}{blue}{This is where your flavor text goes.  Image credit JWST.  Thanks NASA!
+\shiptoc{Carriers}{blue}{This is where your flavor text goes.  Image credit JWST.  Thanks NASA!
 
-    You create this by the command shipclass with four arguments. The title at the top of the page, the color of the first column, the flavor text under the image, and the background image.
+    You create this by the command shiptoc with four arguments. The title at the top of the page, the color of the first column, the flavor text under the image, and the background image.
 
-    \lstinline{\\shipclass\{Carriers\}\{blue\}\{This is where your flavor text goes.  Image credit JWST.  Thanks NASA! <snip recursion>\}\{JWST-Jupiter\}}
+    \lstinline{\\shiptoc\{Carriers\}\{blue\}\{This is where your flavor text goes.  Image credit JWST.  Thanks NASA! <snip recursion>\}\{JWST-Jupiter\}}
 }{JWST-Jupiter}
 
 \LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
@@ -571,12 +574,12 @@ The next type is the column width image.  \verb|\colwidthimage{imgname}|  This i
 \colwidthimage{BottomRight}
 \pagebreak
 
-And last, the full page image.  \verb|\fullpageimage{imgname}|  This uses the entire width of the page, edge to edge, with no margins.  This is what you use for full-page art.  It triggers the new page commands, so you just put it where you want the break to be.
+And last, the full page image.  \verb|\fullpageimage{imgname}|  This uses the entire width of the page, edge to edge, with no margins.  This is what you use for full-page art.  It triggers the new page commands, so you just put it where you want the break to be.  You might, as a random example, wish to put this before \verb|\maketitle| to be the cover of the book.
 
 \fullpageimage{Intro-Last}
 
 \newpage
-The section after this is a duplication of the Lancer core book's Section 0.  The purpose is to demonstrate how you would replicate a larger section, formatting and all.  Obviously, at this length, the source code is not provided, so you'll need to check out the source on the github. TODO: Link this once created
+The section after this is a duplication of the Lancer core book's Section 0.  The purpose is to demonstrate how you would replicate a larger section, formatting and all.  Obviously, at this length, the source code is not provided, so you'll need to check out the source on the github: \href{https://github.com/Tetragramm/lancer-field-guide-template}{\textcolor{blue}{HERE}}.
 \vfill
 
 \section[Intro-L][Intro-R]{GETTING STARTED}

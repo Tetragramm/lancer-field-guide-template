@@ -687,7 +687,7 @@
     \phantomsection\etoctoccontentsline*{subsubsection}{\protect\numberline{\thesubsubsection}\protect\textcolor{red}{\FrameName}}{3}
     \label{\FrameName}
     % If you have a background image, add it first.
-    \ifstrempty{\FrameBackgroundImage}{}{\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\FrameBackgroundImage}}}
+    \ifdefempty{\FrameBackgroundImage}{}{\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\FrameBackgroundImage}}}
     % You can see the keys are being used, like \FrameManufacturer just below
     % AFter the flavor text you get a box inside a box, which is split in two by the \tcblower command
     \begin{figure*}[t]
@@ -772,7 +772,7 @@
     \end{figure*}
     \newpage
     % If you have an image, it goes on the next page
-    \ifstrempty{\FrameFacingImage}{}{\begin{figure*}[h]\textwidthimage{\FrameFacingImage}\end{figure*}}
+    \ifdefempty{\FrameFacingImage}{}{\begin{figure*}[h]\textwidthimage{\FrameFacingImage}\end{figure*}}
     \restoregeometry
 }
 
@@ -942,7 +942,7 @@
     execute style/.style = {#1},
     execute macro/.style = {execute style/.expand once=#1},
     Name/.store in = \ShipName,
-    Class/.store in = \ShipClass,
+    Class/.store in = \shiptoc,
     Manufacturer/.store in = \ShipManufacturer,
     HP/.store in = \ShipHP,
     Defense/.store in = \ShipDef,
@@ -962,10 +962,10 @@
     \label{\ShipName}
     % Same as LancerFrame, but you get three boxes next to each other, instead of one box split in two.
     \begin{figure*}[t]
-    \ifstrempty{\ShipImage}{}{\textwidthimage{\ShipImage}}
+    \ifdefempty{\ShipImage}{}{\textwidthimage{\ShipImage}}
     \begin{center}
         \Huge\textcolor{red}{\ShipManufacturer} \\
-        \Huge\textcolor{red}{\textbf{\MakeUppercase{\ShipName-CLASS \ShipClass}}} \\
+        \Huge\textcolor{red}{\textbf{\MakeUppercase{\ShipName-CLASS \shiptoc}}} \\
     \end{center}
     \begin{NiceTabular}[width=\textwidth,hvlines]{X[1,c]X[1,c]X[1,c]X[5,c]}
         \rowcolor{red}\textcolor{white}{\textbf{POINTS}} & \textcolor{white}{\textbf{HP}} & \textcolor{white}{\textbf{DEFENSE}} & \textcolor{white}{\textbf{OPTIONS}}\\
@@ -975,8 +975,8 @@
     {\TechnicalText#2}
     \newpage
 }
-% Define \shipclass
-\newcommand{\shipclass}[4]{
+% Define \shiptoc
+\newcommand{\shiptoc}[4]{
     % If you have to, break page before this, 
     \pagebreak[2]
     \thispagestyle{LancerFancyNoHead}
