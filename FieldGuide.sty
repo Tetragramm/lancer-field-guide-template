@@ -451,7 +451,7 @@
     \begin{tikzpicture}[remember picture, overlay]
         % Two nodes to make the triangles in the corner
         % Note the use of thepagepercent to change the color from red to black
-        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=3.6cm, rotate=90] (base) at (current page.south west) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=3.6cm, rotate=90] (base) at (current page.south west) {};
         \draw[red,line width=0.1cm] ([xshift=(0.25cm),yshift=(-0.1cm)]base.right corner) -- ([xshift=(-0.1cm),yshift=(0.25cm)]base.east);
         % Page number goes in the corner
         \node[anchor=south west, xshift=2em, yshift=2em] (num) at (current page.south west) {\Large\textbf{\textcolor{white}{[\thepage]}}};
@@ -464,7 +464,7 @@
     \begin{tikzpicture}[remember picture, overlay]
         % Two nodes to make the triangles in the corner
         % Note the use of thepagepercent to change the color from red to black
-        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red!\thepagepercent!black, anchor=west, minimum height=3.6cm, rotate=90] (base) at (current page.south east) {};
+        \node[style=isosceles triangle, isosceles triangle apex angle=90, fill=red, anchor=west, minimum height=3.6cm, rotate=90] (base) at (current page.south east) {};
         \draw[red,line width=0.1cm] ([xshift=(-0.25cm),yshift=(-0.1cm)]base.left corner) -- ([xshift=(0.1cm),yshift=(0.25cm)]base.east);
         % Page number goes in the corner
         \node[anchor=south east, xshift=-2em, yshift=2em] (num) at (current page.south east) {\Large\textbf{\textcolor{white}{[\thepage]}}};
