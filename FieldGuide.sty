@@ -46,14 +46,28 @@
 % consolas is the "TechnicalText" font, ie: weapon statlines
 % compcon has the custom symbols from the compcon website
 % matdes has more symbols, thanks google
-\setmainfont{Arial}
+% \setmainfont{Arial}
+\setmainfont{Arimo-Regular}[
+    Path=./fonts/,
+    Extension=.ttf,
+    BoldFont=Arimo-Bold,
+    ItalicFont=Arimo-Italic,
+    BoldItalicFont=Arimo-BoldItalic,
+]
 \newfontfamily\compcon{compcon.ttf}[
     Path=./fonts/,
     ]
 \newfontfamily\matdes{materialdesignicons-webfont.ttf}[
     Path=./fonts/,
     ]
-\newfontfamily\TechnicalText{Consolas}
+% \newfontfamily\TechnicalText{Consolas}
+\newfontfamily\TechnicalText{Inconsolata-Regular}[
+    Path=./fonts/,
+    Extension=.ttf,
+    BoldFont=Inconsolata-Bold,
+    AutoFakeSlant=0.2,      
+    Ligatures={{TeX}},
+]
 
 % Everything should have no indents, and be flush to the left
 \justifying
