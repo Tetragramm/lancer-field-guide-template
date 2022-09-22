@@ -4,9 +4,9 @@
 \usepackage{lipsum}
 \usepackage{adjustbox}
 \lstset{frame=tb,
-  language=[LaTeX]TeX,
+  language=[LaTeX{}]TeX,
   aboveskip=3mm,
-  belowskip=3mm,
+  belowskip=0mm,
   breaklines=true,
   showstringspaces=false,
   columns=flexible,
@@ -43,21 +43,21 @@
 \section{INTRODUCTION TO THE FIELD GUIDE}
 \subsection{FIRST QUESTIONS}
 \subsubsection{A Template}
-This document is produced using, and describes how to use, the Lancer Field Guide package for \LaTeX.  It makes it (relatively) simple to create a document in the format of the official Lancer content.
+This document is produced using, and describes how to use, the Lancer Field Guide package for \LaTeX{}.  It makes it (relatively) simple to create a document in the format of the official Lancer content.
 
-It's important to know that \LaTeX is a text markup language that gets compiled to PDF files.  It's very like a programming language.  However, this package (the FieldGuide.sty file), hides as much of the complexity as I can so all you have to do is type in your text, numbers, and image names.
+It's important to know that \LaTeX{} is a text markup language that gets compiled to PDF files.  It's very like a programming language.  However, this package (the FieldGuide.sty file), hides as much of the complexity as possible so all you have to do is type in text, numbers, and image names.
 
 \subsubsection{Why LaTeX?}
-First of all, \LaTeX  is free.  Both in the money sense, and in the information sense.  You can download it on pretty much any computer and use it.
+First of all, \LaTeX{} is free, both in the money sense, and in the information sense.  You can download it on pretty much any computer and use it.
 
-It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX  expert.  I've probably messed things up horribly in this template, but I do hope it will be useful to at least one person to help them make better Lancer content, without worrying about graphic design.
+It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX{}  expert.  I hope this template will be useful to you and help you make better Lancer content, without worrying about graphic design.
 
 \subsubsection{First Steps}
-First, you need to install \LaTeX.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), there's a lot of useful packages it will download.
+First, install \LaTeX{}.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), because there are a lot of useful packages it will download in tiny pieces.
 
-While that's going on, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX, and is very good to have open as you work.
+As it downloads, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX{}, and is very good to have open as you work.
 
-Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX  that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
+Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX{}  that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
 
 \subsubsection{About the Template}
 The template is in two parts.  Most important is the file FieldGuide.sty, which defines a lot of useful commands, symbols, and formatting.  Second is the file Main.tex, which sets up the skeleton that you will be filling out.
@@ -85,16 +85,16 @@ Here is the full text of Main.tex, and we'll use this to explain what it does, t
     \mainmatter
 \end{document}
 \end{lstlisting}
-First is the preamble, everything before \verb|\begin{document}|.  The first line you shouldn't mess with, as it defines the basic format of the book.  The usepackage command includes the FieldGuide.sty file, and you can also use it to import other \LaTeX packages. Next in the preamble are three settings.
+First is the preamble, everything before \verb|\begin{document}|.  The first line you shouldn't mess with, as it defines the basic format of the book.  The usepackage command includes the FieldGuide.sty file, and you can also use it to import other \LaTeX{} packages. Next in the preamble are three settings.
 \begin{itemize}
     \item The graphicspath defines where it looks for images.  So if you've already got all the images in a specific folder, define it here.
-    \item The renewcommand option exists to make the table of contents all uppercase.  Whenever you define a section, subsection, or subsubsection, the name you type in gets used everywhere, but this makes it appear uppercase in the contents.  If you turn it off, it will just be however you typed it.  Just be consistent.
+    \item The renewcommand option exists to make the table of contents all uppercase.  Whenever you define a section, subsection, or subsubsection, the name you type in gets used everywhere, but this makes it appear uppercase in the contents.  If you turn it off, it will just be however you typed it.  Either way works, just be consistent.
     \item The setcounter option makes the first Section number into 0, like the core Lancer book does.  If you want to start at one, just comment it out.
 \end{itemize}
 
 After \verb|\begin{document}|, there is the content of the document, which you will be modifying.  The frontmatter command starts the roman numeral page numbering, and sets the style, while the maketitle command inserts the title page using the title and author set in the preamble.  You may add additional text below the maketitle command to show other text, acknowledgements, ect.
 
-One thing you may want to do is add a full-page cover.  If you do, before the call to maketitle, add a fullpageimage command, referencing your cover (see \hyperref[Images]{Adding Images}).
+One thing you may want to do is add a full-page cover.  If you do, add a fullpageimage command, referencing your cover (see \hyperref[Images]{Adding Images}).
 
 The tableofcontents command inserts the table of contents.  The mainmatter command switches to arabic page numbers and indicates you're ready to go by filling in empty space until the next left page.
 
@@ -110,7 +110,7 @@ You will be wanting to divide and sub-divide your Field Guide to keep things org
 
 A subsection starts on a left page and places a banner across the top of the page, like \hyperref[USEFUL AND CUSTOM COMMANDS]{\textcolor{blue}{USEFUL AND CUSTOM COMMANDS}}.  You create it by, drumroll please... \verb|\subsection{SUBSECTION NAME}|. A subsubsection, like \hyperref[Sections]{\textcolor{blue}{Sections}} is created by \verb|\subsubsection{SubSubSection Name}|, and a named paragraph, like \hyperref[Damage Symbols]{\textcolor{blue}{Damage Symbols}}, is created with \verb|\paragraph{Title}|.
 
-\textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No latex macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
+\textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No LaTeX{} macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
 
 \subsubsection{Lancer Symbols}
 Lancer has a great deal of custom symbols, contained in a custom font, which is automatically included.
@@ -194,7 +194,7 @@ The most useful tool for spacing is the \verb|\pagebreak| command.  It has an op
 
 \quad For a space like the indentation of this paragraph, use the \verb|\quad| command, or \verb|\qquad| for twice the space.  To add a gap that pushes text to the right, use \verb|\hfill| \hfill like so.
 
-... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/latex/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what there is.
+... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX{} has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/LaTeX{}/Lengths_in_LaTeX{}}{\textcolor{blue}{documentation}} to find out what is available.
 
 \paragraph{Columns}
 Switching between one and two column mode is simple, use the commands \verb|\onecolumn| and \verb|\twocolumn|.  Making sure you don't end up with an empty page is trickier.  Each of these starts the new column mode on an empty page, or the empty page it's already on.  So \verb|\onecolumn\section{blah}| ends in two column again, because the section command sets it. \verb|\section{blah}\onecolumn| and \verb|\onecolumn\subsection{blah}| work fine though, because onecolumn creates an empty page and the subsection starts at the top of the empty page.
@@ -203,9 +203,9 @@ Switching between one and two column mode is simple, use the commands \verb|\one
 The Lancer rules have several types of fancy boxes.
 
 \paragraph{COLORED BOX}
-The most basic is the flat, rectangular, colored box. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
+The most basic is the flat, rectangular, colored box. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/LaTeX{}/Using_colours_in_LaTeX{}}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
 
-There are two arguments.  Box color, and text.  You can format the text as usual for latex, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you use your own light color for the box.  Or if you think it looks better.)
+There are two arguments.  Box color, and text.  You can format the text as usual for LaTeX{}, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you use your own light color for the box.  Or if you think it looks better.)
 
 This box is what you use when defining terms, such as on page 20 of the core book, or for Talents
 
@@ -246,7 +246,7 @@ produces the output
 }
 
 \paragraph{CORNER BOX}
-Another type of box is very similar to the previous, but with no title.  It's used on page 66 of the core book.  The command has two options: Color, and Body Text. The color is automatically shaded towards white, so it has the same color as the body of a similar titledcornerbox.
+Another type of box is very similar to the previous, but with no title.  It's used on page 66 of the Core book.  The command has two options: Color, and Body Text. The color is automatically shaded towards white, so it has the same color as the body of a similar titledcornerbox.
 
 \begin{lstlisting}
 \cornerbox{red}{
@@ -271,7 +271,7 @@ produces the output
 
 \paragraph{INFO BOX}
 
-And probably the most common type of box in the book, the what is here called the ``Info Box''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments.  The color, the title, the mechanical text, and (optionally) the flavor text.  If you don't have any flavor text, just leave that argument empty, just a \verb|{}|.
+And probably the most common type of box in the book, here called the ``infobox''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments: the color, the title, the mechanical text, and (optionally) the flavor text.  If you don't have flavor text, just leave that argument empty, like so: \verb|{}|.
 
 \begin{lstlisting}
 \infobox{black}{
@@ -340,7 +340,6 @@ You can also mark a section for special emphasis, like the Invade box from the c
 \paragraph{Tables}
 If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{tabular}| is for single column tables and \verb|\begin{tabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
 
-% \begin{tcolorbox}[colframe=red,colback=white,nobeforeafter,size=tight,boxrule=1mm]
 \begin{NiceTabular}{|lX|}
     \CodeBefore\rowcolors{0}{white}{lightgray}\Body
     \Hline
@@ -349,7 +348,6 @@ If you're making your own random roll tables, you'll need to know how to make a 
     \textbf{2} & Glory-seeking warriors.                                         \\
     \textbf{3} & Union regulars, career soldiers.                                \\\Hline
 \end{NiceTabular}
-% \end{tcolorbox}
 \begin{lstlisting}
 \begin{NiceTabular}{|lX|}
     \CodeBefore\rowcolors{0}{white}{lightgray}\Body
@@ -366,6 +364,12 @@ If you're making your own random roll tables, you'll need to know how to make a 
 
 While not strictly a box, the page for a new Lancer Frame is an important thing to automate.  It is significantly more complicated than anything else, and takes up one or two pages.  There are a total of 5 arguments, which will be shown separately, so commentary can be interspersed.
 
+The first argument is the a set of key=value pairs representing Frame stats, name, and, in truth, all the things that can be described in a single value.  The only two truly optional values are the Background Image and the Facing Image.  Background Image is a full screen image, placed behind everything like the company logos in the core book.  Facing Image is the optional image on the facing page, like the Drake in the core book.  It is optional because some mechs may not have art, and you simply want to start in on the License Levels.  If you don't want them, simply don't provide the argument.
+
+Everything else is required. If you forget to put one of the values in, then the result will be a magenta colored box.  As an example, the Speed option has been removed from the next page.  If you \textit{really} want to have a blank space, fill the argument with \verb|{}| instead.
+
+You can have dual class Frames.  For example: \verb|Class=Defender\slash{}Controller|\\\verb|Class Icon={\CCDefender{}\\\CCController{}}|.
+
 \begin{minipage}{\linewidth}
     \begin{lstlisting}
 \LancerFrame[Stats]{Traits}{Mounts}{Core Power}{Flavor Text}
@@ -373,12 +377,8 @@ While not strictly a box, the page for a new Lancer Frame is an important thing 
 \LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2, Class=Defender, Class Icon=\CCDefender{}, Armor=3, HP=8, SP=5, Evasion=6, E-Defense=6, Heat Cap=5, Sensors=10, Tech Attack=+0, Repair Cap=5, Save Target=10, Speed=3, Background Image=IPS-N-Background, Facing Image=Drake-Facing]
     \end{lstlisting}
 \end{minipage}
-The first argument is the Frame stats, name, and, in truth, all the things that can be described in a single value.  The only two truly optional values are the Background Image and the Facing Image.  Background Image is a full screen image, placed behind everything like the company logos in the core book.  Facing Image is the optional image on the facing page, like the Drake in the core book.  It is optional because some mechs may not have art, and you simply want to start in on the License Levels.  If you don't want them, simply don't provide the argument.
 
-Everything else is required. If you forget to put one of the values in, then the result will be a magenta colored box.  To demonstrate, the Speed option has been removed from the next page.  If you \textit{really} want to have a blank space, fill the argument with \verb|{}| instead.
-
-You can have dual class Frames.  For example: \verb|Class=Defender\slash{}Controller|\\\verb|Class Icon={\CCDefender{}\\\CCController{}}|.
-
+The second argument is the Traits of the frame.  Usually it's a set of \hyperref{TITLED CORNER BOX}{titled corner boxes} saying what the frame does.  Honestly, not too complicated.
 \begin{minipage}{\linewidth}
     \begin{lstlisting}
 {\titledcornerbox{red}{HEAVY FRAME}{The Drake can't be pushed, pulled, knocked \KeyWord{Prone}, or knocked back by smaller characters.}
@@ -388,15 +388,15 @@ You can have dual class Frames.  For example: \verb|Class=Defender\slash{}Contro
 }
     \end{lstlisting}
 \end{minipage}
-The second argument is the Traits of the frame.  Usually it's a set of \hyperref{TITLED CORNER BOX}{titled corner boxes} saying what the frame does.  Honestly, not too complicated.
 
+Neither is the list of mounts. Just look at the available ones \hyperref[MOUNT BOX]{HERE}.
 \begin{minipage}{\linewidth}
     \begin{lstlisting}
 {\MainMount\MainMount\HeavyMount}
     \end{lstlisting}
 \end{minipage}
-Neither is the list of mounts. Just look at the available ones \hyperref[MOUNT BOX]{HERE}.
 
+Fourth, the Core System is marginally more complicated, but usually just because it has more content.  Insert the typical boxes and infoboxes and such as needed to make up that content.
 \begin{minipage}{\linewidth}
     \begin{lstlisting}
 {\Large\textbf{FORTRESS}
@@ -424,7 +424,6 @@ scene.}{%No Flavor Text
 }
     \end{lstlisting}
 \end{minipage}
-The Core System is marginally more complicated, but usually just because it has more content.  Insert the typical boxes and info boxes and such as needed to make up that content.
 
 Last is the Frame's flavor text.  There's no example.  It's just text, and if you wanted to you could put bold, boxes, or other fancy effects, go right ahead.  Maybe some pretty colors?
 
@@ -522,7 +521,7 @@ Unsurprisingly, the NPC command is simpler than the Frame command.  It has two a
         Tier3={Hull=+3, Systems=+3, Agility=+3, Engineering=+3, HP=21, Evasion=12, E-Defense=10, Save Target=14}] {Flavor text goes here.}
     \end{lstlisting}
 
-The first few arguments are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get the same magenta box.  For Tiers 2 and 3, you only need to specify the values that change.
+The first few key values are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get a magenta box.  For Tiers 2 and 3, you only need to specify the values that change from Tier 1.
 
 \clearpage
 \shiptoc{Carriers}{blue}{This is where your flavor text goes.  Image credit JWST.  Thanks NASA!
@@ -543,7 +542,7 @@ The first few arguments are the same as the LancerFrame command.  The Tiers are 
 Allied battlegroups in your range band may use tactics granted by this ship's \KeyWord{Escorts} as if they were under their control.
 }{}
 
-The Ship command is even simpler.  With only three stats, a few pieces of text, and an image, it's the shortest of all.  The infobox isn't even in the command, just following it, like NPCs.  The next text after the command gets inserted into the second column of the page.
+The Ship command is even simpler.  With only three stats, a few pieces of text, and an image, it's the shortest of all.  The infoboxes aren't even in the command, just following it, like NPCs.  The next text after the command gets inserted into the second column of the page.
 \begin{lstlisting}
 \LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
     {<snip flavor text>}
@@ -552,9 +551,9 @@ The Ship command is even simpler.  With only three stats, a few pieces of text, 
 \end{lstlisting}
 
 \subsection{IMAGES}
-Adding images is somewhat complicated.  \LaTeX is good, but it doesn't easily contour text around the contents of images the way the core book does many times.  Instead, a few useful commands are provided.
+Adding images is somewhat complicated.  \LaTeX{} is good, but it doesn't easily contour text around the contents of images the way the core book does many times.  Instead, a few useful commands are provided.
 
-First is adding an image to the bottom of the page, across both columns.  The command for this is \verb|\bottomimage{imgname}|.  It is important that this command be included with the text in the left column, or \LaTeX won't know how much space at the bottom of the page to reserve.  Don't worry, it will always be pushed to the bottom of the page, even if that means moving text from after the command to before the image.
+First is adding an image to the bottom of the page, across both columns.  The command for this is \verb|\bottomimage{imgname}|.  It is important that this command be included with the text in the left column, or \LaTeX{} won't know how much space at the bottom of the page to reserve.  Don't worry, it will always be pushed to the bottom of the page, even if that means moving text from after the command to before the image.
 
 The command \verb|\topimage{imgname}| works the same way, just at the top of the page.  In the mean-time, have some filler text to show how the text wraps until we describe the next image type.
 
@@ -562,7 +561,7 @@ The command \verb|\topimage{imgname}| works the same way, just at the top of the
 
 \lipsum[1-2]
 
-The next type is the full column image.  The command is \verb|\colimage{imgname}|, and it breaks the column (and possibly the page), fills the next, and then breaks again.  It scales the image to half the page width, so make your image's aspect ratio accordingly.  It also turns off page numbers, headers, and footers for the page, because they would draw over the image and look odd.  It will automatically detect which column it is in and
+The next type is the full column image.  The command is \verb|\colimage{imgname}|, and it breaks the column (and possibly the page), fills the next, and then breaks again.  It scales the image to half the page width, so make your image's aspect ratio accordingly.  It also turns off page numbers, headers, and footers for the page, because they would draw over the image and look odd.  It will automatically detect which column it is in and align it appropriately.
 
 \colimage{FullCol}
 
