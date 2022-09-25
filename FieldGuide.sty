@@ -100,23 +100,39 @@
 
 
 % Define the colors used in the Lancer Core book
-\definecolor{red}{RGB}{193, 31, 37}
-\definecolor{RED}{RGB}{193, 31, 37}
-\definecolor{purple}{RGB}{103,58,183}
-\definecolor{turquoise}{RGB}{0,118,118}
-\definecolor{blue}{RGB}{58,129,195}
-\definecolor{green}{RGB}{88,180,52}
-\definecolor{orange}{RGB}{199,89,0}
-\definecolor{magenta}{RGB}{190,81,237}
-% Also give them names based on what they are for
-\definecolor{system}{RGB}{193, 31, 37}
-\definecolor{weapon}{RGB}{0,0,0}
-\definecolor{tech}{RGB}{103,58,183}
-\definecolor{background}{RGB}{103,58,183}
-\definecolor{reaction}{RGB}{0,118,118}
-\definecolor{tech}{RGB}{57,73,171}
-\definecolor{systemaction}{RGB}{88,180,52}
-\definecolor{protocol}{RGB}{199,89,0}
+\definecolor{lightestred}{RGB}{225,72,75}
+\definecolor{cherryred}{RGB}{209,27,32}
+\definecolor{red}{RGB}{194, 31, 37}
+\definecolor{RED}{RGB}{194, 31, 37}
+\definecolor{deepred}{RGB}{143,0,1}
+\definecolor{darkred}{RGB}{100,10,13}
+\definecolor{darkerred}{RGB}{69,3,4}
+\definecolor{darkestred}{RGB}{52,0,0}
+\definecolor{tablegrey}{RGB}{224,226,229}
+\definecolor{gearbrown}{RGB}{75,0,13}
+\definecolor{downtimetan}{RGB}{143,80,54}
+\definecolor{combatcharcoal}{RGB}{34,30,31}
+\definecolor{downtimetan}{RGB}{143,80,54}
+\definecolor{weaponblack}{RGB}{0,0,0}
+\definecolor{protocolorange}{RGB}{199,89,0}
+\definecolor{actiongreen}{RGB}{103,188,69}
+\definecolor{reactionteal}{RGB}{10,118,117}
+\definecolor{talentblue}{RGB}{58,129,195}
+\definecolor{techactionplum}{RGB}{125,36,119}
+\definecolor{narrativepurple}{RGB}{135,0,127}
+%redefine basic colors if people are lazy
+\definecolor{lightred}{named}{ligtestred}
+\definecolor{lightgrey}{named}{tablegrey}
+\definecolor{grey}{RGB}{146,148,151}
+\definecolor{gray}{named}{grey}
+\definecolor{brown}{named}{gearbrown}
+\definecolor{tan}{named}{downtimetan}
+\definecolor{orange}{named}{protocolorange}
+\definecolor{green}{named}{actiongreen}
+\definecolor{teal}{named}{reactionteal}
+\definecolor{blue}{named}{talentblue}
+\definecolor{plum}{named}{techactionplum}
+\definecolor{purple}{named}{narrativepurple}
 
 % Set the style for tables
 \setlength\extrarowheight{0.5em}
@@ -519,6 +535,17 @@
 \end{tikzpicture}
 \clearpage
 }
+% Image filling page edge to edge but with framing
+\newcommand{\fullpageimagewframe}[1]{
+\clearpage
+\phantomsection\label{#1}
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center, inner sep=0pt] (image) at (current page.center) {
+        \includegraphics[width=\paperwidth, keepaspectratio]{#1}
+    };
+\end{tikzpicture}
+\clearpage
+}
 % Image at the top of the page across both columns
 \newcommand{\topimage}[1]{
     \begin{figure*}[t]
@@ -799,7 +826,7 @@
     \end{figure*}
     \newpage
     % If you have an image, it goes on the next page
-    \ifdefempty{\FrameFacingImage}{}{\begin{figure*}[h]\phantomsection\label{\FrameFacingImage}\textwidthimage{\FrameFacingImage}\end{figure*}
+    \ifdefempty{\FrameFacingImage}{}{\fullpageimagewframe{\FrameFacingImage}
     \clearpage}
 }
 
@@ -885,7 +912,7 @@
             \textbf{Save Target:} \NPCSaveTarget{}\\
         \end{multicols*}
     \end{tcolorbox}%
-    \begin{tcolorbox}[npcstats, colframe=red!50!black, title=\textbf{TIER 2}, leftrule=2pt]
+    \begin{tcolorbox}[npcstats, colframe=deepred, title=\textbf{TIER 2}, leftrule=2pt]
         \pgfkeys{LancerNPC, execute macro=\NPCTierOne, execute macro=\NPCTierTwo}
         \large\textbf{MECH SKILLS}\normalsize \\
         \begin{multicols*}{2}
@@ -909,7 +936,7 @@
             \textbf{Save Target:} \NPCSaveTarget{}\\
         \end{multicols*}
     \end{tcolorbox}%
-    \begin{tcolorbox}[npcstats, colframe=black, title=\textbf{TIER 3}, leftrule=2pt]
+    \begin{tcolorbox}[npcstats, colframe=darkerred, title=\textbf{TIER 3}, leftrule=2pt]
         \pgfkeys{LancerNPC, execute macro=\NPCTierOne, execute macro=\NPCTierTwo, execute macro=\NPCTierThree}
         \large\textbf{MECH SKILLS}\normalsize \\
         \begin{multicols*}{2}
