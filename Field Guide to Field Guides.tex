@@ -4,7 +4,7 @@
 \usepackage{lipsum}
 \usepackage{adjustbox}
 \lstset{frame=tb,
-  language=[LaTeX{}]TeX,
+  language=[LaTeX]TeX,
   aboveskip=3mm,
   belowskip=0mm,
   breaklines=true,
@@ -110,13 +110,13 @@ You will be wanting to divide and sub-divide your Field Guide to keep things org
 
 A subsection starts on a left page and places a banner across the top of the page, like \hyperref[USEFUL AND CUSTOM COMMANDS]{\textcolor{blue}{USEFUL AND CUSTOM COMMANDS}}.  You create it by, drumroll please... \verb|\subsection{SUBSECTION NAME}|. A subsubsection, like \hyperref[Sections]{\textcolor{blue}{Sections}} is created by \verb|\subsubsection{SubSubSection Name}|, and a named paragraph, like \hyperref[Damage Symbols]{\textcolor{blue}{Damage Symbols}}, is created with \verb|\paragraph{Title}|.
 
-\textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No LaTeX{} macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
+\textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No \LaTeX{} macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
 
 \subsubsection{Lancer Symbols}
 Lancer has a great deal of custom symbols, contained in a custom font, which is automatically included.
 \paragraph{Damage Symbols}
 \begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
     \CCKinetic   & \verb|\CCKinetic{}|   \\
     \CCEnergy    & \verb|\CCEnergy{}|    \\
     \CCExplosive & \verb|\CCExplosive{}| \\
@@ -127,7 +127,7 @@ Lancer has a great deal of custom symbols, contained in a custom font, which is 
 
 \paragraph{Attack Symbols}
 \begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
     \CCThreat     & \verb|\CCThreat{}|     \\
     \CCRange      & \verb|\CCRange{}|      \\
@@ -142,7 +142,7 @@ Lancer has a great deal of custom symbols, contained in a custom font, which is 
 
 \paragraph{CompCon Symbols}
 \begin{NiceTabular}{|cc|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
     \CCMovement    & \verb|\CCMovement{}|    & \CCHex        & \verb|\CCHex{}|        \\
     \CCStructure   & \verb|\CCStructure{}|   & \CCStress     & \verb|\CCStress{}|     \\
@@ -160,7 +160,7 @@ Lancer has a great deal of custom symbols, contained in a custom font, which is 
 
 \paragraph{Mech Size Symbols}
 \begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
     \CCSizeHalf  & \verb|\CCSizeHalf{}|  \\
     \CCSizeOne   & \verb|\CCSizeOne{}|   \\
@@ -170,7 +170,7 @@ Lancer has a great deal of custom symbols, contained in a custom font, which is 
 
 \paragraph{NPC Class Symbols}
 \begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
     \CCArtillery  & \verb|\CCArtillery{}|  \\
     \CCBiological & \verb|\CCBiological{}| \\
@@ -182,7 +182,7 @@ Lancer has a great deal of custom symbols, contained in a custom font, which is 
 
 \paragraph{NPC Tier Symbols}
 \begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
     \CCTierOne   & \verb|\CCTierOne{}|   \\
     \CCTierTwo   & \verb|\CCTierTwo{}|   \\
@@ -194,38 +194,80 @@ The most useful tool for spacing is the \verb|\pagebreak| command.  It has an op
 
 \quad For a space like the indentation of this paragraph, use the \verb|\quad| command, or \verb|\qquad| for twice the space.  To add a gap that pushes text to the right, use \verb|\hfill| \hfill like so.
 
-... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX{} has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/LaTeX{}/Lengths_in_LaTeX{}}{\textcolor{blue}{documentation}} to find out what is available.
+... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX{} has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/LaTeX/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what is available.
 
 \paragraph{Columns}
 Switching between one and two column mode is simple, use the commands \verb|\onecolumn| and \verb|\twocolumn|.  Making sure you don't end up with an empty page is trickier.  Each of these starts the new column mode on an empty page, or the empty page it's already on.  So \verb|\onecolumn\section{blah}| ends in two column again, because the section command sets it. \verb|\section{blah}\onecolumn| and \verb|\onecolumn\subsection{blah}| work fine though, because onecolumn creates an empty page and the subsection starts at the top of the empty page.
 
 \subsubsection{Info Boxes}
-The Lancer rules have several types of fancy boxes.
+The Lancer rules have several types of fancy boxes. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/LaTeX/Using_colours_in_LaTeX}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
 
 \paragraph{COLORED BOX}
-The most basic is the flat, rectangular, colored box. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/LaTeX{}/Using_colours_in_LaTeX{}}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
+The most basic is the flat, rectangular, colored box. There are two arguments.  Box color, and text.  You can format the text as usual for \LaTeX{}, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you think it looks better.) This box is what you use when defining terms, such as on page 20 of the core book, or for Talents.  
 
-There are two arguments.  Box color, and text.  You can format the text as usual for LaTeX{}, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you use your own light color for the box.  Or if you think it looks better.)
-
-This box is what you use when defining terms, such as on page 20 of the core book, or for Talents
+Here is where you can see the predefined colors and what they are used for, one box for each color.
 
 \begin{lstlisting}
-\lancercolorbox{red}{red}\\
-\lancercolorbox{purple}{purple}\\
-\lancercolorbox{turquoise}{turquoise}\\
-\lancercolorbox{blue}{blue}\\
-\lancercolorbox{green}{green}\\
-\lancercolorbox{orange}{orange}\\
-\lancercolorbox{magenta}{magenta}
+\lancercolorbox{lightestred}{\textbf{lightestred}}
+ect, for each color
     \end{lstlisting}
 
-\lancercolorbox{red}{red}\\
-\lancercolorbox{purple}{purple}\\
-\lancercolorbox{turquoise}{turquoise}\\
-\lancercolorbox{blue}{blue}\\
-\lancercolorbox{green}{green}\\
-\lancercolorbox{orange}{orange}\\
-\lancercolorbox{magenta}{magenta}
+\lancercolorbox{lightestred}{\textbf{lightestred}}\\*
+License I Header, some footers
+
+\lancercolorbox{cherryred}{\textbf{cherryred}}\\*
+Some Sidebars, some footers, some table borders (Sitrep diagrams)
+
+\lancercolorbox{red}{\textbf{red}}\\*
+General Use (Default Color)
+
+\lancercolorbox{deepred}{\textbf{deepred}}\\*
+License II Header, some footers
+
+\lancercolorbox{darkred}{\textbf{darkred}}\\*
+Read Aloud Text
+
+\lancercolorbox{darkerred}{\textbf{darkerred}}\\*
+License III Header, some Footers
+
+\lancercolorbox{darkestred}{\textbf{darkestred}}\\*
+Some Footers
+
+\lancercolorbox{tablegrey}{\textbf{tablegrey}}\\*
+Banded table backgrounds
+
+\lancercolorbox{grey}{\textbf{grey}}\\*
+Subtle text
+
+\lancercolorbox{gearbrown}{\textbf{gearbrown}}\\*
+Pilot Gear
+
+\lancercolorbox{downtimetan}{\textbf{downtimetan}}\\*
+Downtime Headers
+
+\lancercolorbox{combatcharcoal}{\textbf{combatcharcoal}}\\*
+Combat Headers
+
+\lancercolorbox{weaponblack}{\textbf{weaponblack}}\\*
+Weapon infoboxes
+
+\lancercolorbox{protocolorange}{\textbf{protocolorange}}\\*
+Protocol infoboxes
+
+\lancercolorbox{actiongreen}{\textbf{actiongreen}}\\*
+Quick Action and Full Action infoboxes
+
+\lancercolorbox{reactionteal}{\textbf{reactionteal}}\\*
+Reaction infoboxes, example text
+
+\lancercolorbox{talentblue}{\textbf{talentblue}}\\*
+Talent Headers
+
+\lancercolorbox{techactionplum}{\textbf{techactionplum}}\\*
+Tech Action infoboxes
+
+\lancercolorbox{narrativepurple}{\textbf{narrativepurple}}\\*
+Backgrounds, Mission Hooks
 
 \paragraph{TITLED CORNER BOX}
 One of the types is the one used on Page 30 of the Core book, here called the ``Titled Corner Box``.  The command for it has three options: Color, Title Text, and Body Text.
@@ -274,7 +316,7 @@ produces the output
 And probably the most common type of box in the book, here called the ``infobox''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments: the color, the title, the mechanical text, and (optionally) the flavor text.  If you don't have flavor text, just leave that argument empty, like so: \verb|{}|.
 
 \begin{lstlisting}
-\infobox{black}{
+\infobox{weaponblack}{
     \textbf{\large Weapon Name}\\
     {\TechnicalText Superheavy Cannon\\
     {[\CCRange{}8][1d6\CCKinetic{}]}}
@@ -285,7 +327,7 @@ And probably the most common type of box in the book, here called the ``infobox'
     }
     \end{lstlisting}
 
-\infobox{black}{
+\infobox{weaponblack}{
 \textbf{\large Weapon Name}\\
 {\TechnicalText Superheavy Cannon\\
 {[\CCRange 8][1d6\CCKinetic]}}
@@ -298,7 +340,7 @@ Flavor Text looks all special like this.
 You can also mark a section for special emphasis, like the Invade box from the core book on page 70.
 
 \begin{lstlisting}
-\infobox{purple}{
+\infobox{techactionplum}{
     \textbf{Invade}
 }{
     When you \KeyWord{Invade}, you mount a direct electronic attack against a target. To \KeyWord{Invade}, make a tech attack against a character within \KeyWord{Sensors} and line of sight.\\
@@ -312,7 +354,7 @@ You can also mark a section for special emphasis, like the Invade box from the c
 }
 \end{lstlisting}
 
-\infobox{purple}{
+\infobox{techactionplum}{
     \textbf{Invade}
 }{
     When you \KeyWord{Invade}, you mount a direct electronic
@@ -341,18 +383,18 @@ You can also mark a section for special emphasis, like the Invade box from the c
 If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{tabular}| is for single column tables and \verb|\begin{tabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
 
 \begin{NiceTabular}{|lX|}
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
     \Hline
-    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{grey}{\textbf{ROLL 1D20}}} \\
     \textbf{1} & An infamous private military corporation.                       \\
     \textbf{2} & Glory-seeking warriors.                                         \\
     \textbf{3} & Union regulars, career soldiers.                                \\\Hline
 \end{NiceTabular}
 \begin{lstlisting}
 \begin{NiceTabular}{|lX|}
-    \CodeBefore\rowcolors{0}{white}{lightgray}\Body
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
     \Hline
-    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{gray}{\textbf{ROLL 1D20}}} \\
+    \Block[l]{1-2}{\textbf{\Large IDENTITY}\textcolor{grey}{\textbf{ROLL 1D20}}} \\
     \textbf{1} & An infamous private military corporation. \\
     \textbf{2} & Glory-seeking warriors. \\
     \textbf{3} & Union regulars, career soldiers. \\\Hline
@@ -400,7 +442,7 @@ Fourth, the Core System is marginally more complicated, but usually just because
 \begin{minipage}{\linewidth}
     \begin{lstlisting}
 {\Large\textbf{FORTRESS}
-\infobox{orange}{
+\infobox{protocolorange}{
 \textbf{Fortress Protocol}\\
 {\TechnicalText\normalsize Active (1CP), Protocol}
 }
@@ -441,7 +483,7 @@ Facing Image=Drake-Facing]
 }
 {\MainMount\MainMount\HeavyMount}
 {\Large\textbf{FORTRESS}
-\infobox{orange}{
+\infobox{protocolorange}{
 \textbf{Fortress Protocol}\\
 {\TechnicalText\normalsize Active (1CP), Protocol}
 }
@@ -537,7 +579,7 @@ The first few key values are the same as the LancerFrame command.  The Tiers are
 }
 {A versatile carrier for coordinating both strike craft and subline vessels, with fleetwide command-and-control integration.}
 
-\infobox{orange}{\textbf{\large Close Support}\\{\TechnicalText Trait}}
+\infobox{protocolorange}{\textbf{\large Close Support}\\{\TechnicalText Trait}}
 {
 Allied battlegroups in your range band may use tactics granted by this ship's \KeyWord{Escorts} as if they were under their control.
 }{}
@@ -546,7 +588,7 @@ The Ship command is even simpler.  With only three stats, a few pieces of text, 
 \begin{lstlisting}
 \LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
     {<snip flavor text>}
-\infobox{orange}{\textbf{ \large Close Support}\\{\TechnicalText Trait}}
+\infobox{protocolorange}{\textbf{ \large Close Support}\\{\TechnicalText Trait}}
 {<snip trait text>}{}
 \end{lstlisting}
 
@@ -573,9 +615,9 @@ The next type is the column width image.  \verb|\colwidthimage{imgname}|  This i
 \colwidthimage{BottomRight}
 \pagebreak
 
-And last, the full page image.  \verb|\fullpageimage{imgname}|  This uses the entire width of the page, edge to edge, with no margins.  This is what you use for full-page art.  It triggers the new page commands, so you just put it where you want the break to be.  You might, as a random example, wish to put this before \verb|\maketitle| to be the cover of the book.
+And last, the full page image.  \verb|\fullpageimage{imgname}| and \verb|\fullpageimagewframe{imgname}|. These use the entire width of the page, edge to edge, with no margins.  This is what you use for full-page art.  The first has no page styling, best used for solid full page images, like book covers.  The second still has section names, page numbers, and edge styling, and is best for shaped images with transparent edges.  Both trigger the new page commands, so you just put them where you want the break to be.  You might wish to put one before \verb|\maketitle| to be the cover of the book, as an example.
 
-\fullpageimage{Intro-Last}
+\fullpageimagewframe{Intro-Last}
 
 \newpage
 The section after this is a duplication of the Lancer core book's Section 0.  The purpose is to demonstrate how you would replicate a larger section, formatting and all.  Obviously, at this length, the source code is not provided, so you'll need to check out the source on the github: \href{https://github.com/Tetragramm/lancer-field-guide-template}{\textcolor{blue}{HERE}}.
