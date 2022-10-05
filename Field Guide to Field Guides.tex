@@ -53,17 +53,18 @@ First of all, \LaTeX{} is free, both in the money sense, and in the information 
 It's also capable of doing amazing things when formatting text.  You'll see some of that below.  To be truthful, I'm not a \LaTeX{}  expert.  I hope this template will be useful to you and help you make better Lancer content, without worrying about graphic design.
 
 \subsubsection{First Steps}
-First, install \LaTeX{}.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), because there are a lot of useful packages it will download in tiny pieces.
+There are two ways of using \LaTeX{}:  Building it yourself or using a service that wants you to pay them.  If you don't mind the second, go to \href{https://overleaf.com}{\color{blue}\underline{Overleaf}} and upload every file and folder into a new project.  It should compile and give you your pdf.
 
-As it downloads, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX{}, and is very good to have open as you work.
+For everyone else, install \LaTeX{}.  Go to: \href{https://tug.org/texlive/}{\color{blue}\underline{TeX Live}}, download, and install it.  It's going to take a while (no, seriously, get a book or go do something else for a bit), because there are a lot of useful packages it will download in tiny pieces.
 
-Now, open Main.tex in your favorite text editor.  VSCode is a popular, free choice, because it has extensions for \LaTeX{}  that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
+Next, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overleaf}} and check it out.  This website is a very good source on basic \LaTeX{}, and is very good to have open as you work.
+
+Now, open Main.tex in your favorite text editor (or Overleaf's editor).  VSCode is a popular, free choice, because it has extensions for \LaTeX{} that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
 
 \subsubsection{About the Template}
 The template is in two parts.  Most important is the file FieldGuide.sty, which defines a lot of useful commands, symbols, and formatting.  Second is the file Main.tex, which sets up the skeleton that you will be filling out.
 
 Here is the full text of Main.tex, and we'll use this to explain what it does, then we'll get into FieldGuide.sty.
-\pagebreak
 \begin{lstlisting}
 \documentclass[twoside,headings,letterpaper,twocolumn]{article}
 \usepackage{FieldGuide}
@@ -203,7 +204,7 @@ Switching between one and two column mode is simple, use the commands \verb|\one
 The Lancer rules have several types of fancy boxes. Most of the special box options have a color variable, and ones that Lancer uses have been pre-defined.  More are available, and check out the \href{https://www.overleaf.com/learn/LaTeX/Using_colours_in_LaTeX}{\textcolor{blue}{documentation}} for instructions on how to define your own (the xcolor package).
 
 \paragraph{COLORED BOX}
-The most basic is the flat, rectangular, colored box. There are two arguments.  Box color, and text.  You can format the text as usual for \LaTeX{}, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you think it looks better.) This box is what you use when defining terms, such as on page 20 of the core book, or for Talents.  
+The most basic is the flat, rectangular, colored box. There are two arguments.  Box color, and text.  You can format the text as usual for \LaTeX{}, including spacing and setting your own text color (ie: use \verb|\textcolor{black}{Blah}| if you think it looks better.) This box is what you use when defining terms, such as on page 20 of the core book, or for Talents.
 
 Here is where you can see the predefined colors and what they are used for, one box for each color.
 
