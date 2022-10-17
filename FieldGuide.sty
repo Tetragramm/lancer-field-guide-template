@@ -239,6 +239,21 @@
 % in small caps and bold, but smushed together
 \newcommand{\KeyWord}[1]{\so{\textsc{\textbf{#1}}}}
 
+% Command for Horus text
+\NewDocumentCommand{\HorusText}{m}
+ {
+\begin{tikzpicture}
+    \node[color=cyan,text width=\linewidth] at (1pt, -1pt){#1};
+    \node[color=red,text width=\linewidth] at (-1pt, 1pt){#1};
+    \node[color=white,text width=\linewidth] at (0.5pt, 0){#1};
+    \node[color=white,text width=\linewidth] at (-0.5pt, 0){#1};
+    \node[color=white,text width=\linewidth] at (0, -0.5pt){#1};
+    \node[color=white,text width=\linewidth] at (0, 0.5pt){#1};
+    \node at (0,0) [color=dark grey,text width=\linewidth]{#1};
+\end{tikzpicture}
+ }
+
+
 %%%  Mount Boxes
 % Command for making a mount box for a mech template
 \newcommand{\mountbox}[3]{
