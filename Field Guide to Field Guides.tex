@@ -63,6 +63,10 @@ Next, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overl
 
 Now, open Main.tex in your favorite text editor (or Overleaf's editor).  VSCode is a popular, free choice, because it has extensions for \LaTeX{} that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
 
+It is import to note that \LaTeX{} uses a multi-pass compilation system.  Typically, documents built with this template require three compilation runs.  See \textcolor{blue}{Compile.py} for an example call that can be easily modified to work with your document.  
+
+Common symptoms that indicate another compile is needed are log messages about "Package color Error: Argument not in range", and the triangles in the corners moving into the middle of the page.  Don't Panic!  Just run the compile again, and it should work.  Overleaf is nice enough to run it the correct number of times automatically for you (so far as I've seen).
+
 \subsubsection{About the Template}
 The template is in two parts.  Most important is the file FieldGuide.sty, which defines a lot of useful commands, symbols, and formatting.  Second is the file Main.tex, which sets up the skeleton that you will be filling out.
 
@@ -316,7 +320,7 @@ produces the output
 
 \paragraph{INFO BOX}
 
-And probably the most common type of box in the book, here called the ``infobox''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments: the color, the title, the mechanical text, and (optionally) the flavor text.  If you don't have flavor text, just leave that argument empty, like so: \verb|{}|.
+And probably the most common type of box in the book, here called the ``infobox''.  It is what you use to define the weapons, systems, tech attack options, and most everything else to do with a Frame.  An infobox has four arguments: the color, the title, (optionally) the mechanical text, and (optionally) the flavor text.  If you don't have an optional text, just leave that argument empty, like so: \verb|{}|.
 
 \begin{lstlisting}
 \infobox{weaponblack}{
@@ -328,7 +332,7 @@ And probably the most common type of box in the book, here called the ``infobox'
     }{
     Flavor Text looks all special like this.
     }
-    \end{lstlisting}
+\end{lstlisting}
 
 \infobox{weaponblack}{
 \textbf{\large Weapon Name}\\
@@ -339,6 +343,28 @@ Mechanical text looks like so.
 }{
 Flavor Text looks all special like this.
 }
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{
+Mechanical text looks like so.
+}{}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{}{
+Flavor Text looks all special like this.
+}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{}{}
 
 You can also mark a section for special emphasis, like the Invade box from the core book on page 70.
 
@@ -379,7 +405,7 @@ You can also mark a section for special emphasis, like the Invade box from the c
     allied, you are automatically successful, it doesn’t
     count as an attack, and your target doesn’t take
     any heat.
-}{%No Flavor Text
+}{%No Flavor Text 
 }
 
 \paragraph{Tables}
@@ -538,6 +564,100 @@ high-velocity, high–projectile fragment assault cannon for suppressing and
 overwhelming targets, and a heavy kinetic–ablative shield for defense. Advanced
 models feature upgraded weapons and armor including the formidable Leviathan Heavy
 Assault Cannon, a high-rpm anti-materiel weapon.}
+
+\LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2,
+Class=Defender, Class Icon=\CCDefender{}, Armor = 3,
+HP = 8, SP = 5, Evasion = 6, E-Defense = 6,
+Heat Cap = 5, Sensors = 10, Tech Attack = +0,
+Repair Cap = 5, Save Target = 10,
+Background Image=IPS-N-Background]
+{\titledcornerbox{red}{HEAVY FRAME}{The Drake can't be pushed, pulled, knocked \KeyWord{Prone}, or knocked back by smaller characters.}
+\titledcornerbox{red}{BLAST PLATING}{The Drake has \KeyWord{Resistance} to \textbf{damage}, \CCBurn{} and \CCHeat{} from \CCBlast{}, \CCBurst{}, \CCLine{}, and \CCCone{} attacks.}
+\titledcornerbox{red}{SLOW}{The Drake receives \textbf{+1 \CCDifficulty{}} on \KeyWord{Agility} checks and saves.}
+\titledcornerbox{red}{GUARDIAN}{Adjacent allied characters can use the Drake for \textbf{hard cover}.}
+}
+{\MainMount\MainMount\HeavyMount}
+{\Large\textbf{FORTRESS}
+\infobox{protocolorange}{
+\textbf{Fortress Protocol}\\
+{\TechnicalText\normalsize Active (1CP), Protocol}
+}
+{You deploy heavy stabilizers and your mech
+becomes more like a fortified emplacement
+than a vehicle. When activated, two sections of
+hard cover (\textbf{\CCLine{}2, \KeyWord{Size} 1}) unfold from your
+mech, drawn in any direction. These cover
+sections have \KeyWord{Immunity} to all damage.
+
+Additionally, the following effects apply while
+active:
+\begin{itemize}
+    \item You become \KeyWord{Immobilized}.
+    \item You benefit from hard cover, even in the
+          open, and gain \KeyWord{Immunity} to \KeyWord{Knockback},
+          PRONE, and all involuntary movement.
+    \item When you \KeyWord{Brace}, you may take a
+          full action on your next turn
+          instead of just a quick
+          action.
+    \item Any character that
+          gains hard cover from
+          you or your cover
+          sections gains \KeyWord{Immunity} to
+          \KeyWord{Knockback},
+          \KeyWord{Prone}, and
+          all involuntary movement, and gains the
+          benefits of \textbf{Blast Plating}.
+\end{itemize}
+This system can be deactivated as a \textbf{protocol}.
+Otherwise, it lasts until the end of the current
+scene.}{%No Flavor Text
+}
+}
+{The Drake, IPS-N’s first foray into military-grade mech design, is the backbone of
+any proactive trade-security or anti-piracy force. Its massive, simian frame is
+built around a single-cast bulkhead, sloped and reinforced to handle sustained fire
+and the vagaries of vessel-proximal hardvac travel. The Drake is an imposing
+chassis, its frame evoking the might of ancient armored infantry from a time when
+greater numbers guaranteed victory.
+
+The standard fleet license for the IPS-N Drake outfits each chassis with IPS-N’s
+high-velocity, high–projectile fragment assault cannon for suppressing and
+overwhelming targets, and a heavy kinetic–ablative shield for defense. Advanced
+models feature upgraded weapons and armor including the formidable Leviathan Heavy
+Assault Cannon, a high-rpm anti-materiel weapon.}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{
+Mechanical text looks like so.
+}{
+Flavor Text looks all special like this.
+}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{
+Mechanical text looks like so.
+}{}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{}{
+Flavor Text looks all special like this.
+}
+
+\infobox{weaponblack}{
+\textbf{\large Weapon Name}\\
+{\TechnicalText Superheavy Cannon\\
+{[\CCRange 8][1d6\CCKinetic]}}
+}{}{}
 
 \LancerNPC[Name=FAKEASSAULT, Size=1,
     Class=Striker, Class Icon=\CCStriker{},

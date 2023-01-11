@@ -23,9 +23,11 @@
 \RequirePackage{setspace}
 \RequirePackage{stfloats}
 \RequirePackage{nicematrix}
+\RequirePackage{accsupp}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{positioning}
 \usetikzlibrary{fit, calc}
+\usetikzlibrary{shadows}
 \RequirePackage{enumitem}
 \setlist{nolistsep}
 
@@ -235,23 +237,38 @@
 \newcommand{\lancercolorbox}[2]{\colorbox{#1}{\begin{minipage}{\linewidth}{\textcolor{white}{#2}}\end{minipage}}}
 \newcommand{\redbox}[1]{\textbf{\lancercolorbox{red}{#1}}}
 
+% Definition of \fauxsc, used in \KeyWord to turn it into Small Caps
+% Original by: Steven B. Segletes @ StackExchange
+% Source: https://tex.stackexchange.com/a/225078
+\makeatother
+\newcommand\fauxsc[1]{\fauxschelper#1 \relax\relax}
+\def\fauxschelper#1 #2\relax{%
+	\fauxschelphelp#1\relax\relax%
+	\if\relax#2\relax\else\ \fauxschelper#2\relax\fi%
+}
+\def\Hscale{.78}\def\Vscale{.83}\def\Cscale{1.00}
+\def\fauxschelphelp#1#2\relax{%
+	\ifnum`#1=\lccode`#1\relax\scalebox{\Hscale}[\Vscale]{\char\uccode`#1}\else%
+	\scalebox{\Cscale}[1]{#1}\fi%
+	\ifx\relax#2\relax\else\fauxschelphelp#2\relax\fi}
+
 % Command for formatting a word as a KeyWord, 
 % in small caps and bold, but smushed together
-\newcommand{\KeyWord}[1]{\so{\textsc{\textbf{#1}}}}
+\newcommand{\KeyWord}[1]{\so{\textbf{\protect\fauxsc{#1}}}}
 
 % Command for Horus text
 \NewDocumentCommand{\HorusText}{m}
- {
+{
 \begin{tikzpicture}
-    \node[color=cyan,text width=\linewidth] at (1pt, -1pt){#1};
-    \node[color=red,text width=\linewidth] at (-1pt, 1pt){#1};
-    \node[color=white,text width=\linewidth] at (0.5pt, 0){#1};
-    \node[color=white,text width=\linewidth] at (-0.5pt, 0){#1};
-    \node[color=white,text width=\linewidth] at (0, -0.5pt){#1};
-    \node[color=white,text width=\linewidth] at (0, 0.5pt){#1};
-    \node at (0,0) [color=dark grey,text width=\linewidth]{#1};
+    \node[color=cyan,text width=\linewidth] at (1pt, -1pt){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node[color=red,text width=\linewidth] at (-1pt, 1pt){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node[color=white,text width=\linewidth] at (0.5pt, 0){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node[color=white,text width=\linewidth] at (-0.5pt, 0){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node[color=white,text width=\linewidth] at (0, -0.5pt){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node[color=white,text width=\linewidth] at (0, 0.5pt){\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}};
+    \node at (0,0) [color=black,text width=\linewidth]{#1};
 \end{tikzpicture}
- }
+}
 
 
 %%%  Mount Boxes
@@ -347,7 +364,7 @@
         \normalfont
         {#3}
         \ifstrempty {#4} {} { 
-            \hbox to \linewidth{\leaders\hbox to 3pt{\hss . \hss}\hfill}
+            \ifstrempty {#3} {} {\hbox to \linewidth{\leaders\hbox to 3pt{\hss . \hss}\hfill}}
             {\TechnicalText \itshape {#4}}
          }
     \end{tcolorbox}
@@ -839,7 +856,7 @@
         };
     \end{tikzpicture}
     \end{figure*}
-    \newpage
+    \clearpage
     % If you have an image, it goes on the next page
     \ifdefempty{\FrameFacingImage}{}{\fullpageimagewframe{\FrameFacingImage}
     \clearpage}
