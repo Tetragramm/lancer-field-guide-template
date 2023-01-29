@@ -320,11 +320,15 @@
 \newcommand{\titledcornerbox}[3]{
     \begin{tcolorbox}[enhanced,colback=#1!20,colframe=#1,size=small, 
         arc is angular, sharp corners, rounded corners=northeast, 
-        width=\linewidth, arc=0.9\baselineskip, boxrule=-1pt,parbox=false,
-        title=\textbf{#2}]
+        width=\linewidth, arc=0.9\baselineskip,parbox=false,frame hidden,
+        title style={color=#1},
+        title={\textbf{\ignorespaces#2}},
+        overlay={
+            \draw[line width = 2pt, #1] (title.south east) -- (title.south west) {};
+        }]
         \noindent
         \raggedright
-        {#3}
+        {\ignorespaces#3}
     \end{tcolorbox}
 }
 
@@ -354,18 +358,32 @@
         width=\linewidth, arc=0.9\baselineskip, frame hidden,parbox=false,
         title style={color=#1},
         subtitle style={coltitle=black, boxrule=0pt, toprule=1pt, bottomrule=1pt, colback=white},
-        title={\normalfont #2},
+        title={\normalfont\ignorespaces#2},
         overlay={
             \draw[line width = 2pt, #1] (title.south east) -- (title.south west) {};
         }]
         \noindent
-        \raggedright
-        \normalsize
-        \normalfont
-        {#3}
-        \ifstrempty {#4} {} { 
-            \ifstrempty {#3} {} {\hbox to \linewidth{\leaders\hbox to 3pt{\hss . \hss}\hfill}}
-            {\TechnicalText \itshape {#4}}
+        \ifstrempty{#3}{\empty{}}{%
+            \normalsize%
+            \normalfont%
+            \raggedright%
+            \ignorespaces#3%
+        }%
+        \ifstrempty{#4}{\empty{}}{%
+            \ifstrempty {#3} {\empty{}} {%
+                \noindent
+                \normalsize%
+                \normalfont%
+                \raggedright%
+                \hbox to \linewidth{\leaders\hbox to 3pt{\hss . \hss}\hfill}\\%
+            }%
+            {%
+                \normalsize%
+                \TechnicalText%
+                \itshape%
+                \raggedright%
+                \ignorespaces#4%
+            }
          }
     \end{tcolorbox}
 }
@@ -376,7 +394,7 @@
 \newcommand{\infoemphasis}[1]{
     \tcbsubtitle{\noindent
     \raggedright
-    \textcolor{black}{#1}}
+    \textcolor{black}{\ignorespaces#1}}
 }
 
 %%%%% Table of Contents %%%%%
