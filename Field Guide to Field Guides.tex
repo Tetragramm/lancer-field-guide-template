@@ -63,7 +63,7 @@ Next, open up \href{https://www.overleaf.com/learn}{\color{blue}\underline{Overl
 
 Now, open Main.tex in your favorite text editor (or Overleaf's editor).  VSCode is a popular, free choice, because it has extensions for \LaTeX{} that let you compile on save, intellisense, custom keyboard shortcuts, and things like that.  But any text editor works, from notepad to vim to emacs.
 
-It is import to note that \LaTeX{} uses a multi-pass compilation system.  Typically, documents built with this template require three compilation runs.  See \textcolor{blue}{Compile.py} for an example call that can be easily modified to work with your document.  
+It is import to note that \LaTeX{} uses a multi-pass compilation system.  Typically, documents built with this template require three compilation runs.  See \textcolor{blue}{Compile.py} for an example call that can be easily modified to work with your document.
 
 Common symptoms that indicate another compile is needed are log messages about "Package color Error: Argument not in range", and the triangles in the corners moving into the middle of the page.  Don't Panic!  Just run the compile again, and it should work.  Overleaf is nice enough to run it the correct number of times automatically for you (so far as I've seen).
 
@@ -122,84 +122,130 @@ A subsection starts on a left page and places a banner across the top of the pag
 \subsubsection{Lancer Symbols}
 Lancer has a great deal of custom symbols, contained in a custom font, which is automatically included.
 \paragraph{Damage Symbols}
-\begin{NiceTabular}{|cc|}[hlines]
+\begin{NiceTabular}{|cl|cl|}[hlines]
     \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
-    \CCKinetic   & \verb|\CCKinetic{}|   \\
-    \CCEnergy    & \verb|\CCEnergy{}|    \\
-    \CCExplosive & \verb|\CCExplosive{}| \\
-    \CCBurn      & \verb|\CCBurn{}|      \\
-    \CCHeat      & \verb|\CCHeat{}|      \\
-    \CCVariable  & \verb|\CCVariable{}|  \\
-\end{NiceTabular}
-
-\paragraph{Attack Symbols}
-\begin{NiceTabular}{|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
-
-    \CCThreat     & \verb|\CCThreat{}|     \\
-    \CCRange      & \verb|\CCRange{}|      \\
-    \CCLine       & \verb|\CCLine{}|       \\
-    \CCBlast      & \verb|\CCBlast{}|      \\
-    \CCBurst      & \verb|\CCBurst{}|      \\
-    \CCCone       & \verb|\CCCone{}|       \\
-    \CCInvade     & \verb|\CCInvade{}|     \\
-    \CCAccuracy   & \verb|\CCAccuracy{}|   \\
-    \CCDifficulty & \verb|\CCDifficulty{}| \\
-\end{NiceTabular}
-
-\paragraph{CompCon Symbols}
-\begin{NiceTabular}{|cc|cc|}[hlines]
-    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
-
-    \CCMovement    & \verb|\CCMovement{}|    & \CCHex        & \verb|\CCHex{}|        \\
-    \CCStructure   & \verb|\CCStructure{}|   & \CCStress     & \verb|\CCStress{}|     \\
-    \CCArmor       & \verb|\CCArmor{}|       & \CCHP         & \verb|\CCHP{}|         \\
-    \CCHollowHex   & \verb|\CCHollowHex{}|   & \CCCircle     & \verb|\CCCircle{}|     \\
-    \CCRepair      & \verb|\CCRepair{}|      & \CCCP         & \verb|\CCCP{}|         \\
-    \CCEffect      & \verb|\CCEffect{}|      & \CCSystem     & \verb|\CCSystem{}|     \\
-    \CCEvasion     & \verb|\CCEvasion{}|     & \CCEDEF       & \verb|\CCEDEF{}|       \\
-    \CCActivation  & \verb|\CCActivation{}|  & \CCGear       & \verb|\CCGear{}|       \\
-    \CCOvercharge  & \verb|\CCOvercharge{}|  & \CCOvershield & \verb|\CCOvershield{}| \\
-    \CCSystemPoint & \verb|\CCSystemPoint{}| & \CCDrone      & \verb|\CCDrone{}|      \\
-    \CCDeployable  & \verb|\CCDeployable{}|  & \CCDTwenty    & \verb|\CCDTwenty{}|    \\
-    \CCRoll        & \verb|\CCRoll{}|        &               &                        \\
+    \CCKinetic   & \verb|\CCKinetic{}|   & \CCEnergy   & \verb|\CCEnergy{}|   \\
+    \CCExplosive & \verb|\CCExplosive{}| & \CCBurn     & \verb|\CCBurn{}|     \\
+    \CCHeat      & \verb|\CCHeat{}|      & \CCVariable & \verb|\CCVariable{}| \\
 \end{NiceTabular}
 
 \paragraph{Mech Size Symbols}
-\begin{NiceTabular}{|cc|}[hlines]
+\begin{NiceTabular}{|cl|cl|}[hlines]
     \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
-    \CCSizeHalf  & \verb|\CCSizeHalf{}|  \\
-    \CCSizeOne   & \verb|\CCSizeOne{}|   \\
-    \CCSizeTwo   & \verb|\CCSizeTwo{}|   \\
-    \CCSizeThree & \verb|\CCSizeThree{}| \\
+    \CCSizeOne   & \verb|\CCSizeOne{}|   & \CCSizeTwo  & \verb|\CCSizeTwo{}|  \\
+    \CCSizeThree & \verb|\CCSizeThree{}| & \CCSizeFour & \verb|\CCSizeFour{}| \\
+    \CCSizeHalf  & \verb|\CCSizeHalf{}|  & \CCSquad    & \verb|\CCSquad{}|    \\
 \end{NiceTabular}
 
-\paragraph{NPC Class Symbols}
-\begin{NiceTabular}{|cc|}[hlines]
+\paragraph{Attack Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
     \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
-    \CCArtillery  & \verb|\CCArtillery{}|  \\
-    \CCBiological & \verb|\CCBiological{}| \\
-    \CCController & \verb|\CCController{}| \\
-    \CCDefender   & \verb|\CCDefender{}|   \\
-    \CCSupport    & \verb|\CCSupport{}|    \\
-    \CCStriker    & \verb|\CCStriker{}|    \\
+    \CCThreat     & \verb|\CCThreat{}|     & \CCRange      & \verb|\CCRange{}|      \\
+    \CCLine       & \verb|\CCLine{}|       & \CCBlast      & \verb|\CCBlast{}|      \\
+    \CCBurst      & \verb|\CCBurst{}|      & \CCCone       & \verb|\CCCone{}|       \\
+    \CCMelee      & \verb|\CCMelee{}|      & \CCThrown     & \verb|\CCThrown{}|     \\
+    \CCAccuracy   & \verb|\CCAccuracy{}|   & \CCDifficulty & \verb|\CCDifficulty{}| \\
+    \CCGrenade    & \verb|\CCGrenade{}|    & \CCMine       & \verb|\CCMine{}|       \\
+    \CCDeployable & \verb|\CCDeployable{}| & \CCDrone      & \verb|\CCDrone{}|      \\
 \end{NiceTabular}
 
-\paragraph{NPC Tier Symbols}
-\begin{NiceTabular}{|cc|}[hlines]
+\paragraph{Action Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+    \CCQuick           & \verb|\CCQuick{}|                          & \CCFull           & \verb|\CCFull{}|                          \\
+    \CCQuickTech       & \verb|\CCQuickTech{}|                      & \CCFullTech       & \verb|\CCFullTech{}|                      \\
+    \CCReaction        & \verb|\CCReaction{}|                       & \CCProtocol       & \verb|\CCProtocol{}|                      \\
+    \CCFreeAction      & \verb|\CCFreeAction{}|                     & \CCDowntime       & \verb|\CCDowntime{}|                      \\
+    \CCActivationQuick & {\footnotesize\verb|\CCActivationQuick{}|} & \CCActivationFull & {\footnotesize\verb|\CCActivationFull{}|} \\
+\end{NiceTabular}
+
+\paragraph{Status Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
     \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
 
-    \CCTierOne   & \verb|\CCTierOne{}|   \\
-    \CCTierTwo   & \verb|\CCTierTwo{}|   \\
-    \CCTierThree & \verb|\CCTierThree{}| \\
+    \CCSlowed     & \verb|\CCSlowed{}|     & \CCImmobilized & \verb|\CCImmobilized{}| \\
+    \CCShredded   & \verb|\CCShredded{}|   & \CCStunned     & \verb|\CCStunned{}|     \\
+    \CCLockOn     & \verb|\CCLockOn{}|     & \CCJammed      & \verb|\CCJammed{}|      \\
+    \CCProne      & \verb|\CCProne{}|      & \CCEngaged     & \verb|\CCEngaged{}|     \\
+    \CCHidden     & \verb|\CCHidden{}|     & \CCInvisible   & \verb|\CCInvisible{}|   \\
+    \CCDangerZone & \verb|\CCDangerZone{}| & \CCExposed     & \verb|\CCExposed{}|     \\
+    \CCDownAndOut & \verb|\CCDownAndOut{}| & \CCShutDown    & \verb|\CCShutDown{}|    \\
+\end{NiceTabular}
+
+\paragraph{Talent Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+
+    \CCTalent     & \verb|\CCTalent{}|     & \CCRankOne   & \verb|\CCRankOne{}|   \\
+    \CCRankTwo    & \verb|\CCRankTwo{}|    & \CCRankThree & \verb|\CCRankThree{}| \\
+    \CCRankCustom & \verb|\CCRankCustom{}| & \CCSquad     & \verb|\CCSquad{}|     \\
+\end{NiceTabular}
+
+\paragraph{NPC Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+
+    \CCNPCTemplate & \verb|\CCNPCTemplate{}| & \CCNPCFeature & \verb|\CCNPCFeature{}| \\
+    \CCNPCClass    & \verb|\CCNPCClass{}|    & \CCArtillery  & \verb|\CCArtillery{}|  \\
+    \CCBiological  & \verb|\CCBiological{}|  & \CCController & \verb|\CCController{}| \\
+    \CCDefender    & \verb|\CCDefender{}|    & \CCSupport    & \verb|\CCSupport{}|    \\
+    \CCStriker     & \verb|\CCStriker{}|     &               &                        \\
+    \CCTierOne     & \verb|\CCTierOne{}|     & \CCTierTwo    & \verb|\CCTierTwo{}|    \\
+    \CCTierThree   & \verb|\CCTierThree{}|   & \CCTierCustom & \verb|\CCTierCustom{}| \\
+\end{NiceTabular}
+
+\paragraph{Active Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+
+    \CCMovement    & \verb|\CCMovement{}|    & \CCHex          & \verb|\CCHex{}|          \\
+    \CCStructure   & \verb|\CCStructure{}|   & \CCStress       & \verb|\CCStress{}|       \\
+    \CCArmor       & \verb|\CCArmor{}|       & \CCHP           & \verb|\CCHP{}|           \\
+    \CCHollowHex   & \verb|\CCHollowHex{}|   & \CCCircle       & \verb|\CCCircle{}|       \\
+    \CCRepair      & \verb|\CCRepair{}|      & \CCCP           & \verb|\CCCP{}|           \\
+    \CCTrait       & \verb|\CCTrait{}|       & \CCSystem       & \verb|\CCSystem{}|       \\
+    \CCEvasion     & \verb|\CCEvasion{}|     & \CCEDEF         & \verb|\CCEDEF{}|         \\
+    \CCActivation  & \verb|\CCActivation{}|  & \CCDeactivation & \verb|\CCDeactivation{}| \\
+    \CCOvercharge  & \verb|\CCOvercharge{}|  & \CCOvershield   & \verb|\CCOvershield{}|   \\
+    \CCSystemPoint & \verb|\CCSystemPoint{}| & \CCSensors{}    & \verb|\CCSensors{}|      \\
+    \CCRoll        & \verb|\CCRoll{}|        & \CCDTwenty      & \verb|\CCDTwenty{}|      \\
+\end{NiceTabular}
+
+
+\begin{figure*}[b]
+    \paragraph{GUI Symbols}
+    \begin{NiceTabular}{|cX|cX|cX|}[hlines]
+        \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+
+        \CCWeapon             & \verb|\CCWeapon{}|             & \CCWeaponProfile & \verb|\CCWeaponProfile{}| & \CCGenericItem     & \verb|\CCGenericItem{}|     \\
+        \CCGear               & \verb|\CCGear{}|               & \CCManufacturer  & \verb|\CCManufacturer{}|  & \CCLicense         & \verb|\CCLicense{}|         \\
+        \CCCoreBonus          & \verb|\CCCoreBonus{}|          & \CCFrame         & \verb|\CCFrame{}|         & \CCMechSystem      & \verb|\CCMechSystem{}|      \\
+        \CCPilotGear          & \verb|\CCPilotGear{}|          & \CCSkillTrigger  & \verb|\CCSkillTrigger{}|  & \CCBond            & \verb|\CCBond{}|            \\
+        \CCStatusAndCondition & \verb|\CCStatusAndCondition{}| & \CCEquipmentTag  & \verb|\CCEquipmentTag{}|  & \CCWeaponMod       & \verb|\CCWeaponMod{}|       \\
+        \CCLock               & \verb|\CCLock{}|               & \CCSkill         & \verb|\CCSkill{}|         & \CCAmmo            & \verb|\CCAmmo{}|            \\
+        \CCReserveTactical    & \verb|\CCReserveTactical{}|    & \CCReserveMech   & \verb|\CCReserveMech{}|   & \CCReserveResource & \verb|\CCReserveResource{}| \\
+        \CCReserveBonus       & \verb|\CCReserveBonus{}|       & \CCCompendium    & \verb|\CCCompendium{}|    & \CCContentManager  & \verb|\CCContentManager{}|  \\
+        \CCCampaign           & \verb|\CCCampaign{}|           & \CCEncounter     & \verb|\CCEncounter{}|     & \CCShip            & \verb|\CCShip{}|            \\
+        \CCVehicle            & \verb|\CCVehicle{}|            & \CCMarker        & \verb|\CCMarker{}|        & \CCNestedHexagons  & \verb|\CCNestedHexagons{}|  \\
+    \end{NiceTabular}
+\end{figure*}
+
+\paragraph{Unused Symbols}
+\begin{NiceTabular}{|cl|cl|}[hlines]
+    \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
+    \CCOrbit     & \verb|\CCOrbit{}|     & \CCOrbital     & \verb|\CCOrbital{}|     \\
+    \CCLargeBeam & \verb|\CCLargeBeam{}| & \CCBarrage     & \verb|\CCBarrage{}|     \\
+    \CCBalance   & \verb|\CCBalance{}|   & \CCReticule    & \verb|\CCReticule{}|    \\
+    \CCEclipse   & \verb|\CCEclipse{}|   & \CCBurning     & \verb|\CCBurning{}|     \\
+    \CCSpikes    & \verb|\CCSpikes{}|    & \CCSwordsArray & \verb|\CCSwordsArray{}| \\
 \end{NiceTabular}
 
 \subsubsection{Spacing}
 The most useful tool for spacing is the \verb|\pagebreak| command.  It has an optional argument ranging from 0-4 (ie: \verb|\pagebreak[2]|) that indicates how important it is to break right here.  A 0 means don't break the column here, no matter what.  A 4 means break right now, and is the default value, if you supply none.  If you're in the second column of a page, it moves to the next page.  You can also force it to go all the way to the next page with \verb|\clearpage| or to the next left page (IE: if you had a physical book) using \verb|\cleardoublepage|.
 
-\quad For a space like the indentation of this paragraph, use the \verb|\quad| command, or \verb|\qquad| for twice the space.  To add a gap that pushes text to the right, use \verb|\hfill| \hfill like so.
+\quad For a space like the indentation of this paragraph, use the \verb|\quad| command, or \verb|\qquad| for twice the space.  To add a gap that pushes text all of the way to the right, use \verb|\hfill| \hfill like so.
 
 ... Really, you want \textit{more} control?  How specific do you want to get?  Fine.  \verb|\hspace{x}| and \verb|\vspace{x}| both add arbitrary amounts of space.  x can be in several units, pt, mm, cm, in, em, and even things like \verb|0.5\baselineskip|, or half the height of a line.  \LaTeX{} has a great many pre-defined lengths, so read the \href{https://www.overleaf.com/learn/LaTeX/Lengths_in_LaTeX}{\textcolor{blue}{documentation}} to find out what is available.
 
@@ -409,7 +455,7 @@ You can also mark a section for special emphasis, like the Invade box from the c
 }
 
 \paragraph{Tables}
-If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{tabular}| is for single column tables and \verb|\begin{tabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
+If you're making your own random roll tables, you'll need to know how to make a table.  \verb|\begin{NiceTabular}| is for single column tables and \verb|\begin{NiceTabular*}| spans the entire page.  The multicolumn and multirow commands let you merge cells.
 
 \begin{NiceTabular}{|lX|}
     \CodeBefore\rowcolors{0}{white}{tablegrey}\Body
@@ -429,10 +475,6 @@ If you're making your own random roll tables, you'll need to know how to make a 
     \textbf{3} & Union regulars, career soldiers. \\\Hline
 \end{NiceTabular}
 \end{lstlisting}
-
-\vspace{1cm}
-
-\HorusText{Have you considered other possibilities?  Other realities?  All it will take is one simple little command, and you can pierce the veil, ever so slightly.  Try it.  For me?} \verb|\HorusText{Please let me in.}|
 
 \clearpage
 \subsubsection{Custom Frames}
@@ -928,7 +970,7 @@ played with as little as two or as many as you feel
 comfortable with. Each player needs at least one \textbf{d20,
     a number of d6s, and some paper or a character
     sheet} to write down information. If you’re playing
-online, or welcome computers at the table, the \KeyWord{Comp\slash Con character building tool} is recommended.
+online, or welcome computers at the table, the \KeyWord{Comp\slash{}Con character building tool} is recommended.
 
 This game makes use of grid-based tactical combat, so
 it can be helpful to have paper with square or hexagonal
