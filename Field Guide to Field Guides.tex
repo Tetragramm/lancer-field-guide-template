@@ -12,7 +12,7 @@
   breaklines=true,
   showstringspaces=false,
   columns=flexible,
-  basicstyle={\small\ttfamily},
+  basicstyle={\small\ttfamily\raggedright},
   numbers=none,
   numberstyle=\tiny\color{black},
   keywordstyle=\color{blue},
@@ -32,6 +32,8 @@
 
 \title{Field Guide to Lancer Field Guides}
 \author{Tetragramm}
+
+\listfiles
 
 \begin{document}
 \frontmatter
@@ -113,9 +115,9 @@ After that, it's all yours.  Next is what you put on all these wonderful blank p
 The basic text formatting commands are \textbf{bold} (\verb|\textbf{bold}|), \textit{italic} (\verb|\textit{italic}|), and \KeyWord{KeyWords} (\verb|\KeyWord{KeyWords}|).  The last is defined by the FieldGuide template, and sets the text in small caps (plus a bit of spacing adjustment).  Keyword is what is used for all of the, well, key words like \KeyWord{Stunned}, \KeyWord{Engaged}, ect.
 
 \subsubsection{Sections}
-You will be wanting to divide and sub-divide your Field Guide to keep things organized.  This too is simple.  The largest division is the section, like \hyperref[INTRODUCTION TO THE FIELD GUIDE]{\textcolor{blue}{INTRODUCTION TO THE FIELD GUIDE}}.  These are created by typing \verb|\section{SECTION NAME}|.  You can also add images to the pages by doing \verb|\section[left-image][right-image]{SECTION NAME}|.  The section command forces the book to the next left page, occupies to facing pages, and everything after is on the next page.
+You will be wanting to divide and sub-divide your Field Guide to keep things organized.  This too is simple.  The largest division is the section, like \hyperref[INTRODUCTION TO THE FIELD GUIDE]{\textcolor{blue}{INTRODUCTION TO THE FIELD GUIDE}}.  These are created by typing \verb|\section{SECTION NAME}|.  You can also add images to the pages by doing \verb|\section[left-image][right-image]{SECTION NAME}|.  The section command forces the book to the next left page, occupies the facing pages, and everything after is on the next page.
 
-A subsection starts on a left page and places a banner across the top of the page, like \hyperref[USEFUL AND CUSTOM COMMANDS]{\textcolor{blue}{USEFUL AND CUSTOM COMMANDS}}.  You create it by, drumroll please... \verb|\subsection{SUBSECTION NAME}|. A subsubsection, like \hyperref[Sections]{\textcolor{blue}{Sections}} is created by \verb|\subsubsection{SubSubSection Name}|, and a named paragraph, like \hyperref[Damage Symbols]{\textcolor{blue}{Damage Symbols}}, is created with \verb|\paragraph{Title}|.
+A subsection starts on a left page and places a banner across the top of the page, like \hyperref[USEFUL AND CUSTOM COMMANDS]{\textcolor{blue}{USEFUL AND CUSTOM COMMANDS}}.  You create it by, drumroll please... \verb|\subsection{SUBSECTION NAME}|. An alternative version \verb|\subsection*| is allowed to start on either left or right pages. A subsubsection, like \hyperref[Sections]{\textcolor{blue}{Sections}} is created by \verb|\subsubsection{SubSubSection Name}|, with the starred version \verb|\subsubsection*| being excluded from the table of contents.  Useful for repetitive things like Encounter SITREPs. Lastly, a named paragraph, like \hyperref[Damage Symbols]{\textcolor{blue}{Damage Symbols}}, is created with \verb|\paragraph{Title}|.
 
 \textcolor{red}{\Large WARNING!}  The text of the sections needs to be plain-text.  No \LaTeX{} macros, no spacing, nothing that uses the \verb|\| and so forth.  There's probably a way to make it safe for you to do that, but I haven't figured it out.
 
@@ -481,22 +483,22 @@ If you're making your own random roll tables, you'll need to know how to make a 
 
 While not strictly a box, the page for a new Lancer Frame is an important thing to automate.  It is significantly more complicated than anything else, and takes up one or two pages.  There are a total of 5 arguments, which will be shown separately, so commentary can be interspersed.
 
-The first argument is the a set of key=value pairs representing Frame stats, name, and, in truth, all the things that can be described in a single value.  The only two truly optional values are the Background Image and the Facing Image.  Background Image is a full screen image, placed behind everything like the company logos in the core book.  Facing Image is the optional image on the facing page, like the Drake in the core book.  It is optional because some mechs may not have art, and you simply want to start in on the License Levels.  If you don't want them, simply don't provide the argument.
+The first argument is the a set of key=value pairs representing Frame stats, name, and, in truth, all the things that can be described in a single value.  The only two truly optional values are the Background Image and the Facing Image.  Background Image is a full screen image, placed behind everything like the company logos in the core book.  Facing Image is the optional image on the facing page, like the Drake in the core book.  It is optional because some mechs may not have art, and you simply want to start in on the License Levels.  If you don't want them, simply don't provide the argument.  Also optional is the ToC Type option, which defaults to subsubsection. This is used to set what level the mech appears in the table of contents.  The core book has a secton of Mechs, with each mech as a subsubsection, but if you have fewer, you may want to turn a mech into a section or a subsection.
 
 Everything else is required. If you forget to put one of the values in, then the result will be a magenta colored box.  As an example, the Speed option has been removed from the next page.  If you \textit{really} want to have a blank space, fill the argument with \verb|{}| instead.
 
 You can have dual class Frames.  For example: \verb|Class=Defender\slash{}Controller|\\\verb|Class Icon={\CCDefender{}\\\CCController{}}|.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{\columnwidth}
     \begin{lstlisting}
 \LancerFrame[Stats]{Traits}{Mounts}{Core Power}{Flavor Text}
 
-\LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2, Class=Defender, Class Icon=\CCDefender{}, Armor=3, HP=8, SP=5, Evasion=6, E-Defense=6, Heat Cap=5, Sensors=10, Tech Attack=+0, Repair Cap=5, Save Target=10, Speed=3, Background Image=IPS-N-Background, Facing Image=Drake-Facing]
+\LancerFrame[Manufacturer=IPS-N, Name=FAKEDRAKE, Size=2, Class=Defender, Class Icon=\CCDefender{}, Armor=3, HP=8, SP=5, Evasion=6, E-Defense=6, Heat Cap=5, Sensors=10, Tech Attack=+0, Repair Cap=5, Save Target=10, Speed=3, Background Image=IPS-N-Background, Facing Image=Drake-Facing, ToC Type = {subsubsection}]
     \end{lstlisting}
 \end{minipage}
 
 The second argument is the Traits of the frame.  Usually it's a set of \hyperref{TITLED CORNER BOX}{titled corner boxes} saying what the frame does.  Honestly, not too complicated.
-\begin{minipage}{\linewidth}
+\begin{minipage}{\columnwidth}
     \begin{lstlisting}
 {\titledcornerbox{red}{HEAVY FRAME}{The Drake can't be pushed, pulled, knocked \KeyWord{Prone}, or knocked back by smaller characters.}
 \titledcornerbox{red}{BLAST PLATING}{The Drake has \KeyWord{Resistance} to \textbf{damage}, \CCBurn{} and \CCHeat{} from \CCBlast{}, \CCBurst{}, \CCLine{}, and \CCCone{} attacks.}
@@ -507,14 +509,14 @@ The second argument is the Traits of the frame.  Usually it's a set of \hyperref
 \end{minipage}
 
 Neither is the list of mounts. Just look at the available ones \hyperref[MOUNT BOX]{HERE}.
-\begin{minipage}{\linewidth}
+\begin{minipage}{\columnwidth}
     \begin{lstlisting}
 {\MainMount\MainMount\HeavyMount}
     \end{lstlisting}
 \end{minipage}
 
 Fourth, the Core System is marginally more complicated, but usually just because it has more content.  Insert the typical boxes and infoboxes and such as needed to make up that content.
-\begin{minipage}{\linewidth}
+\begin{minipage}{\columnwidth}
     \begin{lstlisting}
 {\Large\textbf{FORTRESS}
 \infobox{protocolorange}{
@@ -630,15 +632,15 @@ Assault Cannon, a high-rpm anti-materiel weapon.}
 Unsurprisingly, the NPC command is simpler than the Frame command.  It has two arguments.  The second is just the flavor text at the top, same as the Frames, but the first argument has it's own quirks.
 
 \begin{lstlisting}
-        \LancerNPC[Stats]{Flavor Text}
+\LancerNPC[Stats]{Flavor Text}
 
-        \LancerNPC[Name=FAKEASSAULT, Size=1, Class=Striker, Class Icon=\CCStriker{},
-        Tier1={Hull=+1, Systems=+1, Agility=+1, Engineering=+1, HP=15, Evasion=8, Speed=4, Heat Cap=8, Sensors=8, Armor=1, E-Defense=8, Size=1, Save Target=10},
-        Tier2={Hull=+2, Systems=+2, Agility=+2, Engineering=+2, HP=18, Evasion=10, E-Defense=9, Save Target=12},
-        Tier3={Hull=+3, Systems=+3, Agility=+3, Engineering=+3, HP=21, Evasion=12, E-Defense=10, Save Target=14}] {Flavor text goes here.}
-    \end{lstlisting}
+\LancerNPC[Name=FAKEASSAULT, Size=1, Class=Striker, Class Icon=\CCStriker{},
+Tier1={Hull=+1, Systems=+1, Agility=+1, Engineering=+1, HP=15, Evasion=8, Speed=4, Heat Cap=8, Sensors=8, Armor=1, E-Defense=8, Size=1, Save Target=10},
+Tier2={Hull=+2, Systems=+2, Agility=+2, Engineering=+2, HP=18, Evasion=10, E-Defense=9, Save Target=12},
+Tier3={Hull=+3, Systems=+3, Agility=+3, Engineering=+3, HP=21, Evasion=12, E-Defense=10, Save Target=14}] {Flavor text goes here.}
+\end{lstlisting}
 
-The first few key values are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get a magenta box.  For Tiers 2 and 3, you only need to specify the values that change from Tier 1.
+The first few key values are the same as the LancerFrame command.  The Tiers are different.  At Tier 1, you need to specify all the values, or you get a magenta box.  For Tiers 2 and 3, you only need to specify the values that change from Tier 1.  The ToC Type command is also the same as with LancerFrame.
 
 \clearpage
 \shiptoc{Carriers}{blue}{This is where your flavor text goes.  Image credit JWST.  Thanks NASA!
@@ -659,7 +661,7 @@ The first few key values are the same as the LancerFrame command.  The Tiers are
 Allied battlegroups in your range band may use tactics granted by this ship's \KeyWord{Escorts} as if they were under their control.
 }{}
 
-The Ship command is even simpler.  With only three stats, a few pieces of text, and an image, it's the shortest of all.  The infoboxes aren't even in the command, just following it, like NPCs.  The next text after the command gets inserted into the second column of the page.
+The Ship command is even simpler.  With only three stats, a few pieces of text, and an image, it's the shortest of all.  The ToC Type command defaults to LancerShip, which adds it to the shiptoc, but it can be overridden to instead add it to the whole book ToC.  Note that the infoboxes aren't even in the command, just following it, like NPCs.  The next text after the command gets inserted into the second column of the page.
 \begin{lstlisting}
 \LancerShip[Name=Tongass, Manufacturer=GMS, Points=4, HP=14, Defense=14, Options={2 Auxiliary, 2 Escorts}, Image=Tongass, Class=Line Carrier]
     {<snip flavor text>}
