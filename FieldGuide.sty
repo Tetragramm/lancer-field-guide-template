@@ -24,13 +24,12 @@
 \RequirePackage{stfloats}
 \RequirePackage{nicematrix}
 \RequirePackage{accsupp}
+\RequirePackage{enumitem}
+\RequirePackage[htt]{hyphenat}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{positioning}
 \usetikzlibrary{fit, calc}
 \usetikzlibrary{shadows}
-\RequirePackage{enumitem}
-\RequirePackage[htt]{hyphenat}
-\RequirePackage{suffix}
 \setlist{nolistsep}
 
 % Set up the link styles, shouldn't need to modify
@@ -300,7 +299,7 @@
 % Definition of \fauxsc, used in \KeyWord to turn it into Small Caps
 % Original by: Steven B. Segletes @ StackExchange
 % Source: https://tex.stackexchange.com/a/225078
-\makeatother
+
 \newcommand\fauxsc[1]{\fauxschelper#1 \relax\relax}
 \def\fauxschelper#1 #2\relax{%
     \fauxschelphelp#1\relax\relax%
@@ -515,6 +514,13 @@
         % Get the number of pages, and calculate what percentage of the way through the book we are
         \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
         \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+        \setcounter{pagepercent}{
+            \ifnum 0>\thepagepercent%
+                0
+            \else
+                \thepagepercent
+            \fi
+        }
         \begin{tikzpicture}[remember picture, overlay]
             % Two nodes to make the triangles in the corner
             % Note the use of thepagepercent to change the color from red to black
@@ -530,6 +536,13 @@
         % Get the number of pages, and calculate what percentage of the way through the book we are
         \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
         \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+        \setcounter{pagepercent}{
+            \ifnum 0>\thepagepercent%
+                0
+            \else
+                \thepagepercent
+            \fi
+        }
         \begin{tikzpicture}[remember picture, overlay]
             % Two nodes to make the triangles in the corner
             % Note the use of thepagepercent to change the color from red to black
@@ -558,6 +571,13 @@
         % Get the number of pages, and calculate what percentage of the way through the book we are
         \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
         \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+        \setcounter{pagepercent}{
+            \ifnum 0>\thepagepercent%
+                0
+            \else
+                \thepagepercent
+            \fi
+        }
         \begin{tikzpicture}[remember picture, overlay]
             % Two nodes to make the triangles in the corner
             % Note the use of thepagepercent to change the color from red to black
@@ -573,6 +593,13 @@
         % Get the number of pages, and calculate what percentage of the way through the book we are
         \setcounter{numpage}{\getrefbykeydefault{LastPage}{page}{1}}
         \setcounter{pagepercent}{100 - (\thepage * 100) / \thenumpage}
+        \setcounter{pagepercent}{
+            \ifnum 0>\thepagepercent%
+                0
+            \else
+                \thepagepercent
+            \fi
+        }
         \begin{tikzpicture}[remember picture, overlay]
             % Two nodes to make the triangles in the corner
             % Note the use of thepagepercent to change the color from red to black
@@ -665,7 +692,7 @@
         \includegraphics[width=\textwidth,keepaspectratio]{#1}
     \end{figure*}
 }
-\makeatletter
+
 % Image taking up an entire column, top to bottom, all the way from center to page edge
 \newcommand{\colimage}[1]{
     \pagebreak
@@ -771,41 +798,50 @@
     \end{figure*}
     \justifying\normalsize
 }
+
 % ReDefine \subsection
-\renewcommand{\subsection}[1]{
-    % Always on left page
-    \cleardoublepage
-    \subsecbox{#1}
+\RenewDocumentCommand {\subsection}{sm}{
+    \IfBooleanTF{#1}
+    {
+        % Always on left page
+        \clearpage
+        \thispagestyle{LancerFancyNoHead}
+        \subsecbox{#2}
+    }
+    {
+        % Always on left page
+        \cleardoublepage
+        \subsecbox{#2}
+    }
 }
-\WithSuffix\renewcommand\subsection*[1]{
-    % Always on left page
-    \clearpage
-    \thispagestyle{LancerFancyNoHead}
-    \subsecbox{#1}
+
+% Redfine subsubsection
+\RenewDocumentCommand {\subsubsection}{sm}{
+    \IfBooleanTF{#1}
+    {
+        % If you have to, break page before this, 
+        \pagebreak[2]
+        % Create "physical" anchor for links
+        \phantomsection
+        % Create named anchor for links.
+        \label{#2}
+        % just put big text in.
+        \Large\textbf{\MakeUppercase{\parbox{\columnwidth}{\raggedright#2}}}\justifying\normalsize\\*
+    }
+    {
+        % If you have to, break page before this, 
+        \pagebreak[2]
+        % Increment and reset counters
+        \addtocounter{subsubsection}{1}
+        % Create "physical" anchor for links and add line to table of contents
+        \phantomsection\etoctoccontentsline*{subsubsection}{\protect\numberline{\thesubsubsection}#2}{2}
+        % Create named anchor for links.
+        \label{#2}
+        % just put big text in.
+        \Large\textbf{\MakeUppercase{\parbox{\columnwidth}{\raggedright#2}}}\justifying\normalsize\\*
+    }
 }
-% ReDefine \subsubsection
-\renewcommand{\subsubsection}[1]{
-    % If you have to, break page before this, 
-    \pagebreak[2]
-    % Increment and reset counters
-    \addtocounter{subsubsection}{1}
-    % Create "physical" anchor for links and add line to table of contents
-    \phantomsection\etoctoccontentsline*{subsubsection}{\protect\numberline{\thesubsubsection}#1}{2}
-    % Create named anchor for links.
-    \label{#1}
-    % just put big text in.
-    \Large\textbf{\MakeUppercase{\parbox{\columnwidth}{\raggedright#1}}}\justifying\normalsize\\*
-}
-\WithSuffix\renewcommand\subsubsection*[1]{
-    % If you have to, break page before this, 
-    \pagebreak[2]
-    % Create "physical" anchor for links
-    \phantomsection
-    % Create named anchor for links.
-    \label{#1}
-    % just put big text in.
-    \Large\textbf{\MakeUppercase{\parbox{\columnwidth}{\raggedright#1}}}\justifying\normalsize\\*
-}
+
 % ReDefine \paragraph
 \renewcommand{\paragraph}[1]{
     % If you have to, break page before this
@@ -815,7 +851,6 @@
     \justifying\normalsize
 }
 
-\makeatother
 %%%%% Command for Making a Lancer Frame %%%%
 % This is used for making magenta text to show when keys aren't being set.
 \newcommand{\FrameDefault}[1]{\tcbox[colframe=magenta,colback=magenta,nobeforeafter,size=tight]{\textcolor{white}{#1}}}
@@ -1244,7 +1279,7 @@
     \pagebreak[2]
     \thispagestyle{LancerFancyNoHead}
     % just put big text in.
-    \ifstrempty{#4}{}{\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{#4}}}
+    \ifstrempty{#4}{}{\AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,keepaspectratio]{#4}}}
     \begin{figure*}[t]
         \color{white}
         % Increment and reset counters
